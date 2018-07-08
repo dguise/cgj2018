@@ -22,16 +22,16 @@ public class PlayerMovement : MonoBehaviour {
 	}
 
 	private void FixedUpdate() {
-		Vector2 playerVelocity = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+		Vector2 playerVelocity = new Vector2(Input.GetAxisRaw(Inputs.Horizontal), Input.GetAxisRaw(Inputs.Vertical));
         GetComponent<Rigidbody2D>().velocity = playerVelocity * playerSpeed;
 		
-		Vector2 attackDirection = new Vector2(Input.GetAxisRaw("FireHorizontal"), Input.GetAxisRaw("FireVertical"));
+		Vector2 attackDirection = new Vector2(Input.GetAxisRaw(Inputs.FireHorizontal), Input.GetAxisRaw(Inputs.FireVertical));
 
 		Vector2 attackPosition = transform.position;
 		Quaternion attackRotation = transform.rotation;
 
 		
-		if (attackDirection != Vector2.zero) {
+		if (attackDirection.magnitude > 0.3) {
 			weapon.Attack(attackPosition, attackDirection, attackRotation, radius);
 		}
 
