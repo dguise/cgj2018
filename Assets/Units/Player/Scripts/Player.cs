@@ -10,6 +10,7 @@ public class Player : Unit {
 	public IWeapon weapon;
 	float radius = 0.5f;
 	const float DEADZONE = 0.6f;
+	public int playerID;
 
     GameObject head;
 
@@ -26,10 +27,10 @@ public class Player : Unit {
 	}
 
 	private void FixedUpdate() {
-		Vector2 playerVelocity = new Vector2(Input.GetAxisRaw(Inputs.Horizontal), Input.GetAxisRaw(Inputs.Vertical));
+		Vector2 playerVelocity = new Vector2(Input.GetAxisRaw(Inputs.Horizontal(playerID)), Input.GetAxisRaw(Inputs.Vertical(playerID)));
         GetComponent<Rigidbody2D>().velocity = playerVelocity * playerSpeed;
 		
-		Vector2 attackDirection = new Vector2(Input.GetAxisRaw(Inputs.FireHorizontal), Input.GetAxisRaw(Inputs.FireVertical));
+		Vector2 attackDirection = new Vector2(Input.GetAxisRaw(Inputs.FireHorizontal(playerID)), Input.GetAxisRaw(Inputs.FireVertical(playerID)));
 
 		Vector2 attackPosition = transform.position;
 		Quaternion attackRotation = transform.rotation;

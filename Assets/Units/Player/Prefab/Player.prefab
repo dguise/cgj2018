@@ -239,6 +239,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSpeed: 1
+  playerID: 1
 --- !u!212 &212301100312553614
 SpriteRenderer:
   m_ObjectHideFlags: 1
