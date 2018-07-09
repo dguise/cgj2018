@@ -8,7 +8,11 @@ public class DamageText : APopupText {
 	protected override void ExtendedStart()
 	{
 		AnimatorClipInfo[] clip = m_popup_animator_text.GetCurrentAnimatorClipInfo(0);
-		Destroy(this.gameObject, clip[0].clip.length);
+		if (clip != null) {
+			Destroy(this.gameObject, clip[0].clip.length);
+		} else {
+			Destroy(this.gameObject);
+		}
 	}
 
 	public override void SetColor(Color32 color){
