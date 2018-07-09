@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+[RequireComponent(typeof(Collider2D), typeof(Rigidbody2D))]
 public abstract class Unit : MonoBehaviour
 {
     private float _health { get; set; }
@@ -25,7 +26,7 @@ public abstract class Unit : MonoBehaviour
         }
     }
     
-    public float TakeDamage(float damage)
+    public float TakeDamage(float damage, Collision2D collision)
     {
         Health -= damage;
         if (damage > 0)
@@ -34,6 +35,9 @@ public abstract class Unit : MonoBehaviour
         } else {
             TextManager.CreateHealText((-1 * damage).ToString(), transform, 0.2f);
         }
+        TakeDamageExtender(damage, collision);
         return Health;
     }
+
+    public abstract void TakeDamageExtender(float damage, Collision2D collision);
 }

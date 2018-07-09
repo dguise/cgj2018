@@ -28,9 +28,11 @@ public abstract class Projectile : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         var unit = collision.collider.GetComponent<Unit>();
+        Debug.Log("Unit hit?");
         if (unit != null)
         {
-            unit.TakeDamage(Damage);
+            unit.TakeDamage(Damage, collision);
+            Destroy(gameObject);
         }
     }
 }

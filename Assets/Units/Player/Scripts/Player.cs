@@ -6,7 +6,7 @@ using UnityEngine;
 [RequireComponent (typeof (Rigidbody2D))]
 
 public class Player : Unit {
-	public float playerSpeed = 5f;
+	private float playerSpeed = 10f;
 	public IWeapon weapon;
 	float radius = 0.5f;
 	const float DEADZONE = 0.6f;
@@ -39,5 +39,10 @@ public class Player : Unit {
 			weapon.Attack(attackPosition, attackDirection.normalized, attackRotation, radius);
             head.eulerAngles = new Vector3(head.eulerAngles.x, head.eulerAngles.y, (Mathf.Atan2(attackDirection.y, attackDirection.x) * 180 / Mathf.PI) * -1 - 90);
         }
+    }
+
+    public override void TakeDamageExtender(float damage, Collision2D collision)
+    {
+        // Currently don't give af
     }
 }
