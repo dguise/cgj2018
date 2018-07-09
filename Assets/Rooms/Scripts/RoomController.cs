@@ -13,7 +13,7 @@ public class RoomController : MonoBehaviour {
 	private Dictionary<string, Transform> doors = new Dictionary<string, Transform>();
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		doors.Add(Direction.NORTH, transform.Find(Direction.NORTH));
 		doors.Add(Direction.EAST, transform.Find(Direction.EAST));
 		doors.Add(Direction.SOUTH, transform.Find(Direction.SOUTH));

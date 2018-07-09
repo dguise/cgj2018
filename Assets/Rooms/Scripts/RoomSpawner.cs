@@ -34,19 +34,12 @@ public class RoomSpawner : MonoBehaviour {
 			}
 		}
 
-		// Move outer walls
-		Transform oww = transform.Find("OuterWallWest");
-		Transform own = transform.Find("OuterWallNorth");
-		Transform owe = transform.Find("OuterWallEast");
-		Transform ows = transform.Find("OuterWallSouth");
-		oww.position = new Vector3(-(float) nTiles / 2 * (tileSize - scale*wallThiccness), oww.position.y, oww.position.z);
-		owe.position = new Vector3((float) nTiles / 2 * (tileSize - scale*wallThiccness), owe.position.y, owe.position.z);
-		own.position = new Vector3(own.position.x, (float) nTiles / 2 * (tileSize - scale*wallThiccness), own.position.z);
-		ows.position = new Vector3(ows.position.x, -(float) nTiles / 2 * (tileSize - scale*wallThiccness), ows.position.z);
-		oww.localScale = new Vector3(scale, scale, 1f);
-		own.localScale = new Vector3(scale, scale, 1f);
-		owe.localScale = new Vector3(scale, scale, 1f);
-		ows.localScale = new Vector3(scale, scale, 1f);
+		for (int i = 0; i < nTiles; i++) {
+			rooms[0, i].GetComponent<RoomController>().SetDoor(false, "DoorWest");
+			rooms[nTiles-1, i].GetComponent<RoomController>().SetDoor(false, "DoorEast");
+			rooms[i, 0].GetComponent<RoomController>().SetDoor(false, "DoorSouth");
+			rooms[i, nTiles-1].GetComponent<RoomController>().SetDoor(false, "DoorNorth");
+		}
 	}
 	
 	// Update is called once per frame
