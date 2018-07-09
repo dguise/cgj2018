@@ -3,21 +3,30 @@
 [RequireComponent(typeof(Collider2D), typeof(Rigidbody2D))]
 public abstract class Projectile : MonoBehaviour
 {
-    public abstract float Speed { get; set; }
-    public abstract float Lifetime { get; set; }
-    public abstract float Damage { get; set; }
+    public float Speed { get; set; }
+    public float Lifetime { get; set; }
+    public float Damage { get; set; }
+
+    public Projectile (float speed, float lifetime, float damage)
+    {
+        this.Speed = speed;
+        this.Lifetime = lifetime;
+        this.Damage = damage;
+
+    }
 
     private void Start()
     {
+        Debug.Log("Will die in " + Lifetime + " seconds");
         Invoke("Die", Lifetime);
     }
-    
+
     void Die()
     {
-        Destroy(this);
+        Destroy(gameObject);
     }
 
-    private void OnCollisionEnter2D(Collision collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         var unit = collision.collider.GetComponent<Unit>();
         if (unit != null)

@@ -34,7 +34,5 @@ public class Player : MonoBehaviour {
 		if (attackDirection.magnitude > 0.3) {
 			weapon.Attack(attackPosition, attackDirection.normalized, attackRotation, radius);
 		}
-
-		Debug.Log(attackDirection.normalized);
 	}
 }
