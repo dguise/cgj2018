@@ -11,6 +11,7 @@ public class Player : Unit {
 	float radius = 0.5f;
 	const float DEADZONE = 0.6f;
 	public int playerID;
+	Animator anim;
 
     Transform head;
 
@@ -18,6 +19,7 @@ public class Player : Unit {
 	void Start () {
         weapon = new Gun();
         head = transform.Find("monkeyhead");
+		anim = GetComponent<Animator>();
 	}
 	
 	// Update is called once per frame
@@ -38,6 +40,8 @@ public class Player : Unit {
 		if (attackDirection.magnitude > DEADZONE) {
 			weapon.Attack(attackPosition, attackDirection.normalized, attackRotation, radius);
             head.eulerAngles = new Vector3(head.eulerAngles.x, head.eulerAngles.y, (Mathf.Atan2(attackDirection.y, attackDirection.x) * 180 / Mathf.PI) * -1 - 90);
+			anim.SetFloat("attackX", attackDirection.x);
+			anim.SetFloat("attackY", attackDirection.y);
         }
     }
 
