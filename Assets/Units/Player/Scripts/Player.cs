@@ -24,6 +24,10 @@ public class Player : MonoBehaviour {
 
 	private void FixedUpdate() {
 		Vector2 playerVelocity = new Vector2(Input.GetAxisRaw(Inputs.Horizontal), Input.GetAxisRaw(Inputs.Vertical));
+		if (playerVelocity == Vector2.zero) {
+			playerVelocity.x = Input.GetKey(KeyCode.D) ? 1 : Input.GetKey(KeyCode.A) ? -1 : 0;
+			playerVelocity.y = Input.GetKey(KeyCode.W) ? 1 : Input.GetKey(KeyCode.S) ? -1 : 0;
+		}
         GetComponent<Rigidbody2D>().velocity = playerVelocity * playerSpeed;
 		
 		Vector2 attackDirection = new Vector2(Input.GetAxisRaw(Inputs.FireHorizontal), Input.GetAxisRaw(Inputs.FireVertical));
