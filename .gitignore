@@ -20,3 +20,5 @@ ExportedObj/
 # Other crap
 .vscode
 .vs
+*.orig
+*.orig.meta
