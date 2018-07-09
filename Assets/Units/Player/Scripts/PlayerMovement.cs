@@ -32,9 +32,9 @@ public class PlayerMovement : MonoBehaviour {
 
 		
 		if (attackDirection.magnitude > 0.3) {
-			weapon.Attack(attackPosition, attackDirection, attackRotation, radius);
+			weapon.Attack(attackPosition, attackDirection.normalized, attackRotation, radius);
 		}
 
-		Debug.Log(attackDirection);
+		Debug.Log(attackDirection.normalized);
 	}
 }
