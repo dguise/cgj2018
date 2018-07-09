@@ -28,6 +28,12 @@ public abstract class Unit : MonoBehaviour
     public float TakeDamage(float damage)
     {
         Health -= damage;
+        if (damage > 0)
+        {
+            TextManager.CreateDamageText(damage.ToString(), transform, 0.2f);
+        } else {
+            TextManager.CreateHealText((-1 * damage).ToString(), transform, 0.2f);
+        }
         return Health;
     }
 }

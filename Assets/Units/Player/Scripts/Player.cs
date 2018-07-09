@@ -5,7 +5,7 @@ using UnityEngine;
 
 [RequireComponent (typeof (Rigidbody2D))]
 
-public class Player : MonoBehaviour {
+public class Player : Unit {
 	public float playerSpeed = 5f;
 	public IWeapon weapon;
 	float radius = 0.5f;
