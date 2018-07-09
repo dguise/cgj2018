@@ -17,7 +17,6 @@ public abstract class Projectile : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("Will die in " + Lifetime + " seconds");
         Invoke("Die", Lifetime);
     }
 

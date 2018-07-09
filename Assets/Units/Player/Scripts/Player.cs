@@ -6,9 +6,10 @@ using UnityEngine;
 [RequireComponent (typeof (Rigidbody2D))]
 
 public class Player : MonoBehaviour {
-	public float playerSpeed = 1f;
+	public float playerSpeed = 5f;
 	public IWeapon weapon;
 	float radius = 0.5f;
+	const float DEADZONE = 0.6f;
 
 	// Use this for initialization
 	void Start () {
@@ -31,7 +32,7 @@ public class Player : MonoBehaviour {
 		Quaternion attackRotation = transform.rotation;
 
 		
-		if (attackDirection.magnitude > 0.3) {
+		if (attackDirection.magnitude > DEADZONE) {
 			weapon.Attack(attackPosition, attackDirection.normalized, attackRotation, radius);
 		}
 	}
