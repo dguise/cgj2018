@@ -28,11 +28,11 @@ public class TestText : MonoBehaviour
             m_time = 0;
             if (m_test_dmg == true)
             {
-                TextManager.CreateDamageText(Random.Range(-10, 10).ToString(), this.transform, 0.5f);
+                TextManager.CreateDamageText(Random.Range(-10, 10).ToString(), this.transform, 0.3f);
             }
             else
             {
-                TextManager.CreateHealText(Random.Range(-10, 10).ToString(), this.transform, 0.5f);
+                TextManager.CreateHealText(Random.Range(-10, 10).ToString(), this.transform, 0.3f);
             }
 
         }

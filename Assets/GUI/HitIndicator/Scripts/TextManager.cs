@@ -40,7 +40,7 @@ public class TextManager : MonoBehaviour
     {
         float random_range = range != null ? Random.Range(-(float)range, (float)range) : 0;
         Color32 text_color = color ?? DAMAGE_COLOR;
-        CreatePopupText(text, location, m_damage_text, text_color, pad_x: random_range, pad_y: 4f);
+        CreatePopupText(text, location, m_damage_text, text_color, pad_x: random_range, pad_y: 0.5f);
     }
 
     public static void CreateHealText(string text, Transform location, float? range = null, Color32? color = null)
