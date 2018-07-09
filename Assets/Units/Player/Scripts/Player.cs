@@ -5,14 +5,14 @@ using UnityEngine;
 
 [RequireComponent (typeof (Rigidbody2D))]
 
-public class PlayerMovement : MonoBehaviour {
+public class Player : MonoBehaviour {
 	public float playerSpeed = 1f;
 	public IWeapon weapon;
 	float radius = 0.5f;
 
 	// Use this for initialization
 	void Start () {
-		weapon = new Bullet();
+        weapon = new Gun();
 	}
 	
 	// Update is called once per frame
