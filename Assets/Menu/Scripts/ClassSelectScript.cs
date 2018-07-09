@@ -18,14 +18,19 @@ public class ClassSelectScript : MonoBehaviour {
 	
 	void Update ()
     {
-        if (Input.anyKey)
+        if (Input.anyKeyDown)
         {
             this.currentChoice += 1;
             if (currentChoice == choices)
             {
                 this.currentChoice = 0;
             }
+
             this.portraitImage.sprite = portraitsArray[this.currentChoice];
+            Transform rightArrow = transform.Find("RightArrow");
+            
+            var anim = rightArrow.GetComponent<Animator>();
+            anim.SetTrigger("RightArrow");
         }
     }
 }
