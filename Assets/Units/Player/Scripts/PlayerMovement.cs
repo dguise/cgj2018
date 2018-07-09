@@ -8,7 +8,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour {
 	public float playerSpeed = 1f;
 	public IWeapon weapon;
-	float radius = 1f;
+	float radius = 0.5f;
 
 	// Use this for initialization
 	void Start () {
