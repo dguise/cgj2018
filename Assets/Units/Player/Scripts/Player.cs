@@ -6,7 +6,7 @@ using UnityEngine;
 [RequireComponent (typeof (Rigidbody2D))]
 
 public class Player : Unit {
-	private float playerSpeed = 10f;
+	private float playerSpeed = 3f;
 	public IWeapon weapon;
 	float radius = 0.5f;
 	const float DEADZONE = 0.6f;
