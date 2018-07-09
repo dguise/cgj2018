@@ -19,7 +19,7 @@ public class RoomController : MonoBehaviour {
 		doors.Add(Direction.SOUTH, transform.Find(Direction.SOUTH));
 		doors.Add(Direction.WEST, transform.Find(Direction.WEST));
 
-		SetAllDoors(false);
+		SetAllDoors(true);
 	}
 	
 	// Update is called once per frame
@@ -33,9 +33,9 @@ public class RoomController : MonoBehaviour {
 	}
 
 	public void SetAllDoors(bool open) {
-		SetDoor(true, Direction.NORTH);
-		SetDoor(true, Direction.EAST);
-		SetDoor(true, Direction.SOUTH);
-		SetDoor(true, Direction.WEST);
+		SetDoor(open, Direction.NORTH);
+		SetDoor(open, Direction.EAST);
+		SetDoor(open, Direction.SOUTH);
+		SetDoor(open, Direction.WEST);
 	}
 }

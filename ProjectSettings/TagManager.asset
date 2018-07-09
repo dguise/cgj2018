@@ -41,3 +41,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Ground
+    uniqueID: 2567331719
+    locked: 0
+  - name: Fish
+    uniqueID: 684591271
+    locked: 0
+  - name: InTheMiddle
+    uniqueID: 3176203905
+    locked: 0
+  - name: Bird
+    uniqueID: 4676297
+    locked: 0
