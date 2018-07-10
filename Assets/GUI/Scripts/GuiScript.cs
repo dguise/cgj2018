@@ -5,8 +5,10 @@ using UnityEngine.UI;
 
 public class GuiScript : MonoBehaviour {
 
+#pragma warning disable 0414
     float lifetime = 5.0f;   //lifetime in seconds
     float waitTime = 0.05f;  //Time between letters
+
 
     //Image properties
     private float FadeRate = 2.5f;  //Rate of fade
@@ -31,7 +33,7 @@ public class GuiScript : MonoBehaviour {
 
     string textToAdd = "Ret 2 go!\n\nAdd some cool rp text here and profit from great fame and fortune!";
     //////////////////////////////////////////////////////////////////////////////////////////////////////
-
+#pragma warning restore 0414
 
 
     void Start ()
