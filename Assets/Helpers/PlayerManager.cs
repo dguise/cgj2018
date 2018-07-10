@@ -14,11 +14,6 @@ public static class PlayerManager {
         Dartblower
     }
 
-    public static CharacterClassesEnum playerOneClass = CharacterClassesEnum.Emil;
-    public static CharacterClassesEnum playerTwoClass = CharacterClassesEnum.Emil;
-
-    public static bool playerOneReady = false;
-    public static bool playerTwoReady = false;
-
-
+    public static CharacterClassesEnum[] playerClass = {CharacterClassesEnum.Emil, CharacterClassesEnum.Emil};
+    public static bool[] playerReady = {false, false};
 }

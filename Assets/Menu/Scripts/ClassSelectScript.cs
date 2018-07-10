@@ -22,22 +22,33 @@ public class ClassSelectScript : MonoBehaviour {
 	
 	void FixedUpdate() 
     {
-		float horizontal = Input.GetAxisRaw(Inputs.Horizontal(playerID));
-        if (Mathf.Abs(horizontal) > 0.5 && timestamp + cooldown < Time.time)
+        if (PlayerManager.playerReady[playerID])
         {
-            timestamp = Time.time;
-            this.currentChoice = ((this.currentChoice + (int)Mathf.Ceil(horizontal)) % choices + choices) % choices;
+		    float horizontal = Input.GetAxisRaw(Inputs.Horizontal(playerID));
+            if (Mathf.Abs(horizontal) > 0.5 && timestamp + cooldown < Time.time)
+            {
+                timestamp = Time.time;
+                this.currentChoice = ((this.currentChoice + (int)Mathf.Ceil(horizontal)) % choices + choices) % choices;
 
-            this.portraitImage.sprite = portraitsArray[this.currentChoice];
-            
-            if (horizontal > 0) {
-                Transform rightArrow = transform.Find("RightArrow");
-                var anim = rightArrow.GetComponent<Animator>();
-                anim.SetTrigger("RightArrow");
-            } else {
-                Transform leftArrow = transform.Find("LeftArrow");
-                var anim = leftArrow.GetComponent<Animator>();
-                anim.SetTrigger("LeftArrow");
+                this.portraitImage.sprite = portraitsArray[this.currentChoice];
+                
+                if (horizontal > 0) {
+                    Transform rightArrow = transform.Find("RightArrow");
+                    var anim = rightArrow.GetComponent<Animator>();
+                    //anim.SetTrigger("RightArrow");
+                } else {
+                    Transform leftArrow = transform.Find("LeftArrow");
+                    var anim = leftArrow.GetComponent<Animator>();
+                    //anim.SetTrigger("LeftArrow");
+                }
+
+                PlayerManager.playerClass[playerID] = (PlayerManager.CharacterClassesEnum)this.currentChoice;
+            }
+        } else {
+            if (Input.GetKeyDown(KeyCode.Space)) {
+                this.portraitImage.sprite = portraitsArray[this.currentChoice];
+                PlayerManager.playerReady[playerID] = true;
+                //Instantiate Player
             }
         }
     }

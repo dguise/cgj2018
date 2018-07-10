@@ -9,22 +9,22 @@ public static class Inputs
 
     public static string Horizontal(int id) 
     {
-        return _horizontal + id;
+        return _horizontal + (id + 1);
     }
 
     public static string Vertical(int id) 
     {
-        return _vertical + id;
+        return _vertical + (id + 1);
     }
 
     public static string FireHorizontal(int id) 
     {
-        return _fireHorizontal + id;
+        return _fireHorizontal + (id + 1);
     }
 
     public static string FireVertical(int id) 
     {
-        return _fireVertical + id;
+        return _fireVertical + (id + 1);
     }
 
 }
