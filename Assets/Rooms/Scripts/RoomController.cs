@@ -12,7 +12,6 @@ public class RoomController : MonoBehaviour {
 
 	private Dictionary<string, Transform> doors = new Dictionary<string, Transform>();
 
-	// Use this for initialization
 	void Awake () {
 		doors.Add(Direction.NORTH, transform.Find(Direction.NORTH));
 		doors.Add(Direction.EAST, transform.Find(Direction.EAST));
@@ -20,11 +19,6 @@ public class RoomController : MonoBehaviour {
 		doors.Add(Direction.WEST, transform.Find(Direction.WEST));
 
 		SetAllDoors(true);
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
 	}
 
 	public void SetDoor (bool open, string direction) {
