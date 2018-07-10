@@ -5224,11 +5224,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4275492855085576, guid: 756b08cee53c98140b96408dfcb4af92, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 7.06
+      value: 2.19
       objectReference: {fileID: 0}
     - target: {fileID: 4275492855085576, guid: 756b08cee53c98140b96408dfcb4af92, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -2.42
+      value: -2.54
       objectReference: {fileID: 0}
     - target: {fileID: 4275492855085576, guid: 756b08cee53c98140b96408dfcb4af92, type: 2}
       propertyPath: m_LocalPosition.z
@@ -5256,7 +5256,22 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1620974856628800, guid: 756b08cee53c98140b96408dfcb4af92, type: 2}
       propertyPath: m_Name
-      value: Enemy (1)
+      value: EnemySpawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 212947007725417708, guid: 756b08cee53c98140b96408dfcb4af92,
+        type: 2}
+      propertyPath: m_Color.r
+      value: 0.3557412
+      objectReference: {fileID: 0}
+    - target: {fileID: 212947007725417708, guid: 756b08cee53c98140b96408dfcb4af92,
+        type: 2}
+      propertyPath: m_Color.g
+      value: 0.34509802
+      objectReference: {fileID: 0}
+    - target: {fileID: 212947007725417708, guid: 756b08cee53c98140b96408dfcb4af92,
+        type: 2}
+      propertyPath: m_Color.b
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 756b08cee53c98140b96408dfcb4af92, type: 2}

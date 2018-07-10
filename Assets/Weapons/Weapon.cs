@@ -9,8 +9,8 @@ public abstract class Weapon : IWeapon
     protected abstract float speed { get; set; }
     protected abstract float attackTimestamp { get; set; }
 
-    GameObject owner;
-    float radius;
+    protected GameObject owner;
+    protected float radius;
 
     public Weapon(GameObject owner)
     {
@@ -18,16 +18,16 @@ public abstract class Weapon : IWeapon
         radius = owner.GetComponent<CircleCollider2D>().radius;
         
     }
-    public void Attack(Transform from, Transform towards)
+    public virtual GameObject Attack(Transform from, Transform towards)
     {
-        Attack(from.transform.position, towards.transform.position - from.transform.position, Quaternion.identity, radius);
+        return Attack(from.transform.position, towards.transform.position - from.transform.position, Quaternion.identity, radius);
     }
 
     public virtual GameObject Attack(Vector2 position, Vector2 direction, Quaternion rotation, float radius)
     {
         var currentTime = Time.time;
         direction = direction.normalized;
-        if (attackTimestamp + cooldown < currentTime)
+        if (attackTimestamp + cooldown <= currentTime)
         {
             attackTimestamp = currentTime;
             spawnAttack = MonoBehaviour.Instantiate(attackWeapon, position + direction * radius, rotation);

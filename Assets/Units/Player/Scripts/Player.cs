@@ -38,6 +38,8 @@ public class Player : Unit {
             weapon = new SpecialGun(gameObject);
         if (Input.GetKeyDown(KeyCode.Alpha3))
             weapon = new ShieldGun(gameObject);
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+            weapon = new EnemySpawnerGun(gameObject);
     }
 
     private void FixedUpdate() {
