@@ -7,13 +7,8 @@ public class FogController : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D col) {
 		if (col.tag == "Player") {
-			fog.SetActive(false);
-		}
-	}
-
-	void OnTriggerExit2D(Collider2D col) {
-		if (col.tag == "Player") {
-			fog.SetActive(true);
+			Destroy(fog);
+			Destroy(gameObject);
 		}
 	}
 }

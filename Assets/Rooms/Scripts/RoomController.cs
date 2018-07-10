@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class RoomController : MonoBehaviour {
 	public static class Direction {
-		public const string NORTH = "DoorNorth";
-		public const string EAST = "DoorEast";
-		public const string SOUTH = "DoorSouth";
-		public const string WEST = "DoorWest";
+		public const string NORTH = "North/DoorNorth";
+		public const string EAST = "East/DoorEast";
+		public const string SOUTH = "South/DoorSouth";
+		public const string WEST = "West/DoorWest";
 	}
 
 	private Dictionary<string, Transform> doors = new Dictionary<string, Transform>();
