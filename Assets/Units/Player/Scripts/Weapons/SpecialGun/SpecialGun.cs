@@ -2,36 +2,27 @@ using UnityEngine;
 
 class SpecialGun : Weapon
 {
-    public GameObject attackWeapon;
-    GameObject spawnAttack;
-    float cooldown = 0.2f;
-    float speed = 4f;
-    float lastAttack;
-    GameObject owner;
+    protected override GameObject attackWeapon { get; set; }
+    protected override GameObject spawnAttack { get; set; }
+    protected override float cooldown { get; set; }
+    protected override float speed { get; set; }
+    protected override float attackTimestamp { get; set; }
 
-    public SpecialGun(GameObject owner)
+    public SpecialGun(GameObject owner): base (owner)
     {
         attackWeapon = Resources.Load<GameObject>("SpecialBullet");
-        lastAttack = -(cooldown + 1);
-        this.owner = owner;
+        attackTimestamp= -(cooldown + 1);
+        cooldown = 0.2f;
+        speed = 4f;
     }
 
-    public void Attack(Transform me, Transform towards)
+    public override GameObject Attack(Vector2 position, Vector2 direction, Quaternion rotation, float radius)
     {
-        Attack(me.transform.position, me.transform.position - towards.transform.position, Quaternion.identity, me.GetComponent<CircleCollider2D>().radius);
-    }
-
-    public void Attack(Vector2 position, Vector2 direction, Quaternion rotation, float radius)
-    {
-        var currentTime = Time.time;
-        if (lastAttack + cooldown < currentTime)
+        var projectile = base.Attack(position, direction, rotation, radius);
+        if (projectile != null)
         {
-            lastAttack = currentTime;
-            spawnAttack = MonoBehaviour.Instantiate(attackWeapon, position + direction * radius, rotation);
-            spawnAttack.GetComponent<SpecialBullet>().SetStartAndDirectionVectorAndSpeed(position + direction * radius, direction, speed);
-            spawnAttack.GetComponent<Projectile>().Owner = owner;
-            Physics2D.IgnoreCollision(owner.GetComponent<Collider2D>(), spawnAttack.GetComponent<Collider2D>());
-            
+            projectile.GetComponent<SpecialBullet>().SetStartAndDirectionVectorAndSpeed(position + direction * radius, direction, speed);
         }
+        return projectile;
     }
 }

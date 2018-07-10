@@ -23,21 +23,24 @@ public class SpecialBullet : Projectile
     public void FixedUpdate()
     {
         life += Time.deltaTime;
+        //Debug.Log(CatmullRomTangent(startPos, pos2, pos3, pos4, (life + Time.deltaTime * 2) / lifetime).normalized);
+        var rbody = this.GetComponent<Rigidbody2D>();
+        rbody.velocity = CatmullRomTangent(startPos, pos2, pos3, pos4, (life / lifetime)).normalized * speed;
 
-        this.GetComponent<Rigidbody2D>().velocity = CatmullRomTangent(startPos, pos2, pos3, pos4, life / lifetime) * speed;
+        
     }
 
     public void SetStartAndDirectionVectorAndSpeed(Vector2 start, Vector2 dir, float aSpeed)
     {
         startPos = start;
         direction = dir;
-        speed = aSpeed;
+        speed = 1;
 
-        pos2 = Vector2Extender.Rotate(direction, -30) * speed * (0.40f * lifetime);
-        pos3 = Vector2Extender.Rotate(direction, 30) * speed * (0.80f * lifetime);
+        pos2 = Vector2Extender.Rotate(direction, -30).normalized * speed * (0.40f * lifetime);
+        pos3 = Vector2Extender.Rotate(direction, 30).normalized * speed * (0.80f * lifetime);
         pos4 = dir * speed * lifetime;
 
-        startPos = start;
+        //startPos = start;
         //pos2 = start + Vector2.right;
         //pos3 = pos2 + Vector2.up;
         //pos4 = start + Vector2.up;

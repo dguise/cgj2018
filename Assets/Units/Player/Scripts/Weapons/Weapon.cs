@@ -20,7 +20,7 @@ public abstract class Weapon : IWeapon
         Attack(from.transform.position, towards.transform.position - from.transform.position, Quaternion.identity, from.GetComponent<CircleCollider2D>().radius);
     }
 
-    public void Attack(Vector2 position, Vector2 direction, Quaternion rotation, float radius)
+    public virtual GameObject Attack(Vector2 position, Vector2 direction, Quaternion rotation, float radius)
     {
         var currentTime = Time.time;
         direction = direction.normalized;
@@ -31,6 +31,8 @@ public abstract class Weapon : IWeapon
             spawnAttack.GetComponent<Rigidbody2D>().velocity = direction * speed;
             spawnAttack.GetComponent<Projectile>().Owner = owner;
             Physics2D.IgnoreCollision(owner.GetComponent<Collider2D>(), spawnAttack.GetComponent<Collider2D>());
+            return spawnAttack;
         }
+        return null;
     }
 }

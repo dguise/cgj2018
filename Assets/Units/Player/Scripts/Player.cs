@@ -16,7 +16,7 @@ public class Player : Unit {
     Transform head;
 
 	void Start () {
-        weapon = new Gun(gameObject);
+        weapon = new SpecialGun(gameObject);
         head = transform.Find("monkeyhead");
 		anim = GetComponent<Animator>();
 	}
