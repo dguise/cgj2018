@@ -29,8 +29,8 @@ public class SpecialBullet : SpecialProjectile
         direction = dir;
         speed = aSpeed;
 
-        pos2 = Rotate(direction, -30) * speed * (0.40f * lifetime);
-        pos3 = Rotate(direction, 30) * speed * (0.80f * lifetime);
+        pos2 = Vector2Extender.Rotate(direction, -30) * speed * (0.40f * lifetime);
+        pos3 = Vector2Extender.Rotate(direction, 30) * speed * (0.80f * lifetime);
         pos4 = dir * speed * lifetime;
         
         
@@ -41,6 +41,11 @@ public class SpecialBullet : SpecialProjectile
         return 0.5f * ((-p1 + p3) + 2f * (2f * p1 - 5f * p2 + 4f * p3 - p4) * t + 3f *
                   (-p1 + 3f * p2 - 3f * p3 + p4) * Mathf.Pow(t, 2f));
     }
+
+}
+
+public static class Vector2Extender
+{
 
     public static Vector2 Rotate(this Vector2 v, float degrees)
     {

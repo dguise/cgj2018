@@ -31,7 +31,7 @@ public abstract class SpecialProjectile : MonoBehaviour
         Debug.Log("Unit hit?");
         if (unit != null)
         {
-            unit.TakeDamage(Damage, collision);
+            unit.TakeDamage(Damage, gameObject, collision);
             Destroy(gameObject);
         }
     }
