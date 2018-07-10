@@ -25,7 +25,8 @@ public class RoomSpawner : MonoBehaviour {
 		float scale = tileSize / origTileSize;
 		for(int x = -(nTiles - 1) / 2; x <= (nTiles - 1) / 2; x++) {
 			for(int y = -(nTiles - 1) / 2; y <= (nTiles - 1) / 2; y++) {
-				Vector3 v = new Vector3(x * (tileSize - scale*wallThiccness), y * (tileSize - scale*wallThiccness), 0);
+				// Vector3 v = new Vector3(x * (tileSize - scale*wallThiccness), y * (tileSize - scale*wallThiccness), 0);
+				Vector3 v = new Vector3(x * tileSize, y * tileSize, 0);
 				int r = Random.Range(0, roomList.Count);
 				int xroom = x + (nTiles - 1) / 2;
 				int yroom = y + (nTiles - 1) / 2;
