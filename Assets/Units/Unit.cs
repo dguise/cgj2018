@@ -36,6 +36,7 @@ public abstract class Unit : MonoBehaviour
             TextManager.CreateHealText((-1 * damage).ToString(), transform, 0.2f);
         }
         TakeDamageExtender(damage, sender, collider);
+        // Destroy(gameObject);
         return Health;
     }
 
