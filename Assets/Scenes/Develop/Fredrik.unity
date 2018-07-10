@@ -358,8 +358,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1690742073}
   - component: {fileID: 1690742072}
-  - component: {fileID: 1690742071}
   - component: {fileID: 1690742070}
+  - component: {fileID: 1690742071}
   - component: {fileID: 1690742069}
   - component: {fileID: 1690742068}
   m_Layer: 0
@@ -380,6 +380,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1609c1fc2b53517409cf796ebe35f7a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AttackRange: 4
 --- !u!50 &1690742069
 Rigidbody2D:
   serializedVersion: 4

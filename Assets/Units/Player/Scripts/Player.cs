@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class Player : Unit {
 	private float playerSpeed = 3f;
-	public IWeapon weapon;
+	public Weapon weapon;
 	float radius = 0.5f;
 	const float DEADZONE = 0.6f;
 	public int playerID;
@@ -31,7 +31,7 @@ public class Player : Unit {
 		Quaternion attackRotation = transform.rotation;
 
 		if (attackDirection.magnitude > DEADZONE) {
-			weapon.Attack(attackPosition, attackDirection.normalized, attackRotation, radius);
+			weapon.Attack(attackPosition, attackDirection, attackRotation, radius);
             head.eulerAngles = new Vector3(head.eulerAngles.x, head.eulerAngles.y, (Mathf.Atan2(attackDirection.y, attackDirection.x) * 180 / Mathf.PI) * -1 - 90);
 			anim.SetFloat("attackX", attackDirection.x);
 			anim.SetFloat("attackY", attackDirection.y);

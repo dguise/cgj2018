@@ -1,30 +1,17 @@
 using UnityEngine;
 
-class Gun : IWeapon {
-	public GameObject attackWeapon;
-    GameObject spawnAttack;
-	float cooldown = 0.2f;
-	float speed = 4f;
-	float lastAttack;
-    GameObject owner;
+class Gun : Weapon {
+	protected override GameObject attackWeapon { get; set; }
+    protected override GameObject spawnAttack { get; set; }
+    protected override float cooldown { get; set; }
+    protected override float speed { get; set; }
+    protected override float attackTimestamp { get; set; }
 
-    public Gun(GameObject owner)
+    public Gun(GameObject owner): base(owner)
 	{
 		attackWeapon = Resources.Load<GameObject>("Bullet");
-		lastAttack = -(cooldown + 1);
-        this.owner = owner;
+		attackTimestamp = -(cooldown + 1);
+        cooldown = 0.2f;
+        speed = 4f;
 	}
-
-	public void Attack(Vector2 position, Vector2 direction, Quaternion rotation, float radius) {
-		var currentTime = Time.time;
-		if (lastAttack + cooldown < currentTime) 
-		{
-			lastAttack = currentTime;
-			spawnAttack = MonoBehaviour.Instantiate(attackWeapon, position + direction * radius, rotation);
-			spawnAttack.GetComponent<Rigidbody2D>().velocity = direction * speed;
-            spawnAttack.GetComponent<Projectile>().Owner = owner;
-            Physics2D.IgnoreCollision(owner.GetComponent<Collider2D>(), spawnAttack.GetComponent<Collider2D>());
-
-		}
-    }
 }
