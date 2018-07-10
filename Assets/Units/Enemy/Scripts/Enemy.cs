@@ -73,12 +73,15 @@ public class Enemy : Unit {
     IEnumerator GiveUpAggro()
     {
         yield return new WaitForSeconds(5);
+        if (target == null)
+            StopCoroutine(_aggroGiveUpTimer);
+
         var distanceToHome = Vector2.Distance(target.position, start.position);
         var distanceToTarget = Vector2.Distance(target.position, transform.position);
 
         if (distanceToHome > 15 && distanceToTarget > 4)
         {
-            target = start;
+            Target(start);
         } else
         {
             StartCoroutine(GiveUpAggro());
@@ -94,8 +97,7 @@ public class Enemy : Unit {
 
     public override void TakeDamageExtender(float damage, GameObject sender, Collision2D collision)
     {
-        // This will completely toggle the aggro, maybe only toggle the aggro if you've been following someone for X  seconds?
-        if (readyToChangeAggro)
+        if (readyToChangeAggro && sender.tag == Tags.Player)
             Target(sender.transform);
     }
 }
