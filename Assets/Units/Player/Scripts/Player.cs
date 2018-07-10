@@ -27,7 +27,18 @@ public class Player : Unit {
         rb = GetComponent<Rigidbody2D>();
 	}
 
-	private void FixedUpdate() {
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+            weapon = new Gun(gameObject);
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+            weapon = new SpecialGun(gameObject);
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+            weapon = new ShieldGun(gameObject);
+    }
+
+    private void FixedUpdate() {
 		Vector2 playerVelocity = new Vector2(Input.GetAxisRaw(Inputs.Horizontal(playerID)), Input.GetAxisRaw(Inputs.Vertical(playerID)));
         rb.velocity = playerVelocity * playerSpeed;
         Debug.Log(rb.velocity.magnitude);
