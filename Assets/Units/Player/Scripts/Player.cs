@@ -15,17 +15,10 @@ public class Player : Unit {
 
     Transform head;
 
-	// Use this for initialization
 	void Start () {
-        weapon = new Gun();
+        weapon = new Gun(gameObject);
         head = transform.Find("monkeyhead");
 		anim = GetComponent<Animator>();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-
-		
 	}
 
 	private void FixedUpdate() {
@@ -45,7 +38,7 @@ public class Player : Unit {
         }
     }
 
-    public override void TakeDamageExtender(float damage, Collision2D collision)
+    public override void TakeDamageExtender(float damage, GameObject sender, Collision2D collision)
     {
         // Currently don't give af
     }

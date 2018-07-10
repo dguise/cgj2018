@@ -26,7 +26,7 @@ public abstract class Unit : MonoBehaviour
         }
     }
     
-    public float TakeDamage(float damage, Collision2D collision)
+    public float TakeDamage(float damage, GameObject sender, Collision2D collision)
     {
         Health -= damage;
         if (damage > 0)
@@ -35,9 +35,9 @@ public abstract class Unit : MonoBehaviour
         } else {
             TextManager.CreateHealText((-1 * damage).ToString(), transform, 0.2f);
         }
-        TakeDamageExtender(damage, collision);
+        TakeDamageExtender(damage, sender, collision);
         return Health;
     }
 
-    public abstract void TakeDamageExtender(float damage, Collision2D collision);
+    public abstract void TakeDamageExtender(float damage, GameObject sender, Collision2D collision);
 }
