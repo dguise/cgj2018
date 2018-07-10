@@ -1,6 +1,6 @@
 using UnityEngine;
 
-class SpecialGun : IWeapon
+class SpecialGun : Weapon
 {
     public GameObject attackWeapon;
     GameObject spawnAttack;
@@ -26,7 +26,7 @@ class SpecialGun : IWeapon
             spawnAttack.GetComponent<SpecialBullet>().SetStartAndDirectionVectorAndSpeed(position + direction * radius, direction, speed);
             spawnAttack.GetComponent<Projectile>().Owner = owner;
             Physics2D.IgnoreCollision(owner.GetComponent<Collider2D>(), spawnAttack.GetComponent<Collider2D>());
-            //spawnAttack.GetComponent<Rigidbody2D>().velocity = direction * speed;
+            
         }
     }
 }

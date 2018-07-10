@@ -13,6 +13,10 @@ public class SpecialBullet : Projectile
     private Vector2 pos3 = Vector2.zero;
     private Vector2 pos4 = Vector2.zero;
 
+    public AnimationCurve bulletCurve;
+    //You can evaluate the curve(get the y for an x value) with:
+    //float y = this.myCurve.Evaluate(x);
+
     public SpecialBullet() : base(speed, lifetime, damage)
     { }
 
