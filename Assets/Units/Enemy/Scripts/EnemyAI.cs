@@ -17,11 +17,16 @@ public class EnemyAI : Unit {
         start = Instantiate<GameObject>(new GameObject(), transform.position, Quaternion.identity).transform;
 	}
 	
-	void Update () {
+	void FixedUpdate () {
 		if (target != null)
         {
             rb.velocity = (target.position - transform.position).normalized * movementspeed;
         }
+        if (target == start && Vector2.Distance(transform.position, target.position) < 0.5)
+        {
+            target = null;
+            rb.velocity = Vector2.zero;
+        } 
 	}
 
     private void OnTriggerEnter2D(Collider2D collider)
@@ -55,8 +60,8 @@ public class EnemyAI : Unit {
         }
     }
 
-    public override void TakeDamageExtender(float damage, Collision2D collision)
+    public override void TakeDamageExtender(float damage, GameObject sender, Collision2D collision)
     {
-        Target(collision.collider.transform);
+        Target(sender.transform);
     }
 }
