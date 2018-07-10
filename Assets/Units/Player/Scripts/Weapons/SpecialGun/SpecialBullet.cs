@@ -52,6 +52,19 @@ public class SpecialBullet : Projectile
                   (-p1 + 3f * p2 - 3f * p3 + p4) * Mathf.Pow(t, 2f));
     }
 
+    private Vector2 BeizerCurve(Vector2 p0, Vector2 p1, Vector2 p2, Vector2 p3, float t)
+    {
+        return Mathf.Pow((1 - t), 3) * p0
+                + 3 * Mathf.Pow((1 - t), 2) * t * p1 
+                + 3 * (1 - t) * Mathf.Pow(t, 2) * p2 
+                + Mathf.Pow(t, 3) * p3;
+    }
+
+    private Vector2 BeizerCurveDerivative(Vector2 p0, Vector2 p1, Vector2 p2, Vector2 p3, float t)
+    {
+        return 3 * Mathf.Pow((1 - t), 2) * (p1 - p0) + 6 * (1 - t) * t * (p2 - p1) + 3 * t * t * (p3 - p2);
+    }
+
 }
 
 public static class Vector2Extender
