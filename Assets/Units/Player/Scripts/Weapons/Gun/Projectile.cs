@@ -6,6 +6,7 @@ public abstract class Projectile : MonoBehaviour
     public float Speed { get; set; }
     public float Lifetime { get; set; }
     public float Damage { get; set; }
+    // Is set by Weapon.cs
     public GameObject Owner { get; set; }
 
     public Projectile (float speed, float lifetime, float damage)
