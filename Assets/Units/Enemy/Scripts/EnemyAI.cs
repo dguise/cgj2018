@@ -10,7 +10,9 @@ public class EnemyAI : Unit {
     Transform target;
 
     float movementspeed = 1.5f;
-    float breakRange = 6;
+    //float breakRange = 6;
+
+    private bool readyToChangeAggro = true;
 
 	void Start () {
         rb = GetComponent<Rigidbody2D>();
@@ -38,30 +40,48 @@ public class EnemyAI : Unit {
     }
 
     private Coroutine _aggroCooldown;
+    private Coroutine _aggroGiveUpTimer;
     private void Target(Transform targetTransform)
     {
         target = targetTransform;
+
+        if (_aggroGiveUpTimer != null)
+            StopCoroutine(_aggroCooldown);
+        _aggroGiveUpTimer = StartCoroutine(GiveUpAggro());
+
+
         if (_aggroCooldown != null)
             StopCoroutine(_aggroCooldown);
-        _aggroCooldown = StartCoroutine(ResetAggro());
+        _aggroCooldown = StartCoroutine(CooldownAggro());
+        
     }
 
-    IEnumerator ResetAggro()
+    IEnumerator GiveUpAggro()
     {
         yield return new WaitForSeconds(5);
-        var distance = Vector2.Distance(target.position, start.position);
+        var distanceToHome = Vector2.Distance(target.position, start.position);
+        var distanceToTarget = Vector2.Distance(target.position, transform.position);
 
-        if (distance > 15)
+        if (distanceToHome > 15 && distanceToTarget > 4)
         {
             target = start;
         } else
         {
-            StartCoroutine(ResetAggro());
+            StartCoroutine(GiveUpAggro());
         }
+    }
+
+    IEnumerator CooldownAggro()
+    {
+        readyToChangeAggro = false;
+        yield return new WaitForSeconds(3);
+        readyToChangeAggro = true;
     }
 
     public override void TakeDamageExtender(float damage, GameObject sender, Collision2D collision)
     {
-        Target(sender.transform);
+        // This will completely toggle the aggro, maybe only toggle the aggro if you've been following someone for X  seconds?
+        if (readyToChangeAggro)
+            Target(sender.transform);
     }
 }
