@@ -10,14 +10,17 @@ public abstract class Weapon : IWeapon
     protected abstract float attackTimestamp { get; set; }
 
     GameObject owner;
+    float radius;
 
     public Weapon(GameObject owner)
     {
         this.owner = owner;
+        radius = owner.GetComponent<CircleCollider2D>().radius;
+        
     }
     public void Attack(Transform from, Transform towards)
     {
-        Attack(from.transform.position, towards.transform.position - from.transform.position, Quaternion.identity, from.GetComponent<CircleCollider2D>().radius);
+        Attack(from.transform.position, towards.transform.position - from.transform.position, Quaternion.identity, radius);
     }
 
     public virtual GameObject Attack(Vector2 position, Vector2 direction, Quaternion rotation, float radius)

@@ -25,6 +25,8 @@ public class Player : Unit {
 
 		anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+
+        Health = 1500;
 	}
 
 

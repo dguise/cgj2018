@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 class ShieldGun : Weapon
@@ -7,6 +9,9 @@ class ShieldGun : Weapon
     protected override float cooldown { get; set; }
     protected override float speed { get; set; }
     protected override float attackTimestamp { get; set; }
+
+    private int _bulletLimit = 4;
+    List<GameObject> projectiles = new List<GameObject>();
 
     public ShieldGun(GameObject owner): base (owner)
     {
@@ -18,7 +23,16 @@ class ShieldGun : Weapon
 
     public override GameObject Attack(Vector2 position, Vector2 direction, Quaternion rotation, float radius)
     {
-        var projectile = base.Attack(position, direction, rotation, radius);
+        GameObject projectile = null;
+
+        projectiles.RemoveAll(x => x == null);
+
+        if (projectiles.Count < _bulletLimit)
+            projectile = base.Attack(position, direction, rotation, radius);
+
+        if (projectile != null)
+            projectiles.Add(projectile);
+
         return projectile;
     }
 }

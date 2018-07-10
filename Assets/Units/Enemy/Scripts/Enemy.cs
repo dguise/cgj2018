@@ -18,6 +18,8 @@ public class Enemy : Unit {
     [Range(0, 10)]
     public float AggroRange = 5;
 
+    Vector3 randomOffset;
+
 
     private bool readyToChangeAggro = true;
 
@@ -28,19 +30,28 @@ public class Enemy : Unit {
         start = Instantiate<GameObject>(new GameObject(), transform.position, Quaternion.identity).transform;
         weapon = new Gun(gameObject);
         players = GameObject.FindGameObjectsWithTag(Tags.Player);
+
+        Health = 30;
+        randomOffset = new Vector2(UnityEngine.Random.Range(-5f, 5f), UnityEngine.Random.Range(-5f, 5f));
+        movementspeed = movementspeed * UnityEngine.Random.Range(0.8f, 1.3f);
 	}
 	
 	void FixedUpdate () {
-		if (target != null)
-        {
-            rb.velocity = (target.position - transform.position).normalized * movementspeed;
-        }
-        if (target == start && Vector2.Distance(transform.position, target.position) < 0.5)
+        // If you're close to the target, remove the target
+        if (target != null && Vector2.Distance(transform.position, target.position) < 0.5 && !targetIsPlayer)
         {
             target = null;
             rb.velocity = Vector2.zero;
         }
-	}
+        if (target != null)
+        {
+            rb.velocity = ((target.position + randomOffset) - transform.position).normalized * movementspeed;
+        }
+        if (targetIsPlayer && Vector2.Distance(target.position, transform.position) < AttackRange-1)
+        {
+            rb.velocity = Vector2.zero;
+        }
+    }
 
     private void Update()
     {
@@ -111,6 +122,7 @@ public class Enemy : Unit {
 
     public override void TakeDamageExtender(float damage, GameObject sender, Collider2D collider)
     {
+        // Maybe run away if taking damage? Random?
         if (readyToChangeAggro && sender.tag == Tags.Player)
             Target(sender.transform);
     }
