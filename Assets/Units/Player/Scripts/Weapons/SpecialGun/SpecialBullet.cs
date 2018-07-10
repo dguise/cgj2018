@@ -6,28 +6,39 @@ public class SpecialBullet : Projectile
     private static float lifetime = 3;
     private static float damage = 10;
     private float life = 0;
-
+    public float bulletRange = 2.0f;
+    public float bulletSpeed = 2.0f;
     private Vector2 startPos = Vector2.zero;
     private Vector2 direction = Vector2.zero;
     private Vector2 pos2 = Vector2.zero;
     private Vector2 pos3 = Vector2.zero;
     private Vector2 pos4 = Vector2.zero;
+    Vector2 vectorFromGraph;
 
     public AnimationCurve bulletCurve;
     //You can evaluate the curve(get the y for an x value) with:
     //float y = this.myCurve.Evaluate(x);
 
+    private Vector2 PrevVectorFromGraph;
+
     public SpecialBullet() : base(speed, lifetime, damage)
     { }
 
+
+    public void Update()
+    {
+        life += Time.deltaTime * bulletSpeed;
+        var rbody = this.GetComponent<Rigidbody2D>();
+        Vector2 vectorFromGraph =  new Vector2(Time.deltaTime * bulletSpeed, (bulletCurve.Evaluate((life + Time.deltaTime * bulletSpeed) / lifetime) - bulletCurve.Evaluate(life / lifetime)));
+        rbody.velocity = vectorFromGraph * bulletRange * 100f;
+    }
+
     public void FixedUpdate()
     {
-        life += Time.deltaTime;
-        //Debug.Log(CatmullRomTangent(startPos, pos2, pos3, pos4, (life + Time.deltaTime * 2) / lifetime).normalized);
-        var rbody = this.GetComponent<Rigidbody2D>();
-        rbody.velocity = CatmullRomTangent(startPos, pos2, pos3, pos4, (life / lifetime)).normalized * speed;
-
-        
+        //life += Time.fixedDeltaTime;
+        //var rbody = this.GetComponent<Rigidbody2D>();
+        //Vector2 vectorFromGraph = new Vector2(Time.fixedDeltaTime, (bulletCurve.Evaluate((life + Time.fixedDeltaTime)/lifetime) - bulletCurve.Evaluate(life/lifetime)));
+        //rbody.velocity = vectorFromGraph * sp;
     }
 
     public void SetStartAndDirectionVectorAndSpeed(Vector2 start, Vector2 dir, float aSpeed)
@@ -73,6 +84,14 @@ public static class Vector2Extender
     public static Vector2 Rotate(this Vector2 v, float degrees)
     {
         return Quaternion.Euler(0, 0, degrees) * v;
+    }
+
+    public static Vector2 RotateVector(Vector2 v, float angle)  //Ska vara mer precis
+    {
+        float radian = angle * Mathf.Deg2Rad;
+        float _x = v.x * Mathf.Cos(radian) - v.y * Mathf.Sin(radian);
+        float _y = v.x * Mathf.Sin(radian) + v.y * Mathf.Cos(radian);
+        return new Vector2(_x, _y);
     }
 }
 
