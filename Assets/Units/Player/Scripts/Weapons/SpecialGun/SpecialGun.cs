@@ -16,6 +16,11 @@ class SpecialGun : IWeapon
         this.owner = owner;
     }
 
+    public void Attack(Transform me, Transform towards)
+    {
+        Attack(me.transform.position, me.transform.position - towards.transform.position, Quaternion.identity, me.GetComponent<CircleCollider2D>().radius);
+    }
+
     public void Attack(Vector2 position, Vector2 direction, Quaternion rotation, float radius)
     {
         var currentTime = Time.time;

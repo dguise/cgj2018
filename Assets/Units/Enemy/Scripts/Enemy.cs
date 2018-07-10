@@ -3,20 +3,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyAI : Unit {
+public class Enemy : Unit {
 
     Rigidbody2D rb;
     Transform start;
     Transform target;
+    bool targetIsPlayer = false;
+
+    Weapon weapon;
+    [Range(1, 20)]
+    public float AttackRange = 4;
 
     float movementspeed = 1.5f;
-    //float breakRange = 6;
 
     private bool readyToChangeAggro = true;
 
 	void Start () {
         rb = GetComponent<Rigidbody2D>();
         start = Instantiate<GameObject>(new GameObject(), transform.position, Quaternion.identity).transform;
+        weapon = new Gun(gameObject);
 	}
 	
 	void FixedUpdate () {
@@ -28,8 +33,16 @@ public class EnemyAI : Unit {
         {
             target = null;
             rb.velocity = Vector2.zero;
-        } 
+        }
 	}
+
+    private void Update()
+    {
+        if (targetIsPlayer && Vector2.Distance(target.position, transform.position) <= AttackRange)
+        {
+            weapon.Attack(transform, target.transform);
+        }
+    }
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
@@ -44,6 +57,7 @@ public class EnemyAI : Unit {
     private void Target(Transform targetTransform)
     {
         target = targetTransform;
+        targetIsPlayer = target.tag == Tags.Player;
 
         if (_aggroGiveUpTimer != null)
             StopCoroutine(_aggroCooldown);
