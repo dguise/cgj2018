@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 114746959411335026}
   - component: {fileID: 70722003950909604}
   - component: {fileID: 95693810468661040}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 4513470907187788}
   - component: {fileID: 33716703227067814}
   - component: {fileID: 23999787264834716}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: mayamask1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 4985732761879934}
   - component: {fileID: 33094339898683688}
   - component: {fileID: 23071131460985294}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: monkeyhead
   m_TagString: Untagged
   m_Icon: {fileID: 0}

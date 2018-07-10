@@ -14,7 +14,6 @@ public class CamFollowZoomScript : MonoBehaviour
 	float dampTime = 0.1f;
 	float extraSize = 2f;
 	float minSize = 7f;
-	float maxSize = 40f;
 	Vector3 wantedPosition;
 	
 

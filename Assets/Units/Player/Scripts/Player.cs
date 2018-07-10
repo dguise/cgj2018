@@ -43,7 +43,6 @@ public class Player : Unit {
     private void FixedUpdate() {
 		Vector2 playerVelocity = new Vector2(Input.GetAxisRaw(Inputs.Horizontal(playerID)), Input.GetAxisRaw(Inputs.Vertical(playerID)));
         rb.velocity = playerVelocity * playerSpeed;
-        Debug.Log(rb.velocity.magnitude);
         anim.SetFloat(AnimatorConstants.Speed, playerVelocity.magnitude);
 
         if (rb.velocity.magnitude > DEADZONE)
