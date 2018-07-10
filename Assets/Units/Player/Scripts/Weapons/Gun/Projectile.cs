@@ -32,7 +32,18 @@ public abstract class Projectile : MonoBehaviour
 
         if (unit != null)
         {
-            unit.TakeDamage(Damage, Owner, collision);
+            unit.TakeDamage(Damage, Owner, collision.collider);
+            Destroy(gameObject);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        var unit = collider.GetComponent<Unit>();
+
+        if (unit != null)
+        {
+            unit.TakeDamage(Damage, Owner, collider);
             Destroy(gameObject);
         }
     }

@@ -60,8 +60,9 @@ public class Player : Unit {
         }
     }
 
-    public override void TakeDamageExtender(float damage, GameObject sender, Collision2D collision)
+    public override void TakeDamageExtender(float damage, GameObject sender, Collider2D collider)
     {
         // Currently don't give af
     }
 }
+    

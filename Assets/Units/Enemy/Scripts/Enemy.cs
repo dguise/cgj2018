@@ -15,13 +15,19 @@ public class Enemy : Unit {
     public float AttackRange = 4;
 
     float movementspeed = 1.5f;
+    [Range(0, 10)]
+    public float AggroRange = 5;
+
 
     private bool readyToChangeAggro = true;
+
+    GameObject[] players;
 
 	void Start () {
         rb = GetComponent<Rigidbody2D>();
         start = Instantiate<GameObject>(new GameObject(), transform.position, Quaternion.identity).transform;
         weapon = new Gun(gameObject);
+        players = GameObject.FindGameObjectsWithTag(Tags.Player);
 	}
 	
 	void FixedUpdate () {
@@ -42,6 +48,13 @@ public class Enemy : Unit {
         {
             weapon.Attack(transform, target.transform);
         }
+
+        foreach (var player in players)
+        {
+            var distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
+            if (distanceToPlayer < AggroRange && target == null)
+                Target(player.transform);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collider)
@@ -54,6 +67,7 @@ public class Enemy : Unit {
 
     private Coroutine _aggroCooldown;
     private Coroutine _aggroGiveUpTimer;
+
     private void Target(Transform targetTransform)
     {
         target = targetTransform;
@@ -73,18 +87,18 @@ public class Enemy : Unit {
     IEnumerator GiveUpAggro()
     {
         yield return new WaitForSeconds(5);
-        if (target == null)
-            StopCoroutine(_aggroGiveUpTimer);
-
-        var distanceToHome = Vector2.Distance(target.position, start.position);
-        var distanceToTarget = Vector2.Distance(target.position, transform.position);
-
-        if (distanceToHome > 15 && distanceToTarget > 4)
+        if (target != null)
         {
-            Target(start);
-        } else
-        {
-            StartCoroutine(GiveUpAggro());
+            var distanceToHome = Vector2.Distance(target.position, start.position);
+            var distanceToTarget = Vector2.Distance(target.position, transform.position);
+
+            if (distanceToHome > 15 && distanceToTarget > 4)
+            {
+                Target(start);
+            } else
+            {
+                StartCoroutine(GiveUpAggro());
+            }
         }
     }
 
@@ -95,7 +109,7 @@ public class Enemy : Unit {
         readyToChangeAggro = true;
     }
 
-    public override void TakeDamageExtender(float damage, GameObject sender, Collision2D collision)
+    public override void TakeDamageExtender(float damage, GameObject sender, Collider2D collider)
     {
         if (readyToChangeAggro && sender.tag == Tags.Player)
             Target(sender.transform);
