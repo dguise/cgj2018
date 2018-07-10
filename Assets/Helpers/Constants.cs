@@ -29,7 +29,45 @@ public static class Inputs
 
 }
 
+public static class AnimatorConstants
+{
+    public static string Speed = "Speed";
+}
+
 public static class Tags
 {
     public static string Player = "Player";
+}
+
+public static class LayerConstants
+{
+    public static int Enemies = 8;
+    public static int Players = 9;
+    public static string EnemyProjectiles = "EnemyProjectiles";
+    public static string PlayerProjectiles = "PlayerProjectiles";
+
+    public static LayerMask GetLayer(string name)
+    {
+        return LayerMask.NameToLayer(name);
+    }
+
+    public static int GetAllExceptLayers(params string[] names)
+    {
+        int i = 0;
+        foreach (var name in names)
+        {
+            i += GetLayer(name);
+        }
+        return ~(1 << i);
+    }
+
+    public static int GetOnlyLayer(params string[] names)
+    {
+        int i = 0;
+        foreach (var name in names)
+        {
+            i += GetLayer(name);
+        }
+        return (1 << i);
+    }
 }

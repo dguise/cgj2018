@@ -30,7 +30,13 @@ public abstract class Weapon : IWeapon
             spawnAttack = MonoBehaviour.Instantiate(attackWeapon, position + direction * radius, rotation);
             spawnAttack.GetComponent<Rigidbody2D>().velocity = direction * speed;
             spawnAttack.GetComponent<Projectile>().Owner = owner;
-            Physics2D.IgnoreCollision(owner.GetComponent<Collider2D>(), spawnAttack.GetComponent<Collider2D>());
+            if (owner.tag == Tags.Player)
+            {
+                spawnAttack.layer = LayerConstants.GetLayer(LayerConstants.PlayerProjectiles);
+            } else
+            {
+                spawnAttack.layer = LayerConstants.GetLayer(LayerConstants.EnemyProjectiles);
+            }
             return spawnAttack;
         }
         return null;
