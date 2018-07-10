@@ -42,8 +42,4 @@ public class RoomSpawner : MonoBehaviour {
 			rooms[i, nTiles-1].GetComponent<RoomController>().SetDoor(false, "DoorNorth");
 		}
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	}
 }

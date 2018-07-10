@@ -5,22 +5,15 @@ using UnityEngine;
 public class FogController : MonoBehaviour {
 	public GameObject fog;
 
-	// Use this for initialization
-	void Start () {
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
 	void OnTriggerEnter2D(Collider2D col) {
-		Debug.Log("hej");
-		fog.SetActive(false);
+		if (col.tag == "Player") {
+			fog.SetActive(false);
+		}
 	}
 
 	void OnTriggerExit2D(Collider2D col) {
-		Debug.Log("då");
-		fog.SetActive(true);
+		if (col.tag == "Player") {
+			fog.SetActive(true);
+		}
 	}
 }
