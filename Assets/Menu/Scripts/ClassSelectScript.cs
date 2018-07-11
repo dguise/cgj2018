@@ -25,7 +25,7 @@ public class ClassSelectScript : MonoBehaviour {
     {
         if (PlayerManager.playerReady[playerID])
         {
-		    float horizontal = Input.GetAxisRaw(Inputs.DPadAxis(playerID));
+		    float horizontal = Input.GetAxisRaw(Inputs.DPadAxis(PlayerManager.controllerId[playerID]));
             if (Mathf.Abs(horizontal) > 0.5 && timestamp + cooldown < Time.time)
             {
                 timestamp = Time.time;
@@ -46,14 +46,22 @@ public class ClassSelectScript : MonoBehaviour {
                 PlayerManager.playerClass[playerID] = (PlayerManager.CharacterClassesEnum)this.currentChoice;
             }
         } else {
-            if (Input.GetButton(Inputs.AButton(playerID))) {
-                this.portraitImage.sprite = portraitsArray[this.currentChoice];
-                PlayerManager.playerReady[playerID] = true;
-                //Instantiate Player
-                GameObject player = Resources.Load<GameObject>("Player3D");
-                players[playerID] = Instantiate(player, new Vector2(5 * (playerID + (playerID - 1)), 0), player.transform.rotation);
-                players[playerID].name = "Player" + playerID;
-                players[playerID].GetComponent<Player>().playerID = playerID;
+            if (PlayerManager.players == playerID) {
+                for (int i = 1; i <= 16; i++) {
+                    if (Input.GetButton(Inputs.AButton(i)) && !PlayerManager.controllers.Contains(i)) {
+                        this.portraitImage.sprite = portraitsArray[this.currentChoice];
+                        PlayerManager.controllerId[playerID] = i;
+                        PlayerManager.controllers.Add(i);
+                        PlayerManager.playerReady[playerID] = true;
+                        PlayerManager.players += 1;
+                        //Instantiate Player
+                        GameObject player = Resources.Load<GameObject>("Player3D");
+                        players[playerID] = Instantiate(player, new Vector2(5 * (playerID + (playerID - 1)), 0), player.transform.rotation);
+                        players[playerID].name = "Player" + playerID;
+                        players[playerID].GetComponent<Player>().playerID = playerID;
+                        break;
+                    }
+                }
             }
         }
     }

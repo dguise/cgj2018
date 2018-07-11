@@ -4,6 +4,16 @@ using UnityEngine;
 
 public static class PlayerManager {
 
+    public static int players {get; set;}
+    public static Dictionary<int, int> controllerId;
+    public static HashSet<int> controllers; 
+
+    static PlayerManager() {
+        players = 0;
+        controllerId =  new Dictionary<int, int>();
+        controllers = new HashSet<int>();
+    }
+
 	public enum CharacterClassesEnum
     {
         Emil,

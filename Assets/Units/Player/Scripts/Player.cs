@@ -42,7 +42,7 @@ public class Player : Unit {
     }
 
     private void FixedUpdate() {
-		Vector2 playerVelocity = new Vector2(Input.GetAxisRaw(Inputs.Horizontal(playerID)), Input.GetAxisRaw(Inputs.Vertical(playerID)));
+		Vector2 playerVelocity = new Vector2(Input.GetAxisRaw(Inputs.Horizontal(PlayerManager.controllerId[playerID])), Input.GetAxisRaw(Inputs.Vertical(PlayerManager.controllerId[playerID])));
         rb.velocity = playerVelocity * movementSpeed;
         anim.SetFloat(AnimatorConstants.Speed, playerVelocity.magnitude);
 
@@ -51,7 +51,7 @@ public class Player : Unit {
             body.eulerAngles = new Vector3(body.eulerAngles.x, body.eulerAngles.y, (Mathf.Atan2(rb.velocity.x, rb.velocity.y) * 180 / Mathf.PI) + 180);
         }
 
-        Vector2 attackDirection = new Vector2(Input.GetAxisRaw(Inputs.FireHorizontal(playerID)), Input.GetAxisRaw(Inputs.FireVertical(playerID)));
+        Vector2 attackDirection = new Vector2(Input.GetAxisRaw(Inputs.FireHorizontal(PlayerManager.controllerId[playerID])), Input.GetAxisRaw(Inputs.FireVertical(PlayerManager.controllerId[playerID])));
 
 		Vector2 attackPosition = transform.position;
 		Quaternion attackRotation = Quaternion.identity;
