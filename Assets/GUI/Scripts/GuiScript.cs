@@ -95,7 +95,7 @@ public class GuiScript : MonoBehaviour
                     this.ClearText();
         }
         //Debug.Log("speedUpText = " + speedUpText);
-        Debug.Log("currentRateOfText = " + currentRateOfText);
+        //Debug.Log("currentRateOfText = " + currentRateOfText);
     }
 
     void FixedUpdate() { }

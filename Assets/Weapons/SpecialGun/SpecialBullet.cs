@@ -9,11 +9,11 @@ public class SpecialBullet : Projectile
     private float life = 0;
     public float bulletRange = 2.0f;
     public float bulletSpeed = 2.0f;
-    private Vector2 startPos = Vector2.zero;
     private Vector2 direction = Vector2.zero;
-    private Vector2 pos2 = Vector2.zero;
-    private Vector2 pos3 = Vector2.zero;
-    private Vector2 pos4 = Vector2.zero;
+    //private Vector2 startPos = Vector2.zero;
+    //private Vector2 pos2 = Vector2.zero;
+    //private Vector2 pos3 = Vector2.zero;
+    //private Vector2 pos4 = Vector2.zero;
     Vector2 vectorFromGraph;
 
     public AnimationCurve bulletCurve;
@@ -44,7 +44,7 @@ public class SpecialBullet : Projectile
 
     public void SetStartAndDirectionVectorAndSpeed(Vector2 start, Vector2 dir, float aSpeed)
     {
-        startPos = start;
+        //startPos = start;
         direction = dir;
         speed = aSpeed;
 
