@@ -40,9 +40,9 @@ public abstract class Projectile : MonoBehaviour
 
     private void OnAnyCollide(Collider2D col)
     {
-        if (col.IsTouchingLayers(LayerConstants.GetOnlyLayer("Enemies")))
+        if (col.gameObject.layer == LayerConstants.GetLayer("Wall").value)
         {
-            Debug.Log("Collided with Enemies");
+            Destroy(gameObject);
         }
     }
 
