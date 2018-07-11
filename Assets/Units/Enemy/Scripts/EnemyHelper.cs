@@ -21,7 +21,7 @@ public class EnemyHelper
                 weapon = new Gun(go);
                 break;
             case EnemyClass.Melee:
-                weapon = new ShieldGun(go);
+                weapon = new MeleeGun(go);
                 break;
 
         }

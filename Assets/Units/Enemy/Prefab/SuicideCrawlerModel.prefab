@@ -605,7 +605,7 @@ MonoBehaviour:
   _health: 10
   AttackRange: 1.7
   enemyClass: 2
-  AggroRange: 5.67
+  AggroRange: 2.81
   RandomOffset: 0
 --- !u!137 &137118293015023176
 SkinnedMeshRenderer:

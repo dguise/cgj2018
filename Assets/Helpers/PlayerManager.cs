@@ -40,7 +40,7 @@ public static class PlayerManager {
                 weapon = new SpecialGun(go);
                 break;
             case CharacterClassesEnum.Melee:
-                weapon = new Gun(go);
+                weapon = new MeleeGun(go);
                 break;
             case CharacterClassesEnum.Bowman:
                 weapon = new Gun(go);
