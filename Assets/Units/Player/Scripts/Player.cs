@@ -17,16 +17,16 @@ public class Player : Unit {
 
     Rigidbody2D rb;
 
+    public PlayerManager.CharacterClassesEnum PlayerClass;
+
 	void Start () {
-        weapon = new Gun(gameObject);
+        weapon = PlayerManager.GetWeapon(PlayerClass, gameObject);
 
         head = transform.Find("monkeyhead");
         body = transform.Find("Armature.001");
 
 		anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
-
-        Health = 1500;
 	}
 
 
@@ -56,7 +56,6 @@ public class Player : Unit {
 
 		Vector2 attackPosition = transform.position;
 		Quaternion attackRotation = Quaternion.identity;
-
 		if (attackDirection.magnitude > DEADZONE) {
 			weapon.Attack(attackPosition, attackDirection, attackRotation, radius);
             head.eulerAngles = new Vector3(head.eulerAngles.x, head.eulerAngles.y, (Mathf.Atan2(attackDirection.y, attackDirection.x) * 180 / Mathf.PI) * -1 - 90);

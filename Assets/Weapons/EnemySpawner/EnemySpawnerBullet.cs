@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using System.Collections.Generic;
 
-public class EnemySpawnerBullet : Projectile
+class EnemySpawnerBullet : Projectile
 {
     private static float speed = 10;
     private static float lifetime = 1;
@@ -18,6 +19,7 @@ public class EnemySpawnerBullet : Projectile
     {
         StartCoroutine(SpawnEnemies());
     }
+    
 
     private IEnumerator SpawnEnemies()
     {

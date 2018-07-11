@@ -13,13 +13,12 @@ public class Enemy : Unit {
     Weapon weapon;
     [Range(1, 20)]
     public float AttackRange = 4;
-
+    public EnemyClass enemyClass;
     float movementspeed = 1.5f;
     [Range(0, 10)]
     public float AggroRange = 5;
 
     Vector3 randomOffset;
-
 
     private bool readyToChangeAggro = true;
 
@@ -28,7 +27,7 @@ public class Enemy : Unit {
 	void Start () {
         rb = GetComponent<Rigidbody2D>();
         start = Instantiate<GameObject>(new GameObject(), transform.position, Quaternion.identity).transform;
-        weapon = new Gun(gameObject);
+        weapon = EnemyHelper.GetWeapon(enemyClass, gameObject);
         players = GameObject.FindGameObjectsWithTag(Tags.Player);
 
         Health = 30;
@@ -37,35 +36,46 @@ public class Enemy : Unit {
 	}
 	
 	void FixedUpdate () {
-        // If you're close to the target, remove the target
-        if (target != null && Vector2.Distance(transform.position, target.position) < 0.5 && !targetIsPlayer)
-        {
-            target = null;
-            rb.velocity = Vector2.zero;
-        }
         if (target != null)
         {
+            if (Vector2.Distance(transform.position, target.position) < 0.5 && !targetIsPlayer)
+            {
+                target = null;
+                rb.velocity = Vector2.zero;
+            }
+
             rb.velocity = ((target.position + randomOffset) - transform.position).normalized * movementspeed;
+
+            if (targetIsPlayer && Vector2.Distance(target.position, transform.position) < AttackRange-1)
+            {
+                rb.velocity = Vector2.zero;
+            }
         }
-        if (targetIsPlayer && Vector2.Distance(target.position, transform.position) < AttackRange-1)
-        {
-            rb.velocity = Vector2.zero;
-        }
+
     }
 
     private void Update()
     {
-        if (targetIsPlayer && Vector2.Distance(target.position, transform.position) <= AttackRange)
+        if (target != null && targetIsPlayer && Vector2.Distance(target.position, transform.position) <= AttackRange)
         {
             weapon.Attack(transform, target.transform);
         }
 
         foreach (var player in players)
         {
+            if (player == null) continue;
             var distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
             if (distanceToPlayer < AggroRange && target == null)
                 Target(player.transform);
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = new Color(0, 0, 255);
+        Gizmos.DrawWireSphere(transform.position, AttackRange);
+        Gizmos.color = new Color(255, 0, 0);
+        Gizmos.DrawWireSphere(transform.position, AggroRange);
     }
 
     private void OnTriggerEnter2D(Collider2D collider)

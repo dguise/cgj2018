@@ -3,7 +3,9 @@
 [RequireComponent(typeof(Collider2D), typeof(Rigidbody2D))]
 public abstract class Unit : MonoBehaviour
 {
-    private float _health { get; set; }
+    [SerializeField]
+    [Range(0f, 500f)]
+    private float _health;
     public float Health {
         get
         {
@@ -36,7 +38,10 @@ public abstract class Unit : MonoBehaviour
             TextManager.CreateHealText((-1 * damage).ToString(), transform, 0.2f);
         }
         TakeDamageExtender(damage, sender, collider);
-        // Destroy(gameObject);
+
+        if (IsDead)
+            Destroy(gameObject);
+
         return Health;
     }
 

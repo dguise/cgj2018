@@ -13,10 +13,10 @@ class ShieldGun : Weapon
     private int _bulletLimit = 4;
     List<GameObject> projectiles = new List<GameObject>();
 
-    public ShieldGun(GameObject owner): base (owner)
+    public ShieldGun(GameObject owner) : base(owner)
     {
         attackWeapon = Resources.Load<GameObject>("ShieldBullet");
-        attackTimestamp= -(cooldown + 1);
+        attackTimestamp = -(cooldown + 1);
         cooldown = 0.2f;
         speed = 4f;
     }
@@ -28,7 +28,18 @@ class ShieldGun : Weapon
         projectiles.RemoveAll(x => x == null);
 
         if (projectiles.Count < _bulletLimit)
+        {
             projectile = base.Attack(position, direction, rotation, radius);
+        }
+        else
+        {
+            foreach (var proj in projectiles)
+            {
+                proj.GetComponent<ShieldBullet>().ShouldCirculate = false;
+                proj.GetComponent<Rigidbody2D>().velocity = direction.normalized * speed;
+            }
+            projectiles.Clear();
+        }
 
         if (projectile != null)
             projectiles.Add(projectile);
