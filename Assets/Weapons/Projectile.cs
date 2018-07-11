@@ -16,7 +16,7 @@ public abstract class Projectile : MonoBehaviour
         this.Damage = damage;
     }
 
-    private void Start()
+    private void Awake()
     {
         Invoke("Die", Lifetime);
     }
