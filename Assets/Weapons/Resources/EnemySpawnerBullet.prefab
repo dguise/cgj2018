@@ -89,7 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a49f2e08faa30484b9acdf404c662396, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnedEnemy: {fileID: 1620974856628800, guid: 756b08cee53c98140b96408dfcb4af92,
+  SpawnedEnemy: {fileID: 1278458898332514, guid: 2f63e8d4eed00d740a3e363713450d9a,
     type: 2}
 --- !u!212 &212451189556853164
 SpriteRenderer:

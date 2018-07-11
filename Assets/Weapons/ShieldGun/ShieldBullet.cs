@@ -16,7 +16,7 @@ public class ShieldBullet : Projectile
 
     public bool ShouldCirculate = true;
 
-    Transform owner_transform;
+    Transform ownerTransform;
     //You can evaluate the curve(get the y for an x value) with:
     //float y = this.myCurve.Evaluate(x);
 
@@ -24,12 +24,12 @@ public class ShieldBullet : Projectile
     { }
 
     public void Start() {
-        owner_transform = Owner.GetComponent<Transform>();
+        ownerTransform = Owner.GetComponent<Transform>();
     }
 
     public void FixedUpdate()
     {
-        if (ShouldCirculate)
+        if (ShouldCirculate && ownerTransform != null)
         {
             life += Time.deltaTime;
             Vector2 beizerVector = Vector2.zero;
@@ -40,7 +40,7 @@ public class ShieldBullet : Projectile
                 beizerVector = BeizerCurve(pos4, -1 * pos3, -1 * pos2, pos1, life % 1).normalized * range;
             }
 
-            transform.position = owner_transform.position + new Vector3(beizerVector.x, beizerVector.y, 0);
+            transform.position = ownerTransform.position + new Vector3(beizerVector.x, beizerVector.y, 0);
         }
     }
 

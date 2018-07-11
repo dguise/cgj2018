@@ -39,7 +39,6 @@ class EnemySpawnerBullet : Projectile
         pos.x -= 1;
         pos.y += 1;
         Instantiate(SpawnedEnemy, pos, Quaternion.identity);
-
         Destroy(gameObject);
         // Set their target to Owners GetComponent Enemy target
     }
