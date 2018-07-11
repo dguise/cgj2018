@@ -34,7 +34,7 @@ public static class Inputs
         return _dPadXAxis + controllerId;
     }
 
-    public static string AButton(int controllerId)
+    public static string AButton(int? controllerId = null)
     {
         return _aButton + controllerId;
     }

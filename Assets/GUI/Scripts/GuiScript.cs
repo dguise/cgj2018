@@ -7,8 +7,13 @@ public class GuiScript : MonoBehaviour {
 
 #pragma warning disable 0414
     float lifetime = 5.0f;   //lifetime in seconds
-    float waitTime = 0.05f;  //Time between letters
-
+    float rateOfText = 0.05f;  //Time between letters
+    float currentRateOfText
+    {
+        get { return speedUpText == true ? rateOfText / 2 : rateOfText; }
+    }
+    bool speedUpText = false;
+    bool clickToGetToNextMessageBubble = false;
 
     //Image properties
     private float FadeRate = 2.5f;  //Rate of fade
@@ -31,7 +36,9 @@ public class GuiScript : MonoBehaviour {
     }
     MessagetypeEnum messageType = MessagetypeEnum.Helptext;
 
-    string textToAdd = "Ret 2 go!\n\nAdd some cool rp text here and profit from great fame and fortune!";
+    private Queue messageQueue = new Queue();
+
+    string textToAdd = "";
     //////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma warning restore 0414
 
@@ -41,6 +48,11 @@ public class GuiScript : MonoBehaviour {
         this.image = GetComponent<Image>();
         this.targetAlpha = this.image.color.a;
         myText = this.GetComponentInChildren<Text>();
+        messageQueue.Enqueue("Ret 2 go!\n\nAdd some cool rp text here and profit from great fame and fortune!");
+        messageQueue.Enqueue("Hello Emil, tell me about your day!");
+        messageQueue.Enqueue("Jag kan inte, jag håller på att svimma!");
+        messageQueue.Enqueue("Jag menar, jag håller på att implodera!");
+        messageQueue.Enqueue("BAM!  Okej, sorry!");
         StartCoroutine(AddText());
     }
 
@@ -61,6 +73,17 @@ public class GuiScript : MonoBehaviour {
             curColorText.a = Mathf.Lerp(curColorText.a, targetAlpha, this.FadeRate * Time.deltaTime);
             this.myText.color = curColorText;
         }
+
+        if (myText.text == string.Empty)
+            FadeOut();
+
+        bool anyAbuttonDown = speedUpText = Input.GetButtonDown(Inputs.AButton());
+
+        if (clickToGetToNextMessageBubble)  //Vi väntar på input ifrån spelaren
+            if (anyAbuttonDown)  //Spelaren vill få nästa äventyrsbubbla
+                StartCoroutine(AddText());
+
+
     }
 
     void FixedUpdate() { }
@@ -78,11 +101,25 @@ public class GuiScript : MonoBehaviour {
 
     IEnumerator AddText()
     {
+        ClearText();
+        textToAdd = messageQueue.Dequeue().ToString(); //Hämta första elementet i kön (och ta bort det ifrån listan)
+
+        if (messageQueue.Count > 0) //Det kommer mer text efter detta
+            textToAdd += "      ...";
+
         foreach (var c in textToAdd)
         {
             myText.text += c;
-            yield return new WaitForSeconds(waitTime);
+            yield return new WaitForSeconds(rateOfText);
         }
-        FadeOut();
+
+        if (messageQueue.Count > 0)
+            clickToGetToNextMessageBubble = true;
+            //StartCoroutine(AddText());
+    }
+
+    private void ClearText()
+    {
+        myText.text = string.Empty;
     }
 }
