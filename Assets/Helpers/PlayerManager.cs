@@ -59,4 +59,18 @@ public static class PlayerManager {
         }
         return weapon;
     }
+
+    public static void MapControllerToPlayer() 
+    {
+        if (players < 2) {
+            for (int i = 1; i <= 16; i++) {
+                if (Input.GetButton(Inputs.AButton(i)) && !PlayerManager.controllers.Contains(i)) {
+                    controllerId[players] = i;
+                    controllers.Add(i);
+                    playerReady[players] = true;
+                    players += 1;
+                }
+            }
+        }
+    }
 }
