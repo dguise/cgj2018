@@ -80,22 +80,18 @@ public class GuiScript : MonoBehaviour
             FadeOut();
 
 
-        //bool anyAbuttonDown = speedUpText = Input.GetButtonDown(Inputs.AButton());
-        //bool anyAbuttonDown = speedUpText = Input.anyKey;
-        //bool anyAbuttonDown = speedUpText = !Input.GetButtonUp(Inputs.AButton());
-        //if ()) 
+        speedUpText = Input.anyKey;
 
         if (!currentlySpammingText)  //Vi väntar på input ifrån spelaren
         {
-            if (clickToGetToNextMessageBubble)
-                if (Input.GetButtonDown(Inputs.AButton()))  //Spelaren vill få nästa äventyrsbubbla
+            if (Input.GetButtonDown(Inputs.AButton()))  //Spelaren vill få nästa äventyrsbubbla
+                if (clickToGetToNextMessageBubble)
                     StartCoroutine(AddText());
                 else
-                if (!clickToGetToNextMessageBubble)
                     this.ClearText();
         }
-        //Debug.Log("speedUpText = " + speedUpText);
-        //Debug.Log("currentRateOfText = " + currentRateOfText);
+        //Debug.Log(Time.time + "speedUpText = " + speedUpText);
+        //Debug.Log(Time.time + "currentRateOfText = " + currentRateOfText);
     }
 
     void FixedUpdate() { }
