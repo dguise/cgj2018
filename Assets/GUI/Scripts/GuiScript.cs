@@ -69,7 +69,7 @@ public class GuiScript : MonoBehaviour
             this.image.color = curColor;
         }
         Color curColorText = this.myText.color;
-        float alphaDiffText = Mathf.Abs(curColorText.a - this.targetAlpha);
+        //float alphaDiffText = Mathf.Abs(curColorText.a - this.targetAlpha);
         if (alphaDiff > 0.0001f)
         {
             curColorText.a = Mathf.Lerp(curColorText.a, targetAlpha, this.FadeRate * Time.deltaTime);
@@ -81,7 +81,7 @@ public class GuiScript : MonoBehaviour
 
 
         //bool anyAbuttonDown = speedUpText = Input.GetButtonDown(Inputs.AButton());
-        bool anyAbuttonDown = speedUpText = Input.anyKey;
+        //bool anyAbuttonDown = speedUpText = Input.anyKey;
         //bool anyAbuttonDown = speedUpText = !Input.GetButtonUp(Inputs.AButton());
         //if ()) 
 

@@ -6,7 +6,7 @@ public class TestText : MonoBehaviour
 {
 
     float m_time;
-    int iteration = 0;
+    //int iteration = 0;
     bool m_test_dmg;
 
     void Start()

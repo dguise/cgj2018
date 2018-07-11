@@ -34,12 +34,12 @@ public class ClassSelectScript : MonoBehaviour {
                 this.portraitImage.sprite = portraitsArray[this.currentChoice];
                 
                 if (horizontal > 0) {
-                    Transform rightArrow = transform.Find("RightArrow");
-                    var anim = rightArrow.GetComponent<Animator>();
+                    //Transform rightArrow = transform.Find("RightArrow");
+                    //var anim = rightArrow.GetComponent<Animator>();
                     //anim.SetTrigger("RightArrow");
                 } else {
-                    Transform leftArrow = transform.Find("LeftArrow");
-                    var anim = leftArrow.GetComponent<Animator>();
+                    //Transform leftArrow = transform.Find("LeftArrow");
+                    //var anim = leftArrow.GetComponent<Animator>();
 
                     //anim.SetTrigger("LeftArrow");
                 }

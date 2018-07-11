@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RoomSpawner : MonoBehaviour {
 	public int nTiles = 7;
-	private float origTileSize = 2;
+	//private float origTileSize = 2;
 	public float xTileSize = 12;
 	public float yTileSize = 12;
 	public float wallThiccness = 0.1f;

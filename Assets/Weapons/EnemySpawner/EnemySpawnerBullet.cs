@@ -9,8 +9,9 @@ class EnemySpawnerBullet : Projectile
     private static float lifetime = 1;
     private static float damage = 0;
 
+#pragma warning disable 0649
     public GameObject SpawnedEnemy;
-
+#pragma warning restore 0649
     public EnemySpawnerBullet() : base(speed, lifetime, damage)
     {
     }
