@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[RequireComponent(typeof(Collider2D), typeof(Rigidbody2D))]
+[RequireComponent(typeof(CircleCollider2D), typeof(Rigidbody2D))]
 public abstract class Unit : MonoBehaviour
 {
     [SerializeField]
