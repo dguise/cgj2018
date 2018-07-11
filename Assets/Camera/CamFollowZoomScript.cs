@@ -1,5 +1,4 @@
-﻿
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,14 +7,16 @@ public class CamFollowZoomScript : MonoBehaviour
 #pragma warning disable 0108
     private Camera camera;
 #pragma warning restore 0108
-	GameObject player1;
-	GameObject player2;
 	Vector3 offset;
+
+	public List<GameObject> players = new List<GameObject>();
 	float zoomSpeed = 10f;
 	float dampTime = 0.1f;
 	float extraSize = 2f;
 	float minSize = 7f;
 	Vector3 wantedPosition;
+	public int foundPlayers = 0;
+	bool needToFind = false;
 	
 
 	// Use this for initialization
@@ -26,35 +27,50 @@ public class CamFollowZoomScript : MonoBehaviour
 	
 	private void FixedUpdate() 
 	{
-		Move();
-		Zoom();
+		if (foundPlayers < PlayerManager.players || needToFind) {
+			foundPlayers = FindPlayers();
+			needToFind = false;
+		}
+		
+		if (foundPlayers > 0) {
+			try {
+				Move();
+				Zoom();
+			} catch {
+				needToFind = true;
+			}
+
+		}
 	}
 
 	private void Awake ()
     {
-		player1 = GameObject.Find("Player1");
-		player2 = GameObject.Find("Player2");
-
-		//If no player exist
-		if (!player1 && !player2) {
-			Debug.Log("Players names Player1 and Player2 needs to exist in the scene");
-			Destroy(this);
-		}
-
-		// If only one of them exist, execute as normally but with both players as same player.
-		if (!player1) {
-			player2 = player1;
-		} else if (!player2) {
-			player1 = player2;
-		}
-
         camera = GetComponent<Camera>();
+
     }
+
+	private int FindPlayers() {
+		int found = 0;
+		for (int i = 0; i < PlayerManager.players; i++) {
+			GameObject player = PlayerManager.PlayerObjects[i];
+			if (player && !players.Contains(player)) {
+				players.Add(player);
+				found += 1;
+			}
+		}
+
+		return found;
+	}
 
 	private void Move() 
 	{
+		wantedPosition = Vector2.zero;
+		for (int i = 0; i < players.Count; i++) {
+        	wantedPosition += players[i].transform.position;
+		}
 
-        wantedPosition = (player1.transform.position + player2.transform.position)/2 + offset;
+		wantedPosition /= players.Count;
+		wantedPosition += offset;
 		transform.position = wantedPosition;
 	}
 
@@ -62,15 +78,20 @@ public class CamFollowZoomScript : MonoBehaviour
 	{
 		Vector3 wantedLocalPosition = transform.InverseTransformPoint(wantedPosition);
 		float size = 0f;
+		float sizeY = 0f;
+		float sizeX = 0f;
 
 		// Otherwise, find the position of the target in the camera's local space.
-		Vector3 targetLocalPos1 = transform.InverseTransformPoint(player1.transform.position);
-		Vector3 targetLocalPos2 = transform.InverseTransformPoint(player2.transform.position);
-		Vector3 desiredPosToTarget1 = targetLocalPos1 - wantedLocalPosition;
-		Vector3 desiredPosToTarget2 = targetLocalPos2 - wantedLocalPosition;
+		for (int i = 0; i < players.Count; i++) {
+			Vector3 targetLocalPos = transform.InverseTransformPoint(players[i].transform.position);
+			Vector3 desiredPosToTarget = targetLocalPos - wantedLocalPosition;
+			sizeY += Mathf.Abs(desiredPosToTarget.y);
+			sizeX += Mathf.Abs(desiredPosToTarget.x);
+		}
 
-		float sizeY = (Mathf.Abs(desiredPosToTarget1.y) + Mathf.Abs(desiredPosToTarget2.y))/2;
-		float sizeX = (Mathf.Abs(desiredPosToTarget1.x) + Mathf.Abs(desiredPosToTarget2.x))/2;
+		sizeY /= players.Count;
+		sizeX /= players.Count;
+
 		size = Mathf.Max(sizeY, sizeX);
 
         size += extraSize;
