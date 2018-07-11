@@ -7,7 +7,7 @@ using UnityEngine;
 public class Player : Unit {
 	public Weapon weapon;
 	float radius = 0.5f;
-	const float DEADZONE = 0.6f;
+	const float DEADZONE = 0.98f;
 	public int playerID;
 	Animator anim;
 

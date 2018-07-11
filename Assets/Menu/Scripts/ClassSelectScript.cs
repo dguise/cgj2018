@@ -13,6 +13,7 @@ public class ClassSelectScript : MonoBehaviour {
     public int playerID = 1;
     public float timestamp;
     float cooldown = 0.3f;
+    GameObject[] players = new GameObject[2];
 
     void Start ()
     {
@@ -24,7 +25,7 @@ public class ClassSelectScript : MonoBehaviour {
     {
         if (PlayerManager.playerReady[playerID])
         {
-		    float horizontal = Input.GetAxisRaw(Inputs.Horizontal(playerID));
+		    float horizontal = Input.GetAxisRaw(Inputs.DPadAxis(playerID));
             if (Mathf.Abs(horizontal) > 0.5 && timestamp + cooldown < Time.time)
             {
                 timestamp = Time.time;
@@ -45,10 +46,14 @@ public class ClassSelectScript : MonoBehaviour {
                 PlayerManager.playerClass[playerID] = (PlayerManager.CharacterClassesEnum)this.currentChoice;
             }
         } else {
-            if (Input.GetKeyDown(KeyCode.Space)) {
+            if (Input.GetButton(Inputs.AButton(playerID))) {
                 this.portraitImage.sprite = portraitsArray[this.currentChoice];
                 PlayerManager.playerReady[playerID] = true;
                 //Instantiate Player
+                GameObject player = Resources.Load<GameObject>("Player3D");
+                players[playerID] = Instantiate(player, new Vector2(5 * (playerID + (playerID - 1)), 0), player.transform.rotation);
+                players[playerID].name = "Player" + playerID;
+                players[playerID].GetComponent<Player>().playerID = playerID;
             }
         }
     }
