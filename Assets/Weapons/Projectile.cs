@@ -44,7 +44,6 @@ public abstract class Projectile : MonoBehaviour
         if (unit != null)
         {
             unit.TakeDamage(Damage, Owner, collider);
-            Destroy(gameObject);
         }
     }
 }
