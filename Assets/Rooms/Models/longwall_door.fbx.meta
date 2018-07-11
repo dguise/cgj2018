@@ -1,17 +1,14 @@
 fileFormatVersion: 2
-guid: a25c3f8fd36bca0429c7a7c1603ae892
+guid: d6e10514df83d2f4887c6e23cd35d0b7
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
     400000: //RootNode
     2100000: Material
-    2100002: Material__Wall_png
     2300000: //RootNode
     3300000: //RootNode
     4300000: Cube
-    7400000: Default Take
-    9500000: //RootNode
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -87,7 +84,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

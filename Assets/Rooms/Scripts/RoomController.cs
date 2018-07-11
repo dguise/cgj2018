@@ -4,26 +4,29 @@ using UnityEngine;
 
 public class RoomController : MonoBehaviour {
 	public static class Direction {
-		public const string NORTH = "North/DoorNorth";
-		public const string EAST = "East/DoorEast";
-		public const string SOUTH = "South/DoorSouth";
-		public const string WEST = "West/DoorWest";
+		public const string NORTH = "North/";
+		public const string EAST = "East/";
+		public const string SOUTH = "South/";
+		public const string WEST = "West/";
 	}
 
 	private Dictionary<string, Transform> doors = new Dictionary<string, Transform>();
 
 	void Awake () {
-		doors.Add(Direction.NORTH, transform.Find(Direction.NORTH));
-		doors.Add(Direction.EAST, transform.Find(Direction.EAST));
-		doors.Add(Direction.SOUTH, transform.Find(Direction.SOUTH));
-		doors.Add(Direction.WEST, transform.Find(Direction.WEST));
+		doors.Add(Direction.NORTH + "Door", transform.Find(Direction.NORTH + "Door"));
+		doors.Add(Direction.EAST + "Door", transform.Find(Direction.EAST + "Door"));
+		doors.Add(Direction.SOUTH + "Door", transform.Find(Direction.SOUTH + "Door"));
+		doors.Add(Direction.WEST + "Door", transform.Find(Direction.WEST + "Door"));
 
-		SetAllDoors(true);
+		SetAllDoors(false);
 	}
 
 	public void SetDoor (bool open, string direction) {
-		Transform door = doors[direction];
+		Debug.Log(direction + "fence");
+		Transform door = doors[direction + "Door"];
+		Transform fence = transform.Find(direction + "fence");
 		door.gameObject.SetActive(!open);
+		fence.gameObject.SetActive(!open);
 	}
 
 	public void SetAllDoors(bool open) {
