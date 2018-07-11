@@ -71,6 +71,14 @@ public static class PlayerManager {
                     players += 1;
                 }
             }
+
+            if (Input.GetKeyDown("space"))
+            {
+                controllerId[players] = -1;
+                controllers.Add(-1);
+                playerReady[players] = true;
+                players += 1;
+            }
         }
     }
 }
