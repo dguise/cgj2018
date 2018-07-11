@@ -28,6 +28,7 @@ public abstract class Projectile : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        OnAnyCollide(collision.collider);
         var unit = collision.collider.GetComponent<Unit>();
 
         if (unit != null)
@@ -37,8 +38,17 @@ public abstract class Projectile : MonoBehaviour
         }
     }
 
+    private void OnAnyCollide(Collider2D col)
+    {
+        if (col.IsTouchingLayers(LayerConstants.GetOnlyLayer("Enemies")))
+        {
+            Debug.Log("Collided with Enemies");
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collider)
     {
+        OnAnyCollide(collider);
         var unit = collider.GetComponent<Unit>();
 
         if (unit != null)
