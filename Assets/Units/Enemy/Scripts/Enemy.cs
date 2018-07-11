@@ -13,7 +13,7 @@ public class Enemy : Unit {
     bool targetIsPlayer = false;
 
     Weapon weapon;
-    [Range(1.7f, 20)]
+    [Range(1.6f, 20)]
     public float AttackRange = 4;
     public EnemyClass enemyClass;
     [Range(0, 10)]
@@ -60,6 +60,14 @@ public class Enemy : Unit {
                 anim.SetFloat("Speed", rb.velocity.magnitude);
         }
 
+    }
+
+    public void PerformAttack()
+    {
+        if (target != null && targetIsPlayer && Vector2.Distance(target.position, transform.position) <= AttackRange)
+        {
+            ((MeleeGun)weapon).PerformAttack();
+        }
     }
 
     private void Update()

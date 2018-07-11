@@ -27,6 +27,7 @@ public class Player : Unit {
 		anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
 
+        DontDestroyOnLoad(this);
 	}
 
 

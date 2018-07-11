@@ -604,6 +604,7 @@ Prefab:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114028472638861608, guid: db53dab208f064b08a9274552da815f8, type: 2}
+    - {fileID: 114024872301231294, guid: db53dab208f064b08a9274552da815f8, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: db53dab208f064b08a9274552da815f8, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1700255631
@@ -739,3 +740,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca5048ff5b1954c99a7a02426edf10cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  players: []
+  foundPlayers: 0
