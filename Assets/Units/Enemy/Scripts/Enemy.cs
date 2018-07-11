@@ -11,13 +11,14 @@ public class Enemy : Unit {
     bool targetIsPlayer = false;
 
     Weapon weapon;
-    [Range(1, 20)]
+    [Range(1.7f, 20)]
     public float AttackRange = 4;
     public EnemyClass enemyClass;
     [Range(0, 10)]
     public float AggroRange = 5;
 
-    Vector3 randomOffset;
+    Vector3 randomOffset = Vector2.zero;
+    public Boolean RandomOffset = true;
 
     private bool readyToChangeAggro = true;
 
@@ -29,7 +30,7 @@ public class Enemy : Unit {
         weapon = EnemyHelper.GetWeapon(enemyClass, gameObject);
         players = GameObject.FindGameObjectsWithTag(Tags.Player);
 
-        Health = 30;
+        if (RandomOffset)
         randomOffset = new Vector2(UnityEngine.Random.Range(-5f, 5f), UnityEngine.Random.Range(-5f, 5f));
         movementSpeed = movementSpeed * UnityEngine.Random.Range(0.8f, 1.3f);
 	}
