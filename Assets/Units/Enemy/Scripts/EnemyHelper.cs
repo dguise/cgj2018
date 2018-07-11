@@ -4,6 +4,7 @@ public enum EnemyClass
 {
     RegularEnemy,
     EnemySpawner,
+    Melee,
 }
 public class EnemyHelper
 {
@@ -18,6 +19,9 @@ public class EnemyHelper
                 break;
             case EnemyClass.RegularEnemy:
                 weapon = new Gun(go);
+                break;
+            case EnemyClass.Melee:
+                weapon = new ShieldGun(go);
                 break;
 
         }
