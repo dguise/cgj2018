@@ -4,6 +4,9 @@
 public abstract class Unit : MonoBehaviour
 {
     [SerializeField]
+    [Range(0, 10)]
+    protected float movementSpeed;
+    [SerializeField]
     [Range(0f, 500f)]
     private float _health;
     public float Health {
