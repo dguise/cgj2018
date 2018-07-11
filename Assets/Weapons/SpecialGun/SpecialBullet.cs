@@ -30,6 +30,8 @@ public class SpecialBullet : Projectile
         life += Time.deltaTime * bulletSpeed;
         var rbody = this.GetComponent<Rigidbody2D>();
         Vector2 vectorFromGraph =  new Vector2(Time.deltaTime * bulletSpeed, (bulletCurve.Evaluate((life + Time.deltaTime * bulletSpeed) / lifetime) - bulletCurve.Evaluate(life / lifetime)));
+        Debug.Log(Vector2.SignedAngle(Vector2.right, direction));
+        vectorFromGraph = vectorFromGraph.MaakepRotate(Vector2.SignedAngle(Vector2.right, direction));
         rbody.velocity = vectorFromGraph * bulletRange * 100f;
     }
 
