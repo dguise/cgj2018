@@ -7,6 +7,7 @@ public static class PlayerManager {
     public static int players {get; set;}
     public static Dictionary<int, int> controllerId;
     public static HashSet<int> controllers; 
+    public static List<GameObject> PlayerObjects = new List<GameObject>();
 
     static PlayerManager() {
         players = 0;

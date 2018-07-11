@@ -6,6 +6,8 @@ using UnityEngine;
 public class Enemy : Unit {
 
     Rigidbody2D rb;
+    Animator anim;
+
     Transform start;
     Transform target;
     bool targetIsPlayer = false;
@@ -26,6 +28,8 @@ public class Enemy : Unit {
 
 	void Start () {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
+
         start = Instantiate<GameObject>(new GameObject(), transform.position, Quaternion.identity).transform;
         weapon = EnemyHelper.GetWeapon(enemyClass, gameObject);
         players = GameObject.FindGameObjectsWithTag(Tags.Player);
@@ -45,11 +49,15 @@ public class Enemy : Unit {
             }
 
             rb.velocity = ((target.position + randomOffset) - transform.position).normalized * movementSpeed;
+            // TODO: Rotate
+            //transform.eulerAngles = new Vector3(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, (Mathf.Atan2(rb.velocity.y, rb.velocity.x) * 180 / Mathf.PI) * -1 - 90);
 
             if (targetIsPlayer && Vector2.Distance(target.position, transform.position) < AttackRange-1)
             {
                 rb.velocity = Vector2.zero;
             }
+            if (anim != null)
+                anim.SetFloat("Speed", rb.velocity.magnitude);
         }
 
     }

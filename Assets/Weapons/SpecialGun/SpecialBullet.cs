@@ -57,19 +57,10 @@ public class SpecialBullet : Projectile
         trailPartRenderer.sprite = GetComponent<SpriteRenderer>().sprite;
         trailPart.transform.position = transform.position;
         trailPart.transform.rotation = transform.rotation;
-        Destroy(trailPart, 0.5f); // lifetime
-
-        StartCoroutine("FadeTrailPart", trailPartRenderer);
+        trailPart.AddComponent<Fader>();
     }
 
-    IEnumerator FadeTrailPart(SpriteRenderer trailPartRenderer)
-    {
-        Color color = trailPartRenderer.color;
-        color.a -= 0.5f; // alpha decrement
-        trailPartRenderer.color = color;
-
-        yield return new WaitForEndOfFrame();
-    }
+   
 
 
 

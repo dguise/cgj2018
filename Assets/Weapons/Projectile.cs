@@ -16,7 +16,7 @@ public abstract class Projectile : MonoBehaviour
         this.Damage = damage;
     }
 
-    private void Start()
+    private void Awake()
     {
         Invoke("Die", Lifetime);
     }
@@ -28,6 +28,7 @@ public abstract class Projectile : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        OnAnyCollide(collision.collider);
         var unit = collision.collider.GetComponent<Unit>();
 
         if (unit != null)
@@ -37,8 +38,17 @@ public abstract class Projectile : MonoBehaviour
         }
     }
 
+    private void OnAnyCollide(Collider2D col)
+    {
+        if (col.gameObject.layer == LayerConstants.GetLayer("Wall").value)
+        {
+            Destroy(gameObject);
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collider)
     {
+        OnAnyCollide(collider);
         var unit = collider.GetComponent<Unit>();
 
         if (unit != null)
