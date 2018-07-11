@@ -26,6 +26,7 @@ public class Player : Unit {
 
 		anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+
 	}
 
 
@@ -59,6 +60,10 @@ public class Player : Unit {
             if (attackDirection.magnitude > DEADZONE) {
                 weapon.Attack(attackPosition, attackDirection, attackRotation, radius);
                 head.eulerAngles = new Vector3(head.eulerAngles.x, head.eulerAngles.y, (Mathf.Atan2(attackDirection.y, attackDirection.x) * 180 / Mathf.PI) * -1 - 90);
+            }
+        } else {
+            if (!PlayerManager.playerReady[playerID]) {
+                PlayerManager.MapControllerToPlayer();
             }
         }
     }
