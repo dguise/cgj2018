@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GuiScript : MonoBehaviour {
+public class GuiScript : MonoBehaviour
+{
 
 #pragma warning disable 0414
     float lifetime = 5.0f;   //lifetime in seconds
     float rateOfText = 0.1f;  //Time between letters
     float currentRateOfText
     {
-        get { return speedUpText == true ? rateOfText / 2 : rateOfText; }
+        get { return speedUpText == true ? rateOfText / 5 : rateOfText; }
     }
     bool speedUpText = false;
     bool clickToGetToNextMessageBubble = false;
@@ -44,7 +45,7 @@ public class GuiScript : MonoBehaviour {
 #pragma warning restore 0414
 
 
-    void Start ()
+    void Start()
     {
         this.image = GetComponent<Image>();
         this.targetAlpha = this.image.color.a;
@@ -77,20 +78,27 @@ public class GuiScript : MonoBehaviour {
 
         if (myText.text == string.Empty)
             FadeOut();
-    }
-
-    void FixedUpdate()
-    {
-        bool anyAbuttonDown = speedUpText = Input.GetButtonDown(Inputs.AButton());
-
-        if (clickToGetToNextMessageBubble && !currentlySpammingText)  //Vi väntar på input ifrån spelaren
-            if (anyAbuttonDown)  //Spelaren vill få nästa äventyrsbubbla
-                StartCoroutine(AddText());
 
 
-        Debug.Log("speedUpText = " + speedUpText);
+        //bool anyAbuttonDown = speedUpText = Input.GetButtonDown(Inputs.AButton());
+        bool anyAbuttonDown = speedUpText = Input.anyKey;
+        //bool anyAbuttonDown = speedUpText = !Input.GetButtonUp(Inputs.AButton());
+        //if ()) 
+
+        if (!currentlySpammingText)  //Vi väntar på input ifrån spelaren
+        {
+            if (clickToGetToNextMessageBubble)
+                if (Input.GetButtonDown(Inputs.AButton()))  //Spelaren vill få nästa äventyrsbubbla
+                    StartCoroutine(AddText());
+                else
+                if (!clickToGetToNextMessageBubble)
+                    this.ClearText();
+        }
+        //Debug.Log("speedUpText = " + speedUpText);
         Debug.Log("currentRateOfText = " + currentRateOfText);
     }
+
+    void FixedUpdate() { }
     void LateUpdate() { }
 
     public void FadeOut()
@@ -106,12 +114,13 @@ public class GuiScript : MonoBehaviour {
     IEnumerator AddText()
     {
         ClearText();
-        textToAdd = messageQueue.Dequeue().ToString(); //Hämta första elementet i kön (och ta bort det ifrån listan)
+        if (messageQueue.Count > 0)
+            textToAdd = messageQueue.Dequeue().ToString(); //Hämta första elementet i kön (och ta bort det ifrån listan)
 
         if (messageQueue.Count > 0) //Det kommer mer text efter detta
             textToAdd += "      ...";
 
-            currentlySpammingText = true;
+        currentlySpammingText = true;
 
         foreach (var c in textToAdd)
         {
