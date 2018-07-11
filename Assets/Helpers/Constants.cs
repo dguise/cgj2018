@@ -9,34 +9,34 @@ public static class Inputs
     private static string _dPadXAxis = "DPadXAxis";
     private static string _aButton = "Abutton";
 
-    public static string Horizontal(int id) 
+    public static string Horizontal(int controllerId) 
     {
-        return _horizontal + (id + 1);
+        return _horizontal + controllerId;
     }
 
-    public static string Vertical(int id) 
+    public static string Vertical(int controllerId) 
     {
-        return _vertical + (id + 1);
+        return _vertical + controllerId;
     }
 
-    public static string FireHorizontal(int id) 
+    public static string FireHorizontal(int controllerId) 
     {
-        return _fireHorizontal + (id + 1);
+        return _fireHorizontal + controllerId;
     }
 
-    public static string FireVertical(int id) 
+    public static string FireVertical(int controllerId) 
     {
-        return _fireVertical + (id + 1);
+        return _fireVertical + controllerId;
     }
 
-    public static string DPadAxis(int id)
+    public static string DPadAxis(int controllerId)
     {
-        return _dPadXAxis + (id + 1);
+        return _dPadXAxis + controllerId;
     }
 
-    public static string AButton(int id)
+    public static string AButton(int controllerId)
     {
-        return _aButton + (id + 1);
+        return _aButton + controllerId;
     }
 
 }
