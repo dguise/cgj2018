@@ -25,7 +25,7 @@ public class SpecialBullet : Projectile
 
     private void Start()
     {
-        InvokeRepeating("SpawnTrail", 0, 0.5f);
+        InvokeRepeating("SpawnTrail", 0.01f, 0.2f);
     }
 
     public void Update()
