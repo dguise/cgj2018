@@ -6,6 +6,8 @@ public static class Inputs
     private static string _vertical = "Vertical";
     private static string _fireHorizontal = "HorizontalFire";
     private static string _fireVertical = "VerticalFire";
+    private static string _dPadXAxis = "DPadXAxis";
+    private static string _aButton = "Abutton";
 
     public static string Horizontal(int id) 
     {
@@ -25,6 +27,16 @@ public static class Inputs
     public static string FireVertical(int id) 
     {
         return _fireVertical + (id + 1);
+    }
+
+    public static string DPadAxis(int id)
+    {
+        return _dPadXAxis + (id + 1);
+    }
+
+    public static string AButton(int id)
+    {
+        return _aButton + (id + 1);
     }
 
 }

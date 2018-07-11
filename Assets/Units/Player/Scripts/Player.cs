@@ -5,10 +5,9 @@ using UnityEngine;
 
 [RequireComponent (typeof (Rigidbody2D))]
 public class Player : Unit {
-	private float playerSpeed = 3f;
 	public Weapon weapon;
 	float radius = 0.5f;
-	const float DEADZONE = 0.6f;
+	const float DEADZONE = 0.98f;
 	public int playerID;
 	Animator anim;
 
@@ -44,7 +43,7 @@ public class Player : Unit {
 
     private void FixedUpdate() {
 		Vector2 playerVelocity = new Vector2(Input.GetAxisRaw(Inputs.Horizontal(playerID)), Input.GetAxisRaw(Inputs.Vertical(playerID)));
-        rb.velocity = playerVelocity * playerSpeed;
+        rb.velocity = playerVelocity * movementSpeed;
         anim.SetFloat(AnimatorConstants.Speed, playerVelocity.magnitude);
 
         if (rb.velocity.magnitude > DEADZONE)

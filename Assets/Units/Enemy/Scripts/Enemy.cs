@@ -14,7 +14,6 @@ public class Enemy : Unit {
     [Range(1, 20)]
     public float AttackRange = 4;
     public EnemyClass enemyClass;
-    float movementspeed = 1.5f;
     [Range(0, 10)]
     public float AggroRange = 5;
 
@@ -32,7 +31,7 @@ public class Enemy : Unit {
 
         Health = 30;
         randomOffset = new Vector2(UnityEngine.Random.Range(-5f, 5f), UnityEngine.Random.Range(-5f, 5f));
-        movementspeed = movementspeed * UnityEngine.Random.Range(0.8f, 1.3f);
+        movementSpeed = movementSpeed * UnityEngine.Random.Range(0.8f, 1.3f);
 	}
 	
 	void FixedUpdate () {
@@ -44,7 +43,7 @@ public class Enemy : Unit {
                 rb.velocity = Vector2.zero;
             }
 
-            rb.velocity = ((target.position + randomOffset) - transform.position).normalized * movementspeed;
+            rb.velocity = ((target.position + randomOffset) - transform.position).normalized * movementSpeed;
 
             if (targetIsPlayer && Vector2.Distance(target.position, transform.position) < AttackRange-1)
             {
