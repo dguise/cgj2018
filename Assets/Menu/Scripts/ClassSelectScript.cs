@@ -12,12 +12,15 @@ public class ClassSelectScript : MonoBehaviour {
     private UnityEngine.UI.Image portraitImage;
     public int playerID = 1;
     public bool released;
+    PlayerSpawner spawner;
+
     float cooldown = 0.3f;
     GameObject[] players = new GameObject[2];
 
     void Start ()
     {
         this.portraitImage = this.GetComponentsInChildren<UnityEngine.UI.Image>()[3];
+        spawner = GameObject.Find("PlayerSpawner").GetComponent<PlayerSpawner>();
         released = true;
     }
 	
@@ -65,7 +68,8 @@ public class ClassSelectScript : MonoBehaviour {
                         PlayerManager.players += 1;
                         //Instantiate Player
                         GameObject player = Resources.Load<GameObject>("Player3D");
-                        players[playerID] = Instantiate(player, new Vector2(5 * (playerID + (playerID - 1)), 0), player.transform.rotation);
+                        players[playerID] = Instantiate(player, spawner.spawners[playerID].transform.position, player.transform.rotation);
+                        spawner.Animate(playerID);
                         players[playerID].name = "Player" + playerID;
                         players[playerID].GetComponent<Player>().playerID = playerID;
                         break;
