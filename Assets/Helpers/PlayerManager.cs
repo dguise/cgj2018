@@ -36,7 +36,7 @@ public static class PlayerManager {
         switch (playerClass)
         {
             case CharacterClassesEnum.Emil:
-                weapon = new Gun(go);
+                weapon = new SpecialGun(go);
                 break;
             case CharacterClassesEnum.Melee:
                 weapon = new Gun(go);

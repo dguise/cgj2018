@@ -40,10 +40,17 @@ public class ClassSelectScript : MonoBehaviour {
                 } else {
                     Transform leftArrow = transform.Find("LeftArrow");
                     var anim = leftArrow.GetComponent<Animator>();
+
                     //anim.SetTrigger("LeftArrow");
                 }
 
                 PlayerManager.playerClass[playerID] = (PlayerManager.CharacterClassesEnum)this.currentChoice;
+                Player playerScript = players[playerID].GetComponent<Player>();
+                playerScript.PlayerClass = (PlayerManager.CharacterClassesEnum)this.currentChoice;
+                playerScript.weapon = PlayerManager.GetWeapon(playerScript.PlayerClass, players[playerID]);
+
+                Debug.Log(players[playerID].GetComponent<Player>().PlayerClass);
+
             }
         } else {
             if (PlayerManager.players == playerID) {
