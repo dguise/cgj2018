@@ -42,22 +42,24 @@ public class Player : Unit {
     }
 
     private void FixedUpdate() {
-		Vector2 playerVelocity = new Vector2(Input.GetAxisRaw(Inputs.Horizontal(PlayerManager.controllerId[playerID])), Input.GetAxisRaw(Inputs.Vertical(PlayerManager.controllerId[playerID])));
-        rb.velocity = playerVelocity * movementSpeed;
-        anim.SetFloat(AnimatorConstants.Speed, playerVelocity.magnitude);
+        if (PlayerManager.playerReady[playerID]){
+            Vector2 playerVelocity = new Vector2(Input.GetAxisRaw(Inputs.Horizontal(PlayerManager.controllerId[playerID])), Input.GetAxisRaw(Inputs.Vertical(PlayerManager.controllerId[playerID])));
+            rb.velocity = playerVelocity * movementSpeed;
+            anim.SetFloat(AnimatorConstants.Speed, playerVelocity.magnitude);
 
-        if (rb.velocity.magnitude > DEADZONE)
-        {
-            body.eulerAngles = new Vector3(body.eulerAngles.x, body.eulerAngles.y, (Mathf.Atan2(rb.velocity.x, rb.velocity.y) * 180 / Mathf.PI) + 180);
-        }
+            if (rb.velocity.magnitude > DEADZONE)
+            {
+                body.eulerAngles = new Vector3(body.eulerAngles.x, body.eulerAngles.y, (Mathf.Atan2(rb.velocity.x, rb.velocity.y) * 180 / Mathf.PI) + 180);
+            }
 
-        Vector2 attackDirection = new Vector2(Input.GetAxisRaw(Inputs.FireHorizontal(PlayerManager.controllerId[playerID])), Input.GetAxisRaw(Inputs.FireVertical(PlayerManager.controllerId[playerID])));
+            Vector2 attackDirection = new Vector2(Input.GetAxisRaw(Inputs.FireHorizontal(PlayerManager.controllerId[playerID])), Input.GetAxisRaw(Inputs.FireVertical(PlayerManager.controllerId[playerID])));
 
-		Vector2 attackPosition = transform.position;
-		Quaternion attackRotation = Quaternion.identity;
-		if (attackDirection.magnitude > DEADZONE) {
-			weapon.Attack(attackPosition, attackDirection, attackRotation, radius);
-            head.eulerAngles = new Vector3(head.eulerAngles.x, head.eulerAngles.y, (Mathf.Atan2(attackDirection.y, attackDirection.x) * 180 / Mathf.PI) * -1 - 90);
+            Vector2 attackPosition = transform.position;
+            Quaternion attackRotation = Quaternion.identity;
+            if (attackDirection.magnitude > DEADZONE) {
+                weapon.Attack(attackPosition, attackDirection, attackRotation, radius);
+                head.eulerAngles = new Vector3(head.eulerAngles.x, head.eulerAngles.y, (Mathf.Atan2(attackDirection.y, attackDirection.x) * 180 / Mathf.PI) * -1 - 90);
+            }
         }
     }
 
