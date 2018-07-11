@@ -7,13 +7,14 @@ public class GuiScript : MonoBehaviour {
 
 #pragma warning disable 0414
     float lifetime = 5.0f;   //lifetime in seconds
-    float rateOfText = 0.05f;  //Time between letters
+    float rateOfText = 0.1f;  //Time between letters
     float currentRateOfText
     {
         get { return speedUpText == true ? rateOfText / 2 : rateOfText; }
     }
     bool speedUpText = false;
     bool clickToGetToNextMessageBubble = false;
+    bool currentlySpammingText = false;
 
     //Image properties
     private float FadeRate = 2.5f;  //Rate of fade
@@ -76,17 +77,20 @@ public class GuiScript : MonoBehaviour {
 
         if (myText.text == string.Empty)
             FadeOut();
+    }
 
+    void FixedUpdate()
+    {
         bool anyAbuttonDown = speedUpText = Input.GetButtonDown(Inputs.AButton());
 
-        if (clickToGetToNextMessageBubble)  //Vi väntar på input ifrån spelaren
+        if (clickToGetToNextMessageBubble && !currentlySpammingText)  //Vi väntar på input ifrån spelaren
             if (anyAbuttonDown)  //Spelaren vill få nästa äventyrsbubbla
                 StartCoroutine(AddText());
 
 
+        Debug.Log("speedUpText = " + speedUpText);
+        Debug.Log("currentRateOfText = " + currentRateOfText);
     }
-
-    void FixedUpdate() { }
     void LateUpdate() { }
 
     public void FadeOut()
@@ -107,15 +111,17 @@ public class GuiScript : MonoBehaviour {
         if (messageQueue.Count > 0) //Det kommer mer text efter detta
             textToAdd += "      ...";
 
+            currentlySpammingText = true;
+
         foreach (var c in textToAdd)
         {
             myText.text += c;
-            yield return new WaitForSeconds(rateOfText);
+            yield return new WaitForSeconds(currentRateOfText);
         }
 
-        if (messageQueue.Count > 0)
-            clickToGetToNextMessageBubble = true;
-            //StartCoroutine(AddText());
+        clickToGetToNextMessageBubble = (messageQueue.Count > 0);
+
+        currentlySpammingText = false;
     }
 
     private void ClearText()
