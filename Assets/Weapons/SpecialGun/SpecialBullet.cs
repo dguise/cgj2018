@@ -16,8 +16,6 @@ public class SpecialBullet : Projectile
     Vector2 vectorFromGraph;
 
     public AnimationCurve bulletCurve;
-    //You can evaluate the curve(get the y for an x value) with:
-    //float y = this.myCurve.Evaluate(x);
 
     private Vector2 PrevVectorFromGraph;
 
@@ -30,28 +28,21 @@ public class SpecialBullet : Projectile
         life += Time.deltaTime * bulletSpeed;
         var rbody = this.GetComponent<Rigidbody2D>();
         Vector2 vectorFromGraph =  new Vector2(Time.deltaTime * bulletSpeed, (bulletCurve.Evaluate((life + Time.deltaTime * bulletSpeed) / lifetime) - bulletCurve.Evaluate(life / lifetime)));
-        //Debug.Log(Vector2.SignedAngle(Vector2.right, direction));
+        
         vectorFromGraph = vectorFromGraph.MaakepRotate(Vector2.SignedAngle(Vector2.right, direction));
         rbody.velocity = vectorFromGraph * bulletRange * 100f;
     }
 
-    public void FixedUpdate()
-    {
-        //life += Time.fixedDeltaTime;
-        //var rbody = this.GetComponent<Rigidbody2D>();
-        //Vector2 vectorFromGraph = new Vector2(Time.fixedDeltaTime, (bulletCurve.Evaluate((life + Time.fixedDeltaTime)/lifetime) - bulletCurve.Evaluate(life/lifetime)));
-        //rbody.velocity = vectorFromGraph * sp;
-    }
 
     public void SetStartAndDirectionVectorAndSpeed(Vector2 start, Vector2 dir, float aSpeed)
     {
         startPos = start;
         direction = dir;
-        speed = 1;
+        speed = aSpeed;
 
-        pos2 = Vector2Extender.Rotate(direction, -30).normalized * speed * (0.40f * lifetime);
-        pos3 = Vector2Extender.Rotate(direction, 30).normalized * speed * (0.80f * lifetime);
-        pos4 = dir * speed * lifetime;
+        //pos2 = Vector2Extender.Rotate(direction, -30).normalized * speed * (0.40f * lifetime);
+        //pos3 = Vector2Extender.Rotate(direction, 30).normalized * speed * (0.80f * lifetime);
+        //pos4 = dir * speed * lifetime;
 
         //startPos = start;
         //pos2 = start + Vector2.right;
