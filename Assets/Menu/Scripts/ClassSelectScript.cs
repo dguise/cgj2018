@@ -11,14 +11,14 @@ public class ClassSelectScript : MonoBehaviour {
     private int currentChoice = 0;
     private UnityEngine.UI.Image portraitImage;
     public int playerID = 1;
-    public float timestamp;
+    public bool released;
     float cooldown = 0.3f;
     GameObject[] players = new GameObject[2];
 
     void Start ()
     {
         this.portraitImage = this.GetComponentsInChildren<UnityEngine.UI.Image>()[3];
-        timestamp = -cooldown;
+        released = true;
     }
 	
 	void FixedUpdate() 
@@ -26,22 +26,21 @@ public class ClassSelectScript : MonoBehaviour {
         if (PlayerManager.playerReady[playerID])
         {
 		    float horizontal = Input.GetAxisRaw(Inputs.DPadAxis(PlayerManager.controllerId[playerID]));
-            if (Mathf.Abs(horizontal) > 0.5 && timestamp + cooldown < Time.time)
+            if (Mathf.Abs(horizontal) > 0.5 && released)
             {
-                timestamp = Time.time;
+                released = false;
                 this.currentChoice = ((this.currentChoice + (int)Mathf.Ceil(horizontal)) % choices + choices) % choices;
 
                 this.portraitImage.sprite = portraitsArray[this.currentChoice];
                 
                 if (horizontal > 0) {
-                    //Transform rightArrow = transform.Find("RightArrow");
-                    //var anim = rightArrow.GetComponent<Animator>();
-                    //anim.SetTrigger("RightArrow");
+                    Transform rightArrow = transform.Find("RightArrow");
+                    var anim = rightArrow.GetComponent<Animator>();
+                    anim.SetTrigger("RightArrow");
                 } else {
-                    //Transform leftArrow = transform.Find("LeftArrow");
-                    //var anim = leftArrow.GetComponent<Animator>();
-
-                    //anim.SetTrigger("LeftArrow");
+                    Transform leftArrow = transform.Find("LeftArrow");
+                    var anim = leftArrow.GetComponent<Animator>();
+                    anim.SetTrigger("LeftArrow");
                 }
 
                 PlayerManager.playerClass[playerID] = (PlayerManager.CharacterClassesEnum)this.currentChoice;
@@ -51,6 +50,9 @@ public class ClassSelectScript : MonoBehaviour {
 
                 Debug.Log(players[playerID].GetComponent<Player>().PlayerClass);
 
+            } else if (Mathf.Abs(horizontal) < 0.5 && !released) 
+            {
+                released = true;
             }
         } else {
             if (PlayerManager.players == playerID) {
