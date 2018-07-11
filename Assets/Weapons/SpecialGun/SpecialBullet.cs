@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class SpecialBullet : Projectile
 {
@@ -22,6 +23,10 @@ public class SpecialBullet : Projectile
     public SpecialBullet() : base(speed, lifetime, damage)
     { }
 
+    private void Start()
+    {
+        InvokeRepeating("SpawnTrail", 0, 0.5f);
+    }
 
     public void Update()
     {
@@ -31,6 +36,9 @@ public class SpecialBullet : Projectile
         
         vectorFromGraph = vectorFromGraph.MaakepRotate(Vector2.SignedAngle(Vector2.right, direction));
         rbody.velocity = vectorFromGraph * bulletRange * 100f;
+
+        var angle = Mathf.Atan2(vectorFromGraph.y, vectorFromGraph.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
 
 
@@ -40,15 +48,30 @@ public class SpecialBullet : Projectile
         direction = dir;
         speed = aSpeed;
 
-        //pos2 = Vector2Extender.Rotate(direction, -30).normalized * speed * (0.40f * lifetime);
-        //pos3 = Vector2Extender.Rotate(direction, 30).normalized * speed * (0.80f * lifetime);
-        //pos4 = dir * speed * lifetime;
-
-        //startPos = start;
-        //pos2 = start + Vector2.right;
-        //pos3 = pos2 + Vector2.up;
-        //pos4 = start + Vector2.up;
     }
+
+    void SpawnTrail()
+    {
+        GameObject trailPart = new GameObject();
+        SpriteRenderer trailPartRenderer = trailPart.AddComponent<SpriteRenderer>();
+        trailPartRenderer.sprite = GetComponent<SpriteRenderer>().sprite;
+        trailPart.transform.position = transform.position;
+        trailPart.transform.rotation = transform.rotation;
+        Destroy(trailPart, 0.5f); // lifetime
+
+        StartCoroutine("FadeTrailPart", trailPartRenderer);
+    }
+
+    IEnumerator FadeTrailPart(SpriteRenderer trailPartRenderer)
+    {
+        Color color = trailPartRenderer.color;
+        color.a -= 0.5f; // alpha decrement
+        trailPartRenderer.color = color;
+
+        yield return new WaitForEndOfFrame();
+    }
+
+
 
     private Vector2 CatmullRomTangent(Vector2 p1, Vector2 p2, Vector2 p3, Vector2 p4, float t)
     {
