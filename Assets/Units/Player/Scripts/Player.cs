@@ -45,6 +45,7 @@ public class Player : Unit
 
     void HandleLevelUp()
     {
+        Debug.Log("You are now level " + Stats.Level + " with exp: " + Stats.Experience);
         // Do Leveling stuff
         // Particle?
         // Add ability? 
@@ -71,7 +72,7 @@ public class Player : Unit
     {
         if (PlayerManager.playerReady[playerID])
         {
-            //Movement
+            // Movement
             if (Input.GetButtonDown(Inputs.AButton(playerID + 1)))
             {
                 if (canDash)
@@ -89,7 +90,7 @@ public class Player : Unit
                 }
             }
 
-            //Attack
+            // Attack
             Vector2 attackDirection = new Vector2(Input.GetAxisRaw(Inputs.FireHorizontal(PlayerManager.controllerId[playerID])), Input.GetAxisRaw(Inputs.FireVertical(PlayerManager.controllerId[playerID])));
 
             Vector2 attackPosition = transform.position;
@@ -134,5 +135,6 @@ public class Player : Unit
     public override void TakeDamageExtender(float damage, GameObject sender, Collider2D collider)
     {
         // Currently don't give af
+        // If class is X heal yourself and all around with 15% of damage
     }
 }

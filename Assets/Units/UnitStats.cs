@@ -25,7 +25,6 @@ public class UnitStats
     private int _experiencePerLevel = 200;
     public void GainExperience(int xp)
     {
-        xp += Experience;
         if (xp >= _experiencePerLevel)
         {
             // TODO: Graphical level up?
@@ -37,7 +36,6 @@ public class UnitStats
             GainExperience(xp);
         }
         Experience += xp;
-        Debug.Log("You are now level " + Level + " with exp: " + Experience);
     }
 }
 

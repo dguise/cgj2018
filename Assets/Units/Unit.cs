@@ -6,7 +6,7 @@ public abstract class Unit : MonoBehaviour
     [SerializeField]
     [Range(0, 10)]
     protected float movementSpeed;
-    protected UnitStats Stats = new UnitStats();
+    public UnitStats Stats = new UnitStats();
 
     public int ExperienceWorth = 1;
 
@@ -43,6 +43,9 @@ public abstract class Unit : MonoBehaviour
 
     public float TakeDamage(float damage, GameObject sender, Collider2D collider)
     {
+        if (Stats.Status.Contains(Statuses.Invincible))
+            return 0f;
+
         Health -= damage;
         if (damage > 0)
         {
