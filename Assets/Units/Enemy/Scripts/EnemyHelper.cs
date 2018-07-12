@@ -5,6 +5,7 @@ public enum EnemyClass
     RegularEnemy,
     EnemySpawner,
     Melee,
+    SuicideCrawler,
 }
 public class EnemyHelper
 {
@@ -22,6 +23,9 @@ public class EnemyHelper
                 break;
             case EnemyClass.Melee:
                 weapon = new MeleeGun(go);
+                break;
+            case EnemyClass.SuicideCrawler:
+                weapon = new ExplodeSelfGun(go);
                 break;
 
         }

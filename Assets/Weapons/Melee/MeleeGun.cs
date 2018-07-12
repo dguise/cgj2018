@@ -21,7 +21,6 @@ public class MeleeGun : Weapon
     private Transform to;
     public override GameObject Attack(Transform from, Transform to)
     {
-        Debug.Log("Trigger Attack");
         this.from = from;
         this.to = to;
         if (attackTimestamp + cooldown <= Time.time && !isAttacking)
@@ -31,7 +30,7 @@ public class MeleeGun : Weapon
         }
         return null;
     }
-    bool isAttacking = false;
+    public bool isAttacking = false;
     public void PerformAttack()
     {
         base.Attack(from, to);

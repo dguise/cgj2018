@@ -20,7 +20,10 @@ public abstract class Weapon : IWeapon
     }
     public virtual GameObject Attack(Transform from, Transform towards)
     {
-        return Attack(from.transform.position, towards.transform.position - from.transform.position, Quaternion.identity, radius);
+        if (from != null && towards != null)
+            return Attack(from.transform.position, towards.transform.position - from.transform.position, Quaternion.identity, radius);
+
+        return null;
     }
 
     public virtual GameObject Attack(Vector2 position, Vector2 direction, Quaternion rotation, float radius)
