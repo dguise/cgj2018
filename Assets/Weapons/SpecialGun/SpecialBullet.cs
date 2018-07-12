@@ -15,12 +15,13 @@ public class SpecialBullet : Projectile
     //private Vector2 pos3 = Vector2.zero;
     //private Vector2 pos4 = Vector2.zero;
     Vector2 vectorFromGraph;
+    private static int sound = 2;
 
     public AnimationCurve bulletCurve;
 
     private Vector2 PrevVectorFromGraph;
 
-    public SpecialBullet() : base(speed, lifetime, damage)
+    public SpecialBullet() : base(speed, lifetime, damage, sound)
     { }
 
     private void Start()

@@ -13,6 +13,7 @@ public class ShieldBullet : Projectile
     private Vector2 pos2 = Vector2.right + Vector2.up * 2;
     private Vector2 pos3 = Vector2.left + Vector2.up * 2;
     private Vector2 pos4 = Vector2.left;
+    private static int sound = 1;
 
     public bool ShouldCirculate = true;
 
@@ -20,7 +21,7 @@ public class ShieldBullet : Projectile
     //You can evaluate the curve(get the y for an x value) with:
     //float y = this.myCurve.Evaluate(x);
 
-    public ShieldBullet() : base(speed, lifetime, damage)
+    public ShieldBullet() : base(speed, lifetime, damage, sound)
     { }
 
     public void Awake() {

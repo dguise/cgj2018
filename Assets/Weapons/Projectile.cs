@@ -9,16 +9,20 @@ public abstract class Projectile : MonoBehaviour
     // Is set by Weapon.cs
     public GameObject Owner { get; set; }
     public bool destroyOnCollision = true;
+    public int Sound { get; set; }
 
-    public Projectile(float speed, float lifetime, float damage)
+    public Projectile (float speed, float lifetime, float damage, int sound = 0)
     {
         this.Speed = speed;
         this.Lifetime = lifetime;
         this.Damage = damage;
+        this.Sound = sound;
     }
 
     private void Awake()
     {
+		SoundManager sm = SoundManager.instance;
+        sm.PlayRandomize(0.05f, Sound);
         Invoke("Die", Lifetime);
     }
 
