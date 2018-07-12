@@ -208,7 +208,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player1: {fileID: 982794817}
   player2: {fileID: 982794817}
---- !u!1001 &461339024
+--- !u!1001 &912906708
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -246,22 +246,6 @@ Prefab:
     - target: {fileID: 4437479095245290, guid: db4027532f8ce2c47a200edaba08101c, type: 2}
       propertyPath: m_RootOrder
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1909474684545504, guid: db4027532f8ce2c47a200edaba08101c, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1824417586817670, guid: db4027532f8ce2c47a200edaba08101c, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4299962066523160, guid: db4027532f8ce2c47a200edaba08101c, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0.987
-      objectReference: {fileID: 0}
-    - target: {fileID: 4781485135413810, guid: db4027532f8ce2c47a200edaba08101c, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: -0.973
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: db4027532f8ce2c47a200edaba08101c, type: 2}

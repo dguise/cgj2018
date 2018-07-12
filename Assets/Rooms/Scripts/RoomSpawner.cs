@@ -36,12 +36,28 @@ public class RoomSpawner : MonoBehaviour {
 		}
 
 		for (int i = 0; i < nTiles; i++) {
-			rooms[0, i].GetComponent<RoomController>().SetDoor(false, RoomController.Direction.WEST);
+			// rooms[0, i].GetComponent<RoomController>().SetDoor(false, RoomController.Direction.WEST);
 			rooms[nTiles-1, i].GetComponent<RoomController>().SetDoor(false, RoomController.Direction.EAST);
 			rooms[i, 0].GetComponent<RoomController>().SetDoor(false, RoomController.Direction.SOUTH);
-			rooms[i, nTiles-1].GetComponent<RoomController>().SetDoor(false, RoomController.Direction.NORTH);
+			// rooms[i, nTiles-1].GetComponent<RoomController>().SetDoor(false, RoomController.Direction.NORTH);
 		}
 
 		PlayerManager.PlayerObjects.Add(GameObject.FindGameObjectWithTag(Tags.Player));
+	}
+
+	public void UnlockAllRooms() {
+		for (int x = 0; x < nTiles; x++) {
+			for (int y = 0; y < nTiles; y++) {
+				rooms[x, y].GetComponent<RoomController>().UnlockAllDoors();
+			}
+		}
+	}
+
+	public void LockAllRooms() {
+		for (int x = 0; x < nTiles; x++) {
+			for (int y = 0; y < nTiles; y++) {
+				rooms[x, y].GetComponent<RoomController>().LockAllDoors();
+			}
+		}
 	}
 }

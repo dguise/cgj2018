@@ -11,6 +11,13 @@ public class RoomController : MonoBehaviour {
 		public const string WEST = "West";
 	}
 
+	private enum State {
+		Active,
+		Inactive,
+		Finished
+	}
+	private State state = State.Inactive;
+
 	private Dictionary<string, DoorController> doors = new Dictionary<string, DoorController>();
 	private Light light;
 	public float lightTriggerRadius = 15f;
@@ -29,10 +36,10 @@ public class RoomController : MonoBehaviour {
 	private const bool SPAWNMONSTERS = true;
 
 	void Awake () {
-		doors.Add(Direction.NORTH, transform.Find(Direction.NORTH).GetComponent<DoorController>());
+		// doors.Add(Direction.NORTH, transform.Find(Direction.NORTH).GetComponent<DoorController>());
 		doors.Add(Direction.EAST, transform.Find(Direction.EAST).GetComponent<DoorController>());
 		doors.Add(Direction.SOUTH, transform.Find(Direction.SOUTH).GetComponent<DoorController>());
-		doors.Add(Direction.WEST, transform.Find(Direction.WEST).GetComponent<DoorController>());
+		// doors.Add(Direction.WEST, transform.Find(Direction.WEST).GetComponent<DoorController>());
 
 		light = transform.Find("Light").gameObject.GetComponent<Light>();
 
@@ -48,21 +55,23 @@ public class RoomController : MonoBehaviour {
 		} else {
 			light.gameObject.SetActive(false);
 		}
+		// TODO: Fix for both players ^
 
-		if (SPAWNMONSTERS && !fog.activeInHierarchy && !isActive) {
+		if (SPAWNMONSTERS && !fog.activeInHierarchy && state == State.Inactive) {
 			SpawnMonsters();
-			isActive = true;
+			// isActive = true;
+			state = State.Active;
 		}
 
 		// Does room still have MORTAL ENEMYYYY?
-		if (isActive && myMonsters.Where(x => x != null).Count() == 0) {
-			Debug.Log("Congratulations, you win this room.");
+		if (state == State.Active && myMonsters.Where(x => x != null).Count() == 0) {
+			isActive = false;
+			state = State.Finished;
 			foreach (DoorController rc in doors.Values) {
-				rc.UnlockDoor();
+				// rc.UnlockDoor();
+				GetComponentInParent<RoomSpawner>().UnlockAllRooms();
 			}
 		}
-
-		// TODO: Fix for both players
 	}
 
 	// PERS ELLIPSE FOH-SIGH SHIZ
@@ -133,9 +142,19 @@ public class RoomController : MonoBehaviour {
 	}
 
 	public void SetAllDoors(bool open) {
-		SetDoor(open, Direction.NORTH);
+		// SetDoor(open, Direction.NORTH);
 		SetDoor(open, Direction.EAST);
 		SetDoor(open, Direction.SOUTH);
-		SetDoor(open, Direction.WEST);
+		// SetDoor(open, Direction.WEST);
+	}
+
+	public void LockAllDoors() {
+		doors[Direction.EAST].LockDoor();
+		doors[Direction.SOUTH].LockDoor();
+	}
+
+	public void UnlockAllDoors() {
+		doors[Direction.EAST].UnlockDoor();
+		doors[Direction.SOUTH].UnlockDoor();
 	}
 }

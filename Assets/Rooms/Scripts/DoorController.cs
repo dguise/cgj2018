@@ -8,6 +8,12 @@ public class DoorController : MonoBehaviour {
 	private GameObject doorLight;
 	private CircleCollider2D trigger;
 
+	private enum State {
+		Active,
+		Finished
+	}
+	private State state = State.Active;
+
 	// Use this for initialization
 	void Awake () {
 		door = transform.Find("Door").gameObject;
@@ -21,6 +27,8 @@ public class DoorController : MonoBehaviour {
 	public void OpenDoor() {
 		door.SetActive(false);
 		fence.SetActive(false);
+		trigger.enabled = false;
+		doorLight.SetActive(false);
 	}
 
 	public void CloseDoor() {
@@ -34,12 +42,18 @@ public class DoorController : MonoBehaviour {
 	}
 
 	public void UnlockDoor() {
-		doorLight.SetActive(true);
-		trigger.enabled = true;
+		if (state != State.Finished) {
+			doorLight.SetActive(true);
+			trigger.enabled = true;
+		}
 	}
 
 	void OnTriggerEnter2D(Collider2D col) {
-		OpenDoor();
-		LockDoor();
+		if (col.tag == Tags.Player) {
+			OpenDoor();
+			LockDoor();
+			GetComponentInParent<RoomSpawner>().LockAllRooms();
+			state = State.Finished;
+		}
 	}
 }
