@@ -761,6 +761,25 @@ Prefab:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 224538828273571176, guid: 914e656f49e6adc419f931ba73af3aa2,
+        type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1607126373415320, guid: 914e656f49e6adc419f931ba73af3aa2, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114403412336212610, guid: 914e656f49e6adc419f931ba73af3aa2,
+        type: 2}
+      propertyPath: movementSpeed
+      value: 4.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114403412336212610, guid: 914e656f49e6adc419f931ba73af3aa2,
+        type: 2}
+      propertyPath: maxHealth
+      value: 500
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 914e656f49e6adc419f931ba73af3aa2, type: 2}
   m_IsPrefabParent: 0

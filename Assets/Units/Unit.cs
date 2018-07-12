@@ -9,8 +9,6 @@ public abstract class Unit : MonoBehaviour
     [SerializeField]
     [Range(10f, 500f)]
     public float maxHealth;
-    [SerializeField]
-    [Range(10f, 500f)]
     private float _health;
     public float Health {
         get
@@ -33,7 +31,12 @@ public abstract class Unit : MonoBehaviour
             return Health <= 0;
         }
     }
-    
+
+    private void Awake()
+    {
+        Health = maxHealth;
+    }
+
     public float TakeDamage(float damage, GameObject sender, Collider2D collider)
     {
         Health -= damage;
