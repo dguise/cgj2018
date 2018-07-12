@@ -35,8 +35,10 @@ class ShieldGun : Weapon
         {
             foreach (var proj in projectiles)
             {
-                proj.GetComponent<ShieldBullet>().ShouldCirculate = false;
+                ShieldBullet bullet = proj.GetComponent<ShieldBullet>();
+                bullet.ShouldCirculate = false;
                 proj.GetComponent<Rigidbody2D>().velocity = direction.normalized * speed;
+                bullet.Invoke("Die", bullet.Lifetime);
             }
             projectiles.Clear();
         }

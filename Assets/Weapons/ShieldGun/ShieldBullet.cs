@@ -3,7 +3,7 @@
 public class ShieldBullet : Projectile
 {
     private static float speed = 10;
-    private static float lifetime = 3;
+    private static float lifetime = 10;
     private static float damage = 10;
     private float life = 0;
     private float range = 2;
@@ -22,6 +22,10 @@ public class ShieldBullet : Projectile
 
     public ShieldBullet() : base(speed, lifetime, damage)
     { }
+
+    public void Awake() {
+        
+    }
 
     public void Start() {
         ownerTransform = Owner.GetComponent<Transform>();
