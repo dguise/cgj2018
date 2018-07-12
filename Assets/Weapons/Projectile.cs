@@ -8,8 +8,9 @@ public abstract class Projectile : MonoBehaviour
     public float Damage { get; set; }
     // Is set by Weapon.cs
     public GameObject Owner { get; set; }
+    public bool destroyOnCollision = true;
 
-    public Projectile (float speed, float lifetime, float damage)
+    public Projectile(float speed, float lifetime, float damage)
     {
         this.Speed = speed;
         this.Lifetime = lifetime;
@@ -34,7 +35,7 @@ public abstract class Projectile : MonoBehaviour
         if (unit != null)
         {
             unit.TakeDamage(Damage, Owner, collision.collider);
-            Destroy(gameObject);
+            Die();
         }
     }
 
@@ -42,7 +43,8 @@ public abstract class Projectile : MonoBehaviour
     {
         if (col.gameObject.layer == LayerConstants.GetLayer("Wall").value)
         {
-            Destroy(gameObject);
+            if (destroyOnCollision)
+                Die();
         }
     }
 
