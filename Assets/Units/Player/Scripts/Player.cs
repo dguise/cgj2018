@@ -22,7 +22,7 @@ public class Player : Unit
     private float dashTime = 0.5f;
     private float dashResetTime
     {
-        get { return dashTime * 10; }
+        get { return dashTime * 5; }
     }
 
     public PlayerManager.CharacterClassesEnum PlayerClass;
@@ -98,17 +98,17 @@ public class Player : Unit
     IEnumerator Dash()
     {
         dashing = true;
+        canDash = false;
 
         Vector2 lastDirection = rb.velocity.normalized;
 
         rb.velocity = Vector2.zero;
 
-
         rb.AddRelativeForce(-1 * (lastDirection * movementSpeed * 2), ForceMode2D.Impulse);
         anim.SetFloat(AnimatorConstants.Speed, rb.velocity.magnitude);
 
-        yield return new WaitForSeconds(dashTime);
         Invoke("EnableDash", dashResetTime);
+        yield return new WaitForSeconds(dashTime);
         dashing = false;
     }
 
