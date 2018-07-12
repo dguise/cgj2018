@@ -45,15 +45,19 @@ public class RoomController : MonoBehaviour {
 	}
 
 	void Update() {
-		if (Vector2.Distance(PlayerManager.PlayerObjects[0].transform.position, light.transform.position) < lightTriggerRadius) {
+		if (Vector2.Distance(PlayerManager.PlayerObjects[0].transform.position, light.transform.position) < lightTriggerRadius ||
+			Vector2.Distance(PlayerManager.PlayerObjects[1].transform.position, light.transform.position) < lightTriggerRadius) {
 			light.gameObject.SetActive(true);
-			float normdist = Mathf.Max(Vector2.Distance(PlayerManager.PlayerObjects[0].transform.position, light.transform.position) - lightMaxRadius, 0);
+			float normdist = Mathf.Max(
+				Mathf.Min(
+					Vector2.Distance(PlayerManager.PlayerObjects[0].transform.position, light.transform.position) - lightMaxRadius,
+					Vector2.Distance(PlayerManager.PlayerObjects[1].transform.position, light.transform.position) - lightMaxRadius),
+				0);
 			float factor = 1 - normdist / (lightTriggerRadius - lightMaxRadius);
 			light.range = maxLight * factor;
 		} else {
 			light.gameObject.SetActive(false);
 		}
-		// TODO: Fix for both players ^
 
 		if (SPAWNMONSTERS && !fog.activeInHierarchy && state == State.Inactive) {
 			SpawnMonsters();
