@@ -36,10 +36,8 @@ public class RoomController : MonoBehaviour {
 	private const bool SPAWNMONSTERS = true;
 
 	void Awake () {
-		// doors.Add(Direction.NORTH, transform.Find(Direction.NORTH).GetComponent<DoorController>());
 		doors.Add(Direction.EAST, transform.Find(Direction.EAST).GetComponent<DoorController>());
 		doors.Add(Direction.SOUTH, transform.Find(Direction.SOUTH).GetComponent<DoorController>());
-		// doors.Add(Direction.WEST, transform.Find(Direction.WEST).GetComponent<DoorController>());
 
 		light = transform.Find("Light").gameObject.GetComponent<Light>();
 
@@ -59,7 +57,6 @@ public class RoomController : MonoBehaviour {
 
 		if (SPAWNMONSTERS && !fog.activeInHierarchy && state == State.Inactive) {
 			SpawnMonsters();
-			// isActive = true;
 			state = State.Active;
 		}
 
@@ -67,10 +64,7 @@ public class RoomController : MonoBehaviour {
 		if (state == State.Active && myMonsters.Where(x => x != null).Count() == 0) {
 			isActive = false;
 			state = State.Finished;
-			foreach (DoorController rc in doors.Values) {
-				// rc.UnlockDoor();
-				GetComponentInParent<RoomSpawner>().UnlockAllRooms();
-			}
+			GetComponentInParent<RoomSpawner>().UnlockAllRooms();
 		}
 	}
 
@@ -145,10 +139,8 @@ public class RoomController : MonoBehaviour {
 	}
 
 	public void SetAllDoors(bool open) {
-		// SetDoor(open, Direction.NORTH);
 		SetDoor(open, Direction.EAST);
 		SetDoor(open, Direction.SOUTH);
-		// SetDoor(open, Direction.WEST);
 	}
 
 	public void LockAllDoors() {

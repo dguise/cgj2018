@@ -14,6 +14,9 @@ public class DoorController : MonoBehaviour {
 	}
 	private State state = State.Active;
 
+	private float timestamp;
+	private float unlockTime = 1f;
+
 	// Use this for initialization
 	void Awake () {
 		door = transform.Find("Door").gameObject;
@@ -45,11 +48,12 @@ public class DoorController : MonoBehaviour {
 		if (state != State.Finished) {
 			doorLight.SetActive(true);
 			trigger.enabled = true;
+			timestamp = Time.time;
 		}
 	}
 
 	void OnTriggerEnter2D(Collider2D col) {
-		if (col.tag == Tags.Player) {
+		if (col.tag == Tags.Player && Time.time - timestamp > unlockTime) {
 			OpenDoor();
 			LockDoor();
 			GetComponentInParent<RoomSpawner>().LockAllRooms();
