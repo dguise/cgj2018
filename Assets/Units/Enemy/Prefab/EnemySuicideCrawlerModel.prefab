@@ -743,6 +743,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 4.88
+  ExperienceWorth: 0
   maxHealth: 10
   target: {fileID: 0}
   AttackRange: 0.6

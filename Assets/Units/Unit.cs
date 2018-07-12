@@ -6,6 +6,10 @@ public abstract class Unit : MonoBehaviour
     [SerializeField]
     [Range(0, 10)]
     protected float movementSpeed;
+    protected UnitStats Stats = new UnitStats();
+
+    public int ExperienceWorth = 1;
+
     [SerializeField]
     [Range(10f, 500f)]
     public float maxHealth;
@@ -60,7 +64,11 @@ public abstract class Unit : MonoBehaviour
                     rigid.constraints = RigidbodyConstraints2D.FreezeAll;
                 }  
             } else {
+                var killer = sender.GetComponent<Unit>();
+                if (killer != null)
+                    killer.Stats.GainExperience(ExperienceWorth);
                 Destroy(gameObject);
+                // Play generic death particle & sound?
             }
         }
 

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -38,6 +39,15 @@ public class Player : Unit
         rb = GetComponent<Rigidbody2D>();
 
         DontDestroyOnLoad(this);
+
+        Stats.OnLevelUp = new Action(HandleLevelUp);
+    }
+
+    void HandleLevelUp()
+    {
+        // Do Leveling stuff
+        // Particle?
+        // Add ability? 
     }
 
 
