@@ -44,7 +44,7 @@ class EnemySpawnerBullet : Projectile
 
         foreach (var obj in spawn)
         {
-            obj.GetComponent<Enemy>().target = Owner.GetComponent<Enemy>().target;
+            // obj.GetComponent<Enemy>().target = Owner.GetComponent<Enemy>().target;
         }
         Destroy(gameObject);
         // Set their target to Owners GetComponent Enemy target

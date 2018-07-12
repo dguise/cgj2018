@@ -571,7 +571,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 2.45
+  m_Radius: 3.89
 --- !u!95 &95434170124370778
 Animator:
   serializedVersion: 3
@@ -603,9 +603,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 4.88
   _health: 10
-  AttackRange: 0.2
+  target: {fileID: 0}
+  AttackRange: 0.5
   enemyClass: 3
-  AggroRange: 2.6
+  AggroRange: 10
   RandomOffset: 0
 --- !u!137 &137118293015023176
 SkinnedMeshRenderer:

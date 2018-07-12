@@ -603,6 +603,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 4.88
   _health: 50
+  target: {fileID: 0}
   AttackRange: 8.6
   enemyClass: 1
   AggroRange: 9.2

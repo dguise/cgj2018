@@ -50,6 +50,7 @@ public class Enemy : Unit {
                 target = null;
                 rb.velocity = Vector2.zero;
             }
+
             // Apply movement
             rb.velocity = ((target.position + randomOffset) - transform.position).normalized * movementSpeed;
             // Apply rotation
