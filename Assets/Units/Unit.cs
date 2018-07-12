@@ -57,6 +57,7 @@ public abstract class Unit : MonoBehaviour
                     Rigidbody2D rigid = gameObject.GetComponent<Rigidbody2D>();
                     rigid.velocity = Vector2.zero;
                     gameObject.transform.rotation = Quaternion.Euler(90, 0, 90);
+                    rigid.constraints = RigidbodyConstraints2D.FreezeAll;
                 }  
             } else {
                 Destroy(gameObject);
