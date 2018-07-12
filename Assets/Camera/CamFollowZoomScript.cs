@@ -12,7 +12,7 @@ public class CamFollowZoomScript : MonoBehaviour
 	public List<GameObject> players = new List<GameObject>();
 	float zoomSpeed = 10f;
 	float dampTime = 0.1f;
-	float extraSize = 2f;
+	public float extraSize = 7f;
 	float minSize = 7f;
 	Vector3 wantedPosition;
 	public int foundPlayers = 0;
@@ -56,7 +56,7 @@ public class CamFollowZoomScript : MonoBehaviour
 		
 		if (foundPlayers > 0) {
 			Move();
-			Zoom();
+			ZoomPerspective();
 		}
 	}
 
@@ -91,7 +91,7 @@ public class CamFollowZoomScript : MonoBehaviour
 		transform.position = wantedPosition;
 	}
 
-	private void Zoom() 
+	private void ZoomOrthogonal() 
 	{
 		Vector3 wantedLocalPosition = transform.InverseTransformPoint(wantedPosition);
 		float size = 0f;
@@ -115,6 +115,21 @@ public class CamFollowZoomScript : MonoBehaviour
         size = Mathf.Max(size, minSize);
 
         camera.orthographicSize = Mathf.SmoothDamp(camera.orthographicSize, size, ref zoomSpeed, dampTime);
+	}
+
+	private void ZoomPerspective()
+	{
+
+		float distance = Vector3.Scale(wantedPosition - players[0].transform.position, new Vector3(1, 1, 0)).magnitude;
+		float oppositeCathethus = Mathf.Abs(distance);
+		float newDistance = oppositeCathethus/(Mathf.Tan(Mathf.PI/180 *camera.fieldOfView/2));
+		Debug.Log("OppositeCathetus: " + oppositeCathethus);
+		Debug.Log("New Distance: " + newDistance);
+		newDistance = Mathf.Max(newDistance/2 + extraSize, 13f);
+        camera.transform.position = new Vector3(camera.transform.position.x, 
+												camera.transform.position.y,
+												-newDistance);
+
 	}
 
 }
