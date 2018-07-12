@@ -16,9 +16,11 @@ public class MaskSelectorScript : MonoBehaviour {
         currentMeshFilter = GetComponent<MeshFilter>();
     }
 	
-    public void SetMash(PlayerManager.CharacterClassesEnum selectedClass)
+    public void SetMask(PlayerManager.CharacterClassesEnum selectedClass)
     {
-        currentMesh = listOfMeshes[(int)selectedClass];
+        transform.GetChild((int)selectedClass).gameObject.SetActive(true);
+
+        //currentMesh = listOfMeshes[(int)selectedClass];
         //currentMeshFilter = listOfMeshFilters[(int)selectedClass];
     }
 }

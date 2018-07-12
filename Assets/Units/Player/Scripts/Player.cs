@@ -50,6 +50,10 @@ public class Player : Unit
         // Add ability? 
     }
 
+    public void UpdateMask(PlayerManager.CharacterClassesEnum aClass)
+    {
+        head.GetComponent<MaskSelectorScript>().SetMask(aClass);
+    }
 
     private void Update()
     {
