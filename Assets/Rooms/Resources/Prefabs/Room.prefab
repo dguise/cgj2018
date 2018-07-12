@@ -1177,6 +1177,7 @@ MonoBehaviour:
   monsters:
   - {fileID: 1070222423902940, guid: 4776c521a9d79e34595b2030be8b7452, type: 2}
   - {fileID: 1070222423902940, guid: 657fc8fb13f859c4d8302ccf8069f12c, type: 2}
+  - {fileID: 1620681936755202, guid: 275203fac049fe249830fbf773b68494, type: 2}
   spawnPoints:
   - {x: 2, y: 2}
   - {x: 4, y: 2}

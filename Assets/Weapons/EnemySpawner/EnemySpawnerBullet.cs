@@ -26,7 +26,7 @@ class EnemySpawnerBullet : Projectile
     {
         List<GameObject> spawn = new List<GameObject>();
         yield return new WaitForSeconds(lifetime - 0.7f);
-        var pos = transform.position;
+        var pos = Owner.transform.position;
         pos.x -= 1;
         spawn.Add(Instantiate(SpawnedEnemy, pos, SpawnedEnemy.transform.rotation));
         yield return new WaitForSeconds(0.1f);

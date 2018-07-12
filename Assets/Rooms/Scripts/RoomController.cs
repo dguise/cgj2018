@@ -133,7 +133,7 @@ public class RoomController : MonoBehaviour {
 				temp.x += transform.position.x;
 				temp.y += transform.position.y;
 				GameObject mon = monsters[Random.Range(0, monsters.Length)];
-				GameObject obj = Instantiate(mon, temp, Quaternion.identity);
+				GameObject obj = Instantiate(mon, temp, mon.transform.rotation);
 				myMonsters.Add(obj);
 			}
 		}
