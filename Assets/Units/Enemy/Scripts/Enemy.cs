@@ -35,10 +35,12 @@ public class Enemy : Unit {
         players = GameObject.FindGameObjectsWithTag(Tags.Player);
 
         if (RandomOffset)
-        randomOffset = new Vector2(UnityEngine.Random.Range(-5f, 5f), UnityEngine.Random.Range(-5f, 5f));
-        movementSpeed = movementSpeed * UnityEngine.Random.Range(0.8f, 1.3f);
+            randomOffset = new Vector2(UnityEngine.Random.Range(-5f, 5f), UnityEngine.Random.Range(-5f, 5f));
+        movementSpeed = movementSpeed * UnityEngine.Random.Range(0.85f, 1.15f);
+
+        body = transform.Find("Armature.001");
 	}
-	
+    Transform body;
 	void FixedUpdate () {
         if (target != null)
         {
@@ -47,15 +49,17 @@ public class Enemy : Unit {
                 target = null;
                 rb.velocity = Vector2.zero;
             }
-
+            // Apply movement
             rb.velocity = ((target.position + randomOffset) - transform.position).normalized * movementSpeed;
-            // TODO: Rotate
-            //transform.eulerAngles = new Vector3(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, (Mathf.Atan2(rb.velocity.y, rb.velocity.x) * 180 / Mathf.PI) * -1 - 90);
-
+            // Apply rotation
+            body.eulerAngles = new Vector3(body.eulerAngles.x, body.eulerAngles.y, (Mathf.Atan2(rb.velocity.x, rb.velocity.y) * 180 / Mathf.PI) + 180);
             if (targetIsPlayer && Vector2.Distance(target.position, transform.position) < AttackRange-1)
             {
                 rb.velocity = Vector2.zero;
             }
+            if (weapon.GetType() == typeof(MeleeGun) && targetIsPlayer && ((MeleeGun)weapon).isAttacking)
+                rb.velocity = Vector2.zero;
+
             if (anim != null)
                 anim.SetFloat("Speed", rb.velocity.magnitude);
         }
@@ -64,10 +68,7 @@ public class Enemy : Unit {
 
     public void PerformAttack()
     {
-        if (target != null && targetIsPlayer && Vector2.Distance(target.position, transform.position) <= AttackRange)
-        {
-            ((MeleeGun)weapon).PerformAttack();
-        }
+        ((MeleeGun)weapon).PerformAttack();
     }
 
     private void Update()
