@@ -9,11 +9,12 @@ public class Enemy : Unit {
     Animator anim;
 
     Transform start;
-    Transform target;
+    [HideInInspector]
+    public Transform target;
     bool targetIsPlayer = false;
 
     Weapon weapon;
-    [Range(1.6f, 20)]
+    [Range(0.2f, 20)]
     public float AttackRange = 4;
     public EnemyClass enemyClass;
     [Range(0, 10)]

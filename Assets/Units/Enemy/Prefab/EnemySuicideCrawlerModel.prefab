@@ -96,7 +96,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4819983999429452}
   m_Layer: 8
-  m_Name: Armature
+  m_Name: Armature.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -160,7 +160,7 @@ GameObject:
   - component: {fileID: 58686176993456090}
   - component: {fileID: 114330439205094400}
   m_Layer: 8
-  m_Name: SuicideCrawlerModel
+  m_Name: EnemySuicideCrawlerModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -443,8 +443,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1620681936755202}
   m_LocalRotation: {x: -0, y: 0.88460326, z: -0.46634454, w: 0}
-  m_LocalPosition: {x: -8.51, y: -0.09, z: 0}
-  m_LocalScale: {x: 0.16187477, y: 0.16187477, z: 0.16187477}
+  m_LocalPosition: {x: -5.02, y: -4.16, z: -0.17281}
+  m_LocalScale: {x: 0.04347658, y: 0.043476615, z: 0.043476615}
   m_Children:
   - {fileID: 4819983999429452}
   - {fileID: 4527577900689354}
@@ -571,7 +571,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 2.45
 --- !u!95 &95434170124370778
 Animator:
   serializedVersion: 3
@@ -603,9 +603,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 4.88
   _health: 10
-  AttackRange: 1.7
-  enemyClass: 2
-  AggroRange: 2.81
+  AttackRange: 0.2
+  enemyClass: 3
+  AggroRange: 2.6
   RandomOffset: 0
 --- !u!137 &137118293015023176
 SkinnedMeshRenderer:
