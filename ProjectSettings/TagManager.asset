@@ -38,11 +38,14 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: Default
-    uniqueID: 0
+  - name: Background
+    uniqueID: 4246354761
     locked: 0
   - name: Ground
     uniqueID: 2567331719
+    locked: 0
+  - name: Default
+    uniqueID: 0
     locked: 0
   - name: Fish
     uniqueID: 684591271
