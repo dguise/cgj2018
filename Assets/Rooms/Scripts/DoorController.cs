@@ -34,7 +34,7 @@ public class DoorController : MonoBehaviour {
 		if (state == State.Unlocked) {
 			doorLight.SetActive(
 				Vector2.Distance(PlayerManager.PlayerObjects[0].transform.position, doorLight.transform.position) < lightRadius ||
-				Vector2.Distance(PlayerManager.PlayerObjects[1].transform.position, doorLight.transform.position) < lightRadius);
+				(PlayerManager.PlayerObjects.Count == 2 && Vector2.Distance(PlayerManager.PlayerObjects[1].transform.position, doorLight.transform.position) < lightRadius));
 		}
 	}
 
