@@ -36,23 +36,27 @@ public class Enemy : Unit {
         players = GameObject.FindGameObjectsWithTag(Tags.Player);
 
         if (RandomOffset)
-            randomOffset = new Vector2(UnityEngine.Random.Range(-5f, 5f), UnityEngine.Random.Range(-5f, 5f));
-        movementSpeed = movementSpeed * UnityEngine.Random.Range(0.85f, 1.15f);
+            randomOffset = new Vector2(UnityEngine.Random.Range(-3f, 3f), UnityEngine.Random.Range(-3f, 3f));
+        movementSpeed = movementSpeed * UnityEngine.Random.Range(0.7f, 1.15f);
 
-        body = transform.Find("Armature.001");
+        body = transform.FindWithTagInChildren("Body");
 	}
     Transform body;
 	void FixedUpdate () {
         if (target != null)
         {
+            var targetPosition = target.position + randomOffset;
+
             if (Vector2.Distance(transform.position, target.position) < 0.5 && !targetIsPlayer)
             {
+                Debug.Log("You're home!");
+
                 target = null;
                 rb.velocity = Vector2.zero;
             }
 
             // Apply movement
-            rb.velocity = ((target.position + randomOffset) - transform.position).normalized * movementSpeed;
+            rb.velocity = ((targetPosition) - transform.position).normalized * movementSpeed;
             // Apply rotation
             body.eulerAngles = new Vector3(body.eulerAngles.x, body.eulerAngles.y, (Mathf.Atan2(rb.velocity.x, rb.velocity.y) * 180 / Mathf.PI) + 180);
             if (targetIsPlayer && Vector2.Distance(target.position, transform.position) < AttackRange-1)
@@ -75,6 +79,7 @@ public class Enemy : Unit {
 
     private void Update()
     {
+        // Do we need random offset here?
         if (target != null && targetIsPlayer && Vector2.Distance(target.position, transform.position) <= AttackRange)
         {
             weapon.Attack(transform, target.transform);

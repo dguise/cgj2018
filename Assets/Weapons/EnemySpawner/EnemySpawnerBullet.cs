@@ -28,19 +28,19 @@ class EnemySpawnerBullet : Projectile
         yield return new WaitForSeconds(lifetime - 0.7f);
         var pos = transform.position;
         pos.x -= 1;
-        spawn.Add(Instantiate(SpawnedEnemy, pos, Quaternion.identity));
+        spawn.Add(Instantiate(SpawnedEnemy, pos, SpawnedEnemy.transform.rotation));
         yield return new WaitForSeconds(0.1f);
         pos.x += 1;
         pos.y -= 1;
-        spawn.Add(Instantiate(SpawnedEnemy, pos, Quaternion.identity));
+        spawn.Add(Instantiate(SpawnedEnemy, pos, SpawnedEnemy.transform.rotation));
         yield return new WaitForSeconds(0.1f);
         pos.x += 1;
         pos.y += 1;
-        spawn.Add(Instantiate(SpawnedEnemy, pos, Quaternion.identity));
+        spawn.Add(Instantiate(SpawnedEnemy, pos, SpawnedEnemy.transform.rotation));
         yield return new WaitForSeconds(0.1f);
         pos.x -= 1;
         pos.y += 1;
-        spawn.Add(Instantiate(SpawnedEnemy, pos, Quaternion.identity));
+        spawn.Add(Instantiate(SpawnedEnemy, pos, SpawnedEnemy.transform.rotation));
 
         foreach (var obj in spawn)
         {

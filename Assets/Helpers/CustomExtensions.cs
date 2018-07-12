@@ -15,4 +15,13 @@ public static class CustomExtensions
         return v;
     }
 
+    public static Transform FindWithTagInChildren(this Transform t, string tag)
+    {
+        foreach (Transform child in t)
+            if (child.tag == tag)
+                return child;
+
+        return null;
+    }
+
 }

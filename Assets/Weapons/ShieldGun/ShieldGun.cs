@@ -30,7 +30,8 @@ class ShieldGun : Weapon
         if (projectiles.Count < _bulletLimit)
         {
             projectile = base.Attack(position, direction, rotation, radius);
-            projectile.GetComponent<Projectile>().destroyOnCollision = false;
+            if (projectile != null)
+                projectile.GetComponent<Projectile>().destroyOnCollision = false;
         }
         else
         {
