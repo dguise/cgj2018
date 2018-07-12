@@ -45,14 +45,17 @@ public class RoomController : MonoBehaviour {
 	}
 
 	void Update() {
-		if (Vector2.Distance(PlayerManager.PlayerObjects[0].transform.position, light.transform.position) < lightTriggerRadius ||
-			Vector2.Distance(PlayerManager.PlayerObjects[1].transform.position, light.transform.position) < lightTriggerRadius) {
+		bool playerInRange = 
+		Vector2.Distance(PlayerManager.PlayerObjects[0].transform.position, light.transform.position) < lightTriggerRadius ||
+			(PlayerManager.PlayerObjects.Count == 2 && 
+			Vector2.Distance(PlayerManager.PlayerObjects[1].transform.position, light.transform.position) < lightTriggerRadius);
+		if (playerInRange) {
 			light.gameObject.SetActive(true);
-			float normdist = Mathf.Max(
-				Mathf.Min(
-					Vector2.Distance(PlayerManager.PlayerObjects[0].transform.position, light.transform.position) - lightMaxRadius,
-					Vector2.Distance(PlayerManager.PlayerObjects[1].transform.position, light.transform.position) - lightMaxRadius),
-				0);
+			float minPlayerDist = Vector2.Distance(PlayerManager.PlayerObjects[0].transform.position, light.transform.position) - lightMaxRadius;
+			if (PlayerManager.PlayerObjects.Count == 2) {
+				minPlayerDist = Mathf.Min(minPlayerDist, Vector2.Distance(PlayerManager.PlayerObjects[1].transform.position, light.transform.position) - lightMaxRadius);
+			}
+			float normdist = Mathf.Max(minPlayerDist, 0);
 			float factor = 1 - normdist / (lightTriggerRadius - lightMaxRadius);
 			light.range = maxLight * factor;
 		} else {
