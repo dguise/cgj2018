@@ -201,7 +201,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 22418684}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0ef72ca1f41ae4bf592d2699087bdab8, type: 3}
   m_Name: 
@@ -249,7 +249,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1909474684545504, guid: db4027532f8ce2c47a200edaba08101c, type: 2}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1824417586817670, guid: db4027532f8ce2c47a200edaba08101c, type: 2}
+      propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4299962066523160, guid: db4027532f8ce2c47a200edaba08101c, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0.987
+      objectReference: {fileID: 0}
+    - target: {fileID: 4781485135413810, guid: db4027532f8ce2c47a200edaba08101c, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -0.973
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: db4027532f8ce2c47a200edaba08101c, type: 2}
