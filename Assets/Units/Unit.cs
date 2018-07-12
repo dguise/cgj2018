@@ -7,7 +7,10 @@ public abstract class Unit : MonoBehaviour
     [Range(0, 10)]
     protected float movementSpeed;
     [SerializeField]
-    [Range(0f, 500f)]
+    [Range(10f, 500f)]
+    public float maxHealth;
+    [SerializeField]
+    [Range(10f, 500f)]
     private float _health;
     public float Health {
         get
