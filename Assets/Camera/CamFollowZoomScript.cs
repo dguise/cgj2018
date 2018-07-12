@@ -31,10 +31,26 @@ public class CamFollowZoomScript : MonoBehaviour
 		}
 
 		if (foundPlayers > PlayerManager.players) {
-			if (!PlayerManager.playerReady[0]) {
-				players[0] = players[1];
-			} else if (!PlayerManager.playerReady[1]){
-				players[1] = players[0];
+			int amountOfPlayers = 0;
+			int alivePlayer = -1;
+			for (int i = 0; i < PlayerManager.playerReady.Length; i++) {
+				if(PlayerManager.playerReady[i]) {
+					amountOfPlayers += 1;
+					alivePlayer = i;
+				} 
+			}
+
+			if (amountOfPlayers == 0) {
+				return;
+			}
+
+			Debug.Log("amountOfPlayers: " + amountOfPlayers);
+			foundPlayers = amountOfPlayers;
+
+			for (int i = 0; i < players.Count; i++) {
+				if (!PlayerManager.playerReady[i]) {
+					players[i] = players[alivePlayer];
+				}
 			}
 		} 
 		

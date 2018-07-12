@@ -50,8 +50,14 @@ public abstract class Unit : MonoBehaviour
 
         if (IsDead) {
             if(gameObject.tag == Tags.Player) {
-                PlayerManager.playerReady[gameObject.GetComponent<Player>().playerID] = false;
-                PlayerManager.players -= 1;
+                bool isReady = PlayerManager.playerReady[gameObject.GetComponent<Player>().playerID];
+                if (isReady) {
+                    PlayerManager.playerReady[gameObject.GetComponent<Player>().playerID] = false;
+                    PlayerManager.players -= 1;
+                    Rigidbody2D rigid = gameObject.GetComponent<Rigidbody2D>();
+                    rigid.velocity = Vector2.zero;
+                    gameObject.transform.rotation = Quaternion.Euler(90, 0, 90);
+                }  
             } else {
                 Destroy(gameObject);
             }
