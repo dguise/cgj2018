@@ -1195,6 +1195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c99beb637a8481428ede3c5120e496a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lightRadius: 20
 --- !u!114 &114795646610772198
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1218,6 +1219,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c99beb637a8481428ede3c5120e496a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lightRadius: 20
 --- !u!212 &212031998348959186
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -8,14 +8,17 @@ public class DoorController : MonoBehaviour {
 	private GameObject doorLight;
 	private CircleCollider2D trigger;
 
-	private enum State {
-		Active,
+	public enum State {
+		Locked,
+		Unlocked,
 		Finished
 	}
-	private State state = State.Active;
+	public State state = State.Locked;
 
 	private float timestamp;
 	private float unlockTime = 1f;
+
+	public float lightRadius = 10f;
 
 	// Use this for initialization
 	void Awake () {
@@ -27,11 +30,19 @@ public class DoorController : MonoBehaviour {
 		LockDoor();
 	}
 
+	void Update() {
+		if (state == State.Unlocked) {
+			doorLight.SetActive(
+				Vector2.Distance(PlayerManager.PlayerObjects[0].transform.position, doorLight.transform.position) < lightRadius);
+		}
+	}
+
 	public void OpenDoor() {
 		door.SetActive(false);
 		fence.SetActive(false);
 		trigger.enabled = false;
 		doorLight.SetActive(false);
+		state = State.Finished;
 	}
 
 	public void CloseDoor() {
@@ -40,8 +51,11 @@ public class DoorController : MonoBehaviour {
 	}
 
 	public void LockDoor() {
-		doorLight.SetActive(false);
-		trigger.enabled = false;
+		if (state != State.Finished) {
+			doorLight.SetActive(false);
+			trigger.enabled = false;
+			state = State.Locked;
+		}
 	}
 
 	public void UnlockDoor() {
@@ -49,15 +63,14 @@ public class DoorController : MonoBehaviour {
 			doorLight.SetActive(true);
 			trigger.enabled = true;
 			timestamp = Time.time;
+			state = State.Unlocked;
 		}
 	}
 
 	void OnTriggerEnter2D(Collider2D col) {
 		if (col.tag == Tags.Player && Time.time - timestamp > unlockTime) {
-			OpenDoor();
-			LockDoor();
 			GetComponentInParent<RoomSpawner>().LockAllRooms();
-			state = State.Finished;
+			OpenDoor();
 		}
 	}
 }
