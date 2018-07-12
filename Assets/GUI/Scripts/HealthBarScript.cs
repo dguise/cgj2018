@@ -1,49 +1,55 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Experimental.UIElements;
-
+using UnityEngine.UI;
 
 public class HealthBarScript : MonoBehaviour
 {
-    public Unit owner;
-    public Image currentHealthImage;
-    public RectTransform currentHealthRectTransform;
+    Unit owner;
+    Image currentHealthImage;
+    RectTransform foreground;
     private float startSizeDeltaX;
     private float startSizeDeltaY;
     public Gradient healthGradient;
 
+    Vector2 offset = new Vector2(-24, 60);
     void Start()
     {
-        startSizeDeltaX = currentHealthRectTransform.sizeDelta.x;
-        startSizeDeltaY = currentHealthRectTransform.sizeDelta.y;
+        foreground = (RectTransform)transform.GetChild(0);
+        startSizeDeltaX = foreground.sizeDelta.x;
+        startSizeDeltaY = foreground.sizeDelta.y;
+
+        owner = transform.parent.GetComponent<Unit>();
+        currentHealthImage = GetComponentInChildren<Image>();
     }
 
 
     void Update()
     {
-        currentHealthRectTransform.sizeDelta = GetPercentualHealth(owner.GetComponent<Unit>(), currentHealthRectTransform.sizeDelta);
-        
+        var percentHealth = GetPercentualHealth(owner);
+        foreground.sizeDelta = GetGradientVector(percentHealth, foreground.sizeDelta);
+        foreground.position = Camera.main.WorldToScreenPoint(owner.transform.position) + (Vector3)offset;
+        if (percentHealth >= 1)
+        {
+            currentHealthImage.enabled = false;
+        } 
+        else if (currentHealthImage.enabled == false)
+        {
+            currentHealthImage.enabled = true;
+        }
     }
 
-    Vector2 GetPercentualHealth(Unit unit, Vector2 oldSizeDelta, bool vertical = false)
+    float GetPercentualHealth(Unit unit)
     {
 
         float maxHealth = unit.maxHealth; 
         float currentHealth = unit.Health;
-        float currentHealthPercentage = currentHealth / maxHealth;
+        return currentHealth / maxHealth;
+    }
 
-        this.GetComponentInChildren<UnityEngine.UI.Image>().color = healthGradient.Evaluate(1 - currentHealthPercentage);
-
-        if (vertical)
-        {
-            //this.GetComponentInChildren<UnityEngine.UI.Image>().color = healthGradient.Evaluate(currentHealthPercentage);
-            return new Vector2(currentHealthPercentage * startSizeDeltaX, oldSizeDelta.y);
-        }
-        else
-        {
-            //this.GetComponentInChildren<UnityEngine.UI.Image>().color = healthGradient.Evaluate(currentHealthPercentage);
-            return new Vector2(oldSizeDelta.x, currentHealthPercentage * startSizeDeltaY);
-        }
+    Vector2 GetGradientVector(float percentageHealth, Vector2 oldSizeDelta)
+    {
+        this.GetComponentInChildren<Image>().color = healthGradient.Evaluate(1 - percentageHealth);
+        return new Vector2(oldSizeDelta.x, percentageHealth * startSizeDeltaY);
     }
 }
