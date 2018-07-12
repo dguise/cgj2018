@@ -13,7 +13,7 @@ public class ShieldBullet : Projectile
     private Vector2 pos2 = Vector2.right + Vector2.up * 2;
     private Vector2 pos3 = Vector2.left + Vector2.up * 2;
     private Vector2 pos4 = Vector2.left;
-    private static int sound = 1;
+    private static int sound = 5;
 
     public bool ShouldCirculate = true;
 
@@ -25,7 +25,8 @@ public class ShieldBullet : Projectile
     { }
 
     public void Awake() {
-        
+		SoundManager sm = SoundManager.instance;
+        sm.PlayRandomize(0.05f, Sound);
     }
 
     public void Start() {

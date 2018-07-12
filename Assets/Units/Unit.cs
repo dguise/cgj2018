@@ -48,8 +48,14 @@ public abstract class Unit : MonoBehaviour
         }
         TakeDamageExtender(damage, sender, collider);
 
-        if (IsDead)
-            Destroy(gameObject);
+        if (IsDead) {
+            if(gameObject.tag == Tags.Player) {
+                PlayerManager.playerReady[gameObject.GetComponent<Player>().playerID] = false;
+                PlayerManager.players -= 1;
+            } else {
+                Destroy(gameObject);
+            }
+        }
 
         return Health;
     }
