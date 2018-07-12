@@ -120,17 +120,20 @@ public class RoomController : MonoBehaviour {
 
 	private void SpawnMonsters() {
 		// Create a new spawnpoint from the first
-		Vector2 myFirstSpawnPoint = spawnPoints[0];
-		myFirstSpawnPoint.x -= 2;
+		// Vector2 myFirstSpawnPoint = spawnPoints[0];
+		// myFirstSpawnPoint.x -= 2;
 
-		GameObject initMon = monsters[Random.Range(0, monsters.Length)];
-		GameObject myMon = Instantiate(initMon, myFirstSpawnPoint, Quaternion.identity);
-		myMonsters.Add(myMon);
+		// GameObject initMon = monsters[Random.Range(0, monsters.Length)];
+		// GameObject myMon = Instantiate(initMon, myFirstSpawnPoint, Quaternion.identity);
+		// myMonsters.Add(myMon);
 
 		foreach (Vector2 spawnPoint in spawnPoints) {
 			if (Random.Range(0f, 1f) < 0.8) {
+				Vector2 temp = spawnPoint;
+				temp.x += transform.position.x;
+				temp.y += transform.position.y;
 				GameObject mon = monsters[Random.Range(0, monsters.Length)];
-				GameObject obj = Instantiate(mon, spawnPoint, Quaternion.identity);
+				GameObject obj = Instantiate(mon, temp, Quaternion.identity);
 				myMonsters.Add(obj);
 			}
 		}
