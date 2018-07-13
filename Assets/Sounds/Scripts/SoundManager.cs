@@ -63,7 +63,7 @@ public class SoundManager : MonoBehaviour {
 		music.loop = false;
 		music.clip = songs[currentTrack][0];
 		music.Play();
-		Invoke("PlayMusicLoop", music.clip.length - 0.5f); 
+		Invoke("PlayMusicLoop", music.clip.length + 0.5f); 
 	}
 
 	private void PlayMusicLoop() {

@@ -94,7 +94,7 @@ public static class PlayerManager {
             //PlaySomeTextEvent
             int tempClass = (int)playerClass[0];
             tempClass += 2 * (hasSwitched ? 1 : 0) - 1; 
-            Debug.Log(tempClass);
+            hasSwitched = !hasSwitched;
             int length = CharacterClassesEnum.GetNames(typeof(PlayerManager.CharacterClassesEnum)).Length;
             playerClass[0] = (CharacterClassesEnum)(((tempClass % length) + length) % length); // hardcoded player 1, could easily be changed later
             Player playerScript = PlayerObjects[0].GetComponent<Player>();
