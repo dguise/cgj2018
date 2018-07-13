@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public static class PlayerManager {
 
     public static Dictionary<int, int> controllerId = new Dictionary<int, int>();
@@ -102,5 +103,18 @@ public static class PlayerManager {
             playerScript.weapon = PlayerManager.GetWeapon(playerScript.PlayerClass, PlayerObjects[0]);
             playerScript.UpdateMask(playerClass[0]);
         }
+    }
+
+    public static void EndGame() {
+        /*foreach (GameObject player in PlayerObjects) {
+            if (player != null) {
+                Destroy(player, 0.5f);
+            }
+        }
+
+        SceneManager.LoadScene(0);
+        SoundManager sm = SoundManager.instance;
+        sm.PlayMusic(0);*/
+
     }
 }

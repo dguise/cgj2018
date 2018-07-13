@@ -67,6 +67,9 @@ public abstract class Unit : MonoBehaviour
                     rigid.velocity = Vector2.zero;
                     gameObject.transform.rotation = Quaternion.Euler(90, 0, 90);
                     rigid.constraints = RigidbodyConstraints2D.FreezeAll;
+                    if (PlayerManager.playersReady <= 0) {
+                        PlayerManager.EndGame();
+                    }
                 }  
             } else {
                 var killer = sender.GetComponent<Unit>();
