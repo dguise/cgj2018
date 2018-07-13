@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour {
 
-	public AudioSource effects;
 	public AudioSource music;
 	public static SoundManager instance = null;
 	private AudioClip musicLoop;
@@ -45,15 +44,18 @@ public class SoundManager : MonoBehaviour {
 	}
 
 	public void PlayAudio(int sound) {
-		effects.clip = sounds[mod(sound, sounds.Count)];
-		effects.Play();
+		AudioSource effect = gameObject.AddComponent(typeof(AudioSource)) as AudioSource; 
+		effect.clip = sounds[mod(sound, sounds.Count)];
+		effect.Play();
 	}
 
 	public void PlayRandomize(float pitch, params int[] sound) {
+		AudioSource effect = gameObject.AddComponent(typeof(AudioSource)) as AudioSource; 
 		int random = Random.Range(0, sound.Length);
-		effects.clip = sounds[mod(sound[mod(random, sound.Length)], sounds.Count)];
-		effects.pitch = Random.Range(1 - pitch, 1 + pitch);
-		effects.Play();
+		effect.clip = sounds[mod(sound[mod(random, sound.Length)], sounds.Count)];
+		effect.pitch = Random.Range(1 - pitch, 1 + pitch);
+		effect.Play();
+		Destroy(effect, effect.clip.length);
 	}
 
 	public void PlayMusic(int number) {
