@@ -17,6 +17,7 @@ public class GuiScript : MonoBehaviour
     bool clickToGetToNextMessageBubble = false;
     bool currentlySpammingText = false;
     bool waitingToSpamText = false;
+    bool currentMessageIsClickToAdvance = true;
 
     //Image properties
     private float FadeRate = 2.5f;  //Rate of fade
@@ -90,7 +91,7 @@ public class GuiScript : MonoBehaviour
             this.myText.color = curColorText;
         }
 
-        if (myText.text == string.Empty)
+        if (myText.text == string.Empty && messageQueue.Count == 0 && this.targetAlpha != 0)
             FadeOut();
 
 
@@ -107,18 +108,19 @@ public class GuiScript : MonoBehaviour
                 }
             }
 
-            if (Input.GetButtonDown(Inputs.AButton()))  //Spelaren vill få nästa äventyrsbubbla
+            if (currentMessageIsClickToAdvance && Input.GetButtonDown(Inputs.AButton()))  //Spelaren vill få nästa äventyrsbubbla
                 if (clickToGetToNextMessageBubble)
                     StartCoroutine(AddText());
                 else
                     this.ClearText();
+
+            if (!currentlySpammingText && messageQueue.Count > 0 && myText.text == string.Empty && !currentMessageIsClickToAdvance)
+                StartCoroutine(AddText());
         }
         //Debug.Log(Time.time + "speedUpText = " + speedUpText);
         //Debug.Log(Time.time + "currentRateOfText = " + currentRateOfText);
     }
 
-    void FixedUpdate() { }
-    void LateUpdate() { }
 
     public void FadeOut()
     {
@@ -133,28 +135,40 @@ public class GuiScript : MonoBehaviour
     IEnumerator AddText(bool waitForFadein = false)
     {
         ClearText();
+        currentlySpammingText = true;
         if (waitForFadein)
         {
             waitingToSpamText = true;
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(0.4f);
             waitingToSpamText = false;
         }
 
-        if (waitForFadein)
-            if (messageQueue.Count > 0)
-            {
-                Message msg = (Message)messageQueue.Dequeue(); //Hämta första elementet i kön (och ta bort det ifrån listan)
-                textToAdd = msg.text;
-            }
-        if (messageQueue.Count > 0) //Det kommer mer text efter detta
-            textToAdd += "      ...";
-
-        currentlySpammingText = true;
-
-        foreach (var c in textToAdd)
+        Message msg = null;
+        Debug.Log(messageQueue.Count);
+        if (messageQueue.Count > 0)
         {
-            myText.text += c;
-            yield return new WaitForSeconds(currentRateOfText);
+            msg = (Message)messageQueue.Dequeue(); //Hämta första elementet i kön (och ta bort det ifrån listan)
+            textToAdd = msg.text;
+        }
+        if (msg != null)
+        {
+            if (msg.messageType == Message.MessagetypeEnum.QuickMessageAllAtOnce)
+            {
+                myText.text = textToAdd;
+                Invoke("ClearText", 0.5f);
+                currentMessageIsClickToAdvance = false;
+            }
+            else
+            {
+                if (messageQueue.Count > 0) //Det kommer mer text efter detta
+                    textToAdd += "      ...";
+                currentMessageIsClickToAdvance = true;
+                foreach (var c in textToAdd)
+                {
+                    myText.text += c;
+                    yield return new WaitForSeconds(currentRateOfText);
+                }
+            }
         }
 
         clickToGetToNextMessageBubble = (messageQueue.Count > 0);
@@ -189,17 +203,21 @@ public class Message
     public Sprite RightPortraitSprite = null;
     public string text = string.Empty;
 
-    public Message(Sprite aLeftPortrait = null, Sprite aRightPortrait = null, string aText = "")
+    public enum MessagetypeEnum
+    {
+        ClickToAdvance,
+        Destroy2secondsAfterFinish,
+        QuickMessageAllAtOnce
+    }
+    public MessagetypeEnum messageType = MessagetypeEnum.Destroy2secondsAfterFinish;
+
+
+    public Message(Sprite aLeftPortrait = null, Sprite aRightPortrait = null, string aText = "", MessagetypeEnum aMessageType = MessagetypeEnum.ClickToAdvance)
     {
         LeftPortraitSprite = aLeftPortrait;
         RightPortraitSprite = aRightPortrait;
         text = aText;
+        messageType = aMessageType;
     }
 
-    public enum MessagetypeEnum
-    {
-        ClickToAdvance,
-        Destroy2secondsAfterFinish
-    }
-    public MessagetypeEnum messageType = MessagetypeEnum.Destroy2secondsAfterFinish;
 }
