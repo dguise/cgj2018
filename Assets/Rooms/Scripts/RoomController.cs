@@ -20,7 +20,8 @@ public class RoomController : MonoBehaviour {
 
 	private Dictionary<string, DoorController> doors = new Dictionary<string, DoorController>();
 	private Light light;
-	public float lightTriggerRadius = 15f;
+	private LightController lightController;
+	public float lightTriggerRadius = 25f;
 	public float lightMaxRadius = 2f;
 	public float maxLight = 30;
     // private float magicFociNumber = 3.47f;
@@ -43,7 +44,8 @@ public class RoomController : MonoBehaviour {
 		doors.Add(Direction.EAST, transform.Find(Direction.EAST).GetComponent<DoorController>());
 		doors.Add(Direction.SOUTH, transform.Find(Direction.SOUTH).GetComponent<DoorController>());
 
-		light = transform.Find("Light").gameObject.GetComponent<Light>();
+		light = transform.Find("Lights/Light").gameObject.GetComponent<Light>();
+		lightController = GetComponentInChildren<LightController>();
 		fog = transform.Find("Fog").gameObject;
 
 		setWestWallActive(false);
@@ -61,7 +63,8 @@ public class RoomController : MonoBehaviour {
 			(PlayerManager.PlayerObjects.Count == 2 && 
 			Vector2.Distance(PlayerManager.PlayerObjects[1].transform.position, light.transform.position) < lightTriggerRadius);
 		if (playerInRange) {
-			light.gameObject.SetActive(true);
+			// light.gameObject.SetActive(true);
+			lightController.SetActive(true);
 			float minPlayerDist = Vector2.Distance(PlayerManager.PlayerObjects[0].transform.position, light.transform.position) - lightMaxRadius;
 			if (PlayerManager.PlayerObjects.Count == 2) {
 				minPlayerDist = Mathf.Min(minPlayerDist, Vector2.Distance(PlayerManager.PlayerObjects[1].transform.position, light.transform.position) - lightMaxRadius);
@@ -71,6 +74,7 @@ public class RoomController : MonoBehaviour {
 			light.range = maxLight * factor;
 		} else {
 			light.gameObject.SetActive(false);
+			lightController.SetActive(false);
 		}
 
 		if (SPAWNMONSTERS && !fog.activeInHierarchy && state == State.Inactive) {
