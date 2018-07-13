@@ -27,7 +27,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1300165045109420
 GameObject:
   m_ObjectHideFlags: 1
@@ -44,7 +44,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1307694633097424
 GameObject:
   m_ObjectHideFlags: 0
@@ -184,11 +184,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'xcvfvfv
-
-    dsvdvsvs
-
-    ssdvsdv'
+  m_Text: Experience a capricious adventure through fire and flames as you and your
+    friend explore the mystic Mayan temple.
 --- !u!114 &114326935328686474
 MonoBehaviour:
   m_ObjectHideFlags: 1
