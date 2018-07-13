@@ -31,7 +31,7 @@ public class GuiScript : MonoBehaviour
     Text myText;
     string currentText = string.Empty;
     private float targetAlphaText;
-    
+
 
     private Queue<Message> messageQueue = new Queue<Message>();
 
@@ -58,14 +58,15 @@ public class GuiScript : MonoBehaviour
 
         leftPortraitImage = transform.GetChild(1).GetComponent<Image>();
         rightPortraitImage = transform.GetChild(2).GetComponent<Image>();
-        
+
         //messageQueue.Enqueue("Ret 2 go!\n\nAdd some cool rp text here and profit from great fame and fortune!");
         //messageQueue.Enqueue("Hello Emil, tell me about your day!");
         //messageQueue.Enqueue("Jag kan inte, jag håller på att svimma!");
         //messageQueue.Enqueue("Jag menar, jag håller på att implodera!");
         //messageQueue.Enqueue("BAM!  Okej, sorry!");
         //StartCoroutine(AddText());
-        DontDestroyOnLoad(gameObject);
+        var parentGO = this.transform.parent.gameObject;
+        GameObject.DontDestroyOnLoad(parentGO);
     }
 
 
