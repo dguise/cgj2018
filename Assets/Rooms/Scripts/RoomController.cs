@@ -51,6 +51,7 @@ public class RoomController : MonoBehaviour {
 		setWestWallActive(false);
 		setNorthWallActive(false);
 		setSouthWallActive(false);
+		setEastWallActive(false);
 	}
 
 	void Update() {
@@ -71,9 +72,8 @@ public class RoomController : MonoBehaviour {
 			}
 			float normdist = Mathf.Max(minPlayerDist, 0);
 			float factor = 1 - normdist / (lightTriggerRadius - lightMaxRadius);
-			light.range = maxLight * factor;
+			lightController.SetRange(maxLight * factor);
 		} else {
-			light.gameObject.SetActive(false);
 			lightController.SetActive(false);
 		}
 
@@ -181,7 +181,7 @@ public class RoomController : MonoBehaviour {
 
 	public void SetLevel(float level) {
 		this.level = level;
-		light.color = startColor + level * (endColor - startColor);
+		lightController.SetColor(startColor + level * (endColor - startColor));
 	}
 
 	void OnDrawGizmos() {
