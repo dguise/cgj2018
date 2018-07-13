@@ -86,15 +86,10 @@ public static class PlayerManager {
 
     public static void Capricious() {
         if (players == 2) {
-            Debug.Log("Test");
             //PlaySomeTextEvent
             int tempController = controllerId[0];
             controllerId[0] = controllerId[1];
             controllerId[1] = tempController;
-            bool tempReady = playerReady[0];
-            playerReady[0] = playerReady[1];
-            playerReady[1] = tempReady;
-
         } else if (players == 1) {
             //PlaySomeTextEvent
             int tempClass = (int)playerClass[0];
