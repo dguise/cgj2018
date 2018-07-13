@@ -49,7 +49,7 @@ public static class PlayerManager {
         switch (playerClass)
         {
             case CharacterClassesEnum.Melee:
-                weapon = new MeleeGun(go);
+                weapon = new PlayerMeleeGun(go);
                 break;
             case CharacterClassesEnum.Bowman:
                 weapon = new SpecialGun(go);
@@ -128,4 +128,9 @@ public static class PlayerManager {
             playerScript.UpdateMask(playerClass[0]);
         }
     }
+}
+
+public static class LevelManager
+{
+    public static int TempleFloor = 1;
 }

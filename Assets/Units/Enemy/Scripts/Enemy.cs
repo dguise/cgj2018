@@ -52,6 +52,7 @@ public class Enemy : Unit {
         body = transform.FindWithTagInChildren("Body");
 
         willDropPowerup = powerupDropRate > UnityEngine.Random.Range(0f, 1f);
+
         if (IsEliteEnemy)
         {
             // Elites always drop powerups

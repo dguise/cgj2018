@@ -89,9 +89,7 @@ public class Player : Unit
         if (Input.GetKeyDown(KeyCode.Alpha3))
             weapon = new ShieldGun(gameObject);
         if (Input.GetKeyDown(KeyCode.Alpha4))
-            weapon = new EnemySpawnerGun(gameObject);
-
-        //Debug.Log(Stats.Status.IndexOf(Statuses.Invisible));
+            weapon = new PlayerMeleeGun(gameObject);
     }
 
     private void FixedUpdate()
@@ -120,11 +118,11 @@ public class Player : Unit
             Vector2 attackDirection = new Vector2(Input.GetAxisRaw(Inputs.FireHorizontal(PlayerManager.controllerId[playerID])), Input.GetAxisRaw(Inputs.FireVertical(PlayerManager.controllerId[playerID])));
 
             Vector2 attackPosition = transform.position;
-            Quaternion attackRotation = Quaternion.identity;
             if (attackDirection.magnitude > DEADZONE)
             {
-                weapon.Attack(attackPosition, attackDirection, attackRotation, radius);
                 head.eulerAngles = new Vector3(head.eulerAngles.x, head.eulerAngles.y, (Mathf.Atan2(attackDirection.y, attackDirection.x) * 180 / Mathf.PI) * -1 - 90);
+                var attackRotation = new Vector3(0, 0, (Mathf.Atan2(attackDirection.y, attackDirection.x) * 180 / Mathf.PI) - 90);
+                weapon.Attack(attackPosition, attackDirection, Quaternion.Euler(attackRotation), radius);
             }
         }
         else
