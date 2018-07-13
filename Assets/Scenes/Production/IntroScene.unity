@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: 445511879}
   - component: {fileID: 445511881}
   m_Layer: 0
-  m_Name: mayantempleplaceholder
+  m_Name: IntroPictureHolderThingyThatChangesSpritesToPlayIntro
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -165,7 +165,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: f3984ca76507f4738b4cd6b473b85ef3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d6625ef9357cf3742826df8d197a871b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
