@@ -144,7 +144,7 @@ public class GuiScript : MonoBehaviour
         }
 
         Message msg = null;
-        Debug.Log(messageQueue.Count);
+        
         if (messageQueue.Count > 0)
         {
             msg = (Message)messageQueue.Dequeue(); //Hämta första elementet i kön (och ta bort det ifrån listan)
@@ -152,6 +152,7 @@ public class GuiScript : MonoBehaviour
         }
         if (msg != null)
         {
+            SetPortraits(msg.LeftPortraitSprite, msg.RightPortraitSprite);
             if (msg.messageType == Message.MessagetypeEnum.QuickMessageAllAtOnce)
             {
                 myText.text = textToAdd;
