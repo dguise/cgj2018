@@ -14,6 +14,9 @@ public static class PlayerManager {
     public static int players = 0;
     public static bool[] playerReady = {false, false};
     public static int playersReady = 0;
+    public static bool gameStarted = false;
+    public static float time = 0f;
+
 
 	public enum CharacterClassesEnum
     {
@@ -33,6 +36,8 @@ public static class PlayerManager {
         players = 0;
         playerReady = new bool[] {false, false};
         playersReady = 0;
+        gameStarted = false;
+        time = 0f;
     }
 
 
