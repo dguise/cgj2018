@@ -405,8 +405,6 @@ MonoBehaviour:
   yTileSize: 12
   wallThiccness: 0.1
   scale: 6
-  bossRoom: {fileID: 1654035088568154, guid: f7f3ff1ea28bcb9428371e44ca16a060, type: 2}
-  exitRoom: {fileID: 0}
 --- !u!4 &1146621427
 Transform:
   m_ObjectHideFlags: 0
