@@ -11,7 +11,6 @@ public static class PlayerManager {
 
 	public enum CharacterClassesEnum
     {
-        Emil,
         Melee,
         Bowman,
         Magician,
@@ -19,7 +18,7 @@ public static class PlayerManager {
         Dartblower
     }
 
-    public static CharacterClassesEnum[] playerClass = {CharacterClassesEnum.Emil, CharacterClassesEnum.Emil};
+    public static CharacterClassesEnum[] playerClass = {CharacterClassesEnum.Magician, CharacterClassesEnum.Magician};
     public static int players = 0;
     public static bool[] playerReady = {false, false};
     public static int playersReady = 0;
@@ -32,14 +31,11 @@ public static class PlayerManager {
 
         switch (playerClass)
         {
-            case CharacterClassesEnum.Emil:
-                weapon = new SpecialGun(go);
-                break;
             case CharacterClassesEnum.Melee:
                 weapon = new MeleeGun(go);
                 break;
             case CharacterClassesEnum.Bowman:
-                weapon = new Gun(go);
+                weapon = new SpecialGun(go);
                 break;
             case CharacterClassesEnum.Magician:
                 weapon = new ShieldGun(go);
@@ -57,6 +53,7 @@ public static class PlayerManager {
         return weapon;
     }
 
+    // Remove for production?
     public static void MapControllerToPlayer() 
     {
         if (players < 2) {
@@ -67,6 +64,9 @@ public static class PlayerManager {
                     playerReady[players] = true;
                     players += 1;
                     playersReady += 1;
+                    Debug.LogWarning("REMOVE THIS FOR PRODUCTION VVVV");
+                    PlayerManager.PlayerObjects.Add(GameObject.FindGameObjectWithTag(Tags.Player));
+                    // End of remove
                 }
             }
 
@@ -77,6 +77,9 @@ public static class PlayerManager {
                 playerReady[players] = true;
                 players += 1;
                 playersReady += 1;
+                Debug.LogWarning("REMOVE THIS FOR PRODUCTION VVVV");
+                PlayerManager.PlayerObjects.Add(GameObject.FindGameObjectWithTag(Tags.Player));
+                // End of remove
             }
         }
     }
