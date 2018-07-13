@@ -140,7 +140,7 @@ public class Player : Unit
     {
         // Currently don't give af
         // If class is X heal yourself and all around with 15% of damage
-        var EvilDoer = (sender.GetComponent<Unit>());
+        var EvilDoer = (sender != null ? (sender.GetComponent<Unit>()) : null);
         var EvilDoerPortrait = (EvilDoer != null ? EvilDoer.Portrait : null);
         GuiScript.instance.Talk(new Message(this.Portrait, EvilDoerPortrait, aText: "aj aj aj"));
     }
