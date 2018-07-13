@@ -15,6 +15,7 @@ public class IntroPicturesScript : MonoBehaviour {
         myRenderer = this.GetComponent<SpriteRenderer>();
         myRenderer.sprite = listOfIntroSprites[0];
         timestamp = -cooldown;
+        SoundManager.instance.PlayMusic(0);
 	}
 	
 	void Update () {
