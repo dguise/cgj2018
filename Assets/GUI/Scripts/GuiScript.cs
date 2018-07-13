@@ -16,6 +16,7 @@ public class GuiScript : MonoBehaviour
     bool speedUpText = false;
     bool clickToGetToNextMessageBubble = false;
     bool currentlySpammingText = false;
+    bool waitingToSpamText = false;
 
     //Image properties
     private float FadeRate = 2.5f;  //Rate of fade
@@ -99,8 +100,11 @@ public class GuiScript : MonoBehaviour
         {
             if (messageQueue.Count > 0 && this.targetAlpha == 0) //Vi håller på att fadea ut eller har fadeat ut.
             {
-                FadeIn();
-                StartCoroutine(AddText(true));
+                if (!waitingToSpamText)
+                {
+                    FadeIn();
+                    StartCoroutine(AddText(true));
+                }
             }
 
             if (Input.GetButtonDown(Inputs.AButton()))  //Spelaren vill få nästa äventyrsbubbla
@@ -129,14 +133,19 @@ public class GuiScript : MonoBehaviour
     IEnumerator AddText(bool waitForFadein = false)
     {
         ClearText();
-        yield return new WaitForSeconds(1);
+        if (waitForFadein)
+        {
+            waitingToSpamText = true;
+            yield return new WaitForSeconds(1);
+            waitingToSpamText = false;
+        }
 
         if (waitForFadein)
-        if (messageQueue.Count > 0)
-        {
-            Message msg = (Message)messageQueue.Dequeue(); //Hämta första elementet i kön (och ta bort det ifrån listan)
-            textToAdd = msg.text;
-        }
+            if (messageQueue.Count > 0)
+            {
+                Message msg = (Message)messageQueue.Dequeue(); //Hämta första elementet i kön (och ta bort det ifrån listan)
+                textToAdd = msg.text;
+            }
         if (messageQueue.Count > 0) //Det kommer mer text efter detta
             textToAdd += "      ...";
 
