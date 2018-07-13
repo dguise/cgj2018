@@ -5,7 +5,7 @@ using UnityEngine;
 public class LightController : MonoBehaviour {
 	private List<Light> lights = new List<Light>();
 
-	void Start () {
+	void Awake () {
 		transform.GetComponentsInChildren<Light>(lights);
 	}
 

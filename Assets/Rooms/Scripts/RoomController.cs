@@ -51,12 +51,15 @@ public class RoomController : MonoBehaviour {
 		setWestWallActive(false);
 		setNorthWallActive(false);
 		setSouthWallActive(false);
+		setEastWallActive(false);
 	}
 
 	void Update() {
 		if (PlayerManager.PlayerObjects.Count == 0) {
 			return;
 		}
+
+		Debug.Log(PlayerManager.PlayerObjects.Count);
 
 		bool playerInRange = 
 		Vector2.Distance(PlayerManager.PlayerObjects[0].transform.position, light.transform.position) < lightTriggerRadius ||
@@ -71,9 +74,8 @@ public class RoomController : MonoBehaviour {
 			}
 			float normdist = Mathf.Max(minPlayerDist, 0);
 			float factor = 1 - normdist / (lightTriggerRadius - lightMaxRadius);
-			light.range = maxLight * factor;
+			lightController.SetRange(maxLight * factor);
 		} else {
-			light.gameObject.SetActive(false);
 			lightController.SetActive(false);
 		}
 
@@ -153,7 +155,8 @@ public class RoomController : MonoBehaviour {
 				GameObject mon = monsters[Random.Range(0, monsters.Length)];
 				GameObject obj = Instantiate(mon, temp, mon.transform.rotation);
 				myMonsters.Add(obj);
-				// Set level for monster
+				obj.GetComponent<Unit>().Stats.GainExperience((int) (1000 * level));
+				// TODO: Add temple level
 			}
 		}
 	}
@@ -180,7 +183,7 @@ public class RoomController : MonoBehaviour {
 
 	public void SetLevel(float level) {
 		this.level = level;
-		light.color = startColor + level * (endColor - startColor);
+		lightController.SetColor(startColor + level * (endColor - startColor));
 	}
 
 	void OnDrawGizmos() {
