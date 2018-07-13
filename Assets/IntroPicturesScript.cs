@@ -18,7 +18,7 @@ public class IntroPicturesScript : MonoBehaviour {
         if (Input.GetKeyUp(KeyCode.Space))
         {
             currentIntroFrame += 1;
-            if (currentIntroFrame > listOfIntroSprites.Count)
+            if (currentIntroFrame == listOfIntroSprites.Count)
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
             else
                 myRenderer.sprite = listOfIntroSprites[currentIntroFrame];
