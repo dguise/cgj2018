@@ -50,10 +50,15 @@ public class CustomGameManager : MonoBehaviour{
         var time = Time.time - PlayerManager.time; 
         var record = PlayerPrefs.GetFloat("score");
 
-        if (time >= record) {
+        if (time < 10f) {
+            GuiScript.instance.Talk(new Message(aText: "YOU CHEATED, CONGRATULATIONS!"));
+        } else if (record < 0.1f) {
+            GuiScript.instance.Talk(new Message(aText: "YOU ARE THE FIRST TO WIN ON THIS COMPUTER!\nTIME: " + time + "."));
+            PlayerPrefs.SetFloat("score", time);
+        } else if (time >= record) {
             GuiScript.instance.Talk(new Message(aText: "YOU HAVE WON!\nTIME: " + time + ".\nRECORD: "));
         } else {
-            GuiScript.instance.Talk(new Message(aText: "YOU HAVE WON AND BEATEN THE RECORD!\nTIME: " + time + ".\nLAST RECORD: " + record));
+            GuiScript.instance.Talk(new Message(aText: "YOU HAVE WON AND SET A NEW RECORD!\nTIME: " + time + ".\nLAST RECORD: " + record + "."));
             PlayerPrefs.SetFloat("score", time);
         }
 
