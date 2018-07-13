@@ -4,6 +4,10 @@
 public abstract class Unit : MonoBehaviour
 {
     public Sprite Portrait;
+    public Sprite UnitPortrait
+    {
+        get { return Portrait; }
+    }
 
     [SerializeField]
     [Range(0, 10)]
@@ -16,7 +20,8 @@ public abstract class Unit : MonoBehaviour
     [Range(10f, 500f)]
     public float maxHealth;
     private float _health;
-    public float Health {
+    public float Health
+    {
         get
         {
             return _health;
@@ -52,28 +57,36 @@ public abstract class Unit : MonoBehaviour
         if (damage > 0)
         {
             TextManager.CreateDamageText(damage.ToString(), transform, 0.2f);
-        } else if (damage < 0) {
+        }
+        else if (damage < 0)
+        {
             TextManager.CreateHealText((-1 * damage).ToString(), transform, 0.2f);
         }
         TakeDamageExtender(damage, sender, collider);
 
-        if (IsDead) {
-            if(gameObject.tag == Tags.Player) {
+        if (IsDead)
+        {
+            if (gameObject.tag == Tags.Player)
+            {
                 bool isReady = PlayerManager.playerReady[gameObject.GetComponent<Player>().playerID];
-                if (isReady) {
+                if (isReady)
+                {
                     PlayerManager.playerReady[gameObject.GetComponent<Player>().playerID] = false;
                     PlayerManager.playersReady -= 1;
                     Rigidbody2D rigid = gameObject.GetComponent<Rigidbody2D>();
                     rigid.velocity = Vector2.zero;
                     gameObject.transform.rotation = Quaternion.Euler(90, 0, 90);
                     rigid.constraints = RigidbodyConstraints2D.FreezeAll;
-                    if (PlayerManager.playersReady <= 0) {
+                    if (PlayerManager.playersReady <= 0)
+                    {
                         GameObject manager = GameObject.Find("ManagerManager");
                         CustomGameManager gm = manager.GetComponent<CustomGameManager>();
                         gm.GameOver();
                     }
-                }  
-            } else {
+                }
+            }
+            else
+            {
                 var killer = sender.GetComponent<Unit>();
                 if (killer != null)
                     killer.Stats.GainExperience(ExperienceWorth);

@@ -18,6 +18,14 @@ public class Player : Unit
 
     Rigidbody2D rb;
 
+    public new Sprite UnitPortrait
+    {
+        get
+        {
+            //return null;
+            return SendPredatorRetrieveActiveChild().GetComponent<Player_Head_Script>().Portrait;
+        }
+    }
     private bool canDash = true;
     private bool dashing = false;
     private float dashTime = 0.5f;
@@ -55,6 +63,21 @@ public class Player : Unit
     {
         head.GetComponent<MaskSelectorScript>().SetMask(aClass);
     }
+
+    private GameObject SendPredatorRetrieveActiveChild()
+    {
+        GameObject firstActiveGameObject = null;
+
+        for (int i = 0; i < gameObject.transform.childCount; i++)
+        {
+            if (gameObject.transform.GetChild(i).gameObject.activeSelf == true)
+            {
+                firstActiveGameObject = transform.GetChild(i).gameObject;
+            }
+        }
+        return firstActiveGameObject;
+    }
+
 
     private void Update()
     {
@@ -142,6 +165,6 @@ public class Player : Unit
         // If class is X heal yourself and all around with 15% of damage
         var EvilDoer = (sender != null ? (sender.GetComponent<Unit>()) : null);
         var EvilDoerPortrait = (EvilDoer != null ? EvilDoer.Portrait : null);
-        GuiScript.instance.Talk(new Message(this.Portrait, EvilDoerPortrait, "aj aj aj", Message.MessagetypeEnum.QuickMessageAllAtOnce ));
+        GuiScript.instance.Talk(new Message(this.UnitPortrait, EvilDoerPortrait, "aj aj aj", Message.MessagetypeEnum.QuickMessageAllAtOnce));
     }
 }
