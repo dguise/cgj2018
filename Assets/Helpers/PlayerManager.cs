@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 public static class PlayerManager {
@@ -9,6 +10,10 @@ public static class PlayerManager {
     public static List<int> controllers = new List<int>(); 
     public static List<GameObject> PlayerObjects = new List<GameObject>();
     private static bool hasSwitched = false;
+    public static CharacterClassesEnum[] playerClass = {CharacterClassesEnum.Magician, CharacterClassesEnum.Magician};
+    public static int players = 0;
+    public static bool[] playerReady = {false, false};
+    public static int playersReady = 0;
 
 	public enum CharacterClassesEnum
     {
@@ -19,10 +24,16 @@ public static class PlayerManager {
         Dartblower
     }
 
-    public static CharacterClassesEnum[] playerClass = {CharacterClassesEnum.Magician, CharacterClassesEnum.Magician};
-    public static int players = 0;
-    public static bool[] playerReady = {false, false};
-    public static int playersReady = 0;
+    public static void Reset() {
+        controllerId = new Dictionary<int, int>();
+        controllers = new List<int>(); 
+        PlayerObjects = new List<GameObject>();
+        hasSwitched = false;
+        playerClass = new CharacterClassesEnum[] {CharacterClassesEnum.Magician, CharacterClassesEnum.Magician};
+        players = 0;
+        playerReady = new bool[] {false, false};
+        playersReady = 0;
+    }
 
 
 
@@ -103,18 +114,5 @@ public static class PlayerManager {
             playerScript.weapon = PlayerManager.GetWeapon(playerScript.PlayerClass, PlayerObjects[0]);
             playerScript.UpdateMask(playerClass[0]);
         }
-    }
-
-    public static void EndGame() {
-        /*foreach (GameObject player in PlayerObjects) {
-            if (player != null) {
-                Destroy(player, 0.5f);
-            }
-        }
-
-        SceneManager.LoadScene(0);
-        SoundManager sm = SoundManager.instance;
-        sm.PlayMusic(0);*/
-
     }
 }

@@ -68,7 +68,9 @@ public abstract class Unit : MonoBehaviour
                     gameObject.transform.rotation = Quaternion.Euler(90, 0, 90);
                     rigid.constraints = RigidbodyConstraints2D.FreezeAll;
                     if (PlayerManager.playersReady <= 0) {
-                        PlayerManager.EndGame();
+                        GameObject manager = GameObject.Find("ManagerManager");
+                        CustomGameManager gm = manager.GetComponent<CustomGameManager>();
+                        gm.GameOver();
                     }
                 }  
             } else {

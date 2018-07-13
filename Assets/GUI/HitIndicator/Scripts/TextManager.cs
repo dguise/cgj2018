@@ -10,7 +10,6 @@ public class TextManager : MonoBehaviour
 
 
     private static GameObject m_screen_canvas;
-
     private static APopupText m_damage_text;
 
 
@@ -21,7 +20,6 @@ public class TextManager : MonoBehaviour
     ///</summary>
     static TextManager()
     {
-
         GameObject screen_canvas = Resources.Load<GameObject>("ScreenCanvas");
         if (screen_canvas == null)
         {
@@ -35,6 +33,7 @@ public class TextManager : MonoBehaviour
             Debug.LogError("Could not load damage text prefab");
         }
     }
+
 
     public static void CreateDamageText(string text, Transform location, float? range = null, Color32? color = null)
     {
@@ -54,6 +53,12 @@ public class TextManager : MonoBehaviour
 
         Vector2 screen;
         screen = Camera.main.WorldToScreenPoint(new Vector2(transform.position.x + pad_x, transform.position.y + pad_y));
+
+        if (!m_screen_canvas) {
+            GameObject screen_canvas = Resources.Load<GameObject>("ScreenCanvas");
+            m_screen_canvas = Instantiate(screen_canvas);
+        }
+
         instance.transform.SetParent(m_screen_canvas.transform, false);
         instance.transform.position = screen;
 
