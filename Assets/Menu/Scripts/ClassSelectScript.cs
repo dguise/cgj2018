@@ -72,9 +72,6 @@ public class ClassSelectScript : MonoBehaviour {
                         GameObject player = Resources.Load<GameObject>("Player3D");
                         players[playerID] = Instantiate(player, spawner.spawners[playerID].transform.position, player.transform.rotation);
                         PlayerManager.PlayerObjects.Add(players[playerID]);
-                        //Debug.Log(playerID);
-                        //Debug.Log(PlayerManager.PlayerObjects[playerID]);
-                        //Debug.Log(PlayerManager.players);
 
                         spawner.Animate(playerID);
                         players[playerID].name = "Player" + playerID;

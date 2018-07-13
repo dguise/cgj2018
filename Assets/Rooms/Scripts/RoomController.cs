@@ -20,7 +20,8 @@ public class RoomController : MonoBehaviour {
 
 	private Dictionary<string, DoorController> doors = new Dictionary<string, DoorController>();
 	private Light light;
-	public float lightTriggerRadius = 15f;
+	private LightController lightController;
+	public float lightTriggerRadius = 25f;
 	public float lightMaxRadius = 2f;
 	public float maxLight = 30;
     // private float magicFociNumber = 3.47f;
@@ -43,8 +44,13 @@ public class RoomController : MonoBehaviour {
 		doors.Add(Direction.EAST, transform.Find(Direction.EAST).GetComponent<DoorController>());
 		doors.Add(Direction.SOUTH, transform.Find(Direction.SOUTH).GetComponent<DoorController>());
 
-		light = transform.Find("Light").gameObject.GetComponent<Light>();
+		light = transform.Find("Lights/Light").gameObject.GetComponent<Light>();
+		lightController = GetComponentInChildren<LightController>();
 		fog = transform.Find("Fog").gameObject;
+
+		setWestWallActive(false);
+		setNorthWallActive(false);
+		setSouthWallActive(false);
 	}
 
 	void Update() {
@@ -57,7 +63,8 @@ public class RoomController : MonoBehaviour {
 			(PlayerManager.PlayerObjects.Count == 2 && 
 			Vector2.Distance(PlayerManager.PlayerObjects[1].transform.position, light.transform.position) < lightTriggerRadius);
 		if (playerInRange) {
-			light.gameObject.SetActive(true);
+			// light.gameObject.SetActive(true);
+			lightController.SetActive(true);
 			float minPlayerDist = Vector2.Distance(PlayerManager.PlayerObjects[0].transform.position, light.transform.position) - lightMaxRadius;
 			if (PlayerManager.PlayerObjects.Count == 2) {
 				minPlayerDist = Mathf.Min(minPlayerDist, Vector2.Distance(PlayerManager.PlayerObjects[1].transform.position, light.transform.position) - lightMaxRadius);
@@ -67,6 +74,7 @@ public class RoomController : MonoBehaviour {
 			light.range = maxLight * factor;
 		} else {
 			light.gameObject.SetActive(false);
+			lightController.SetActive(false);
 		}
 
 		if (SPAWNMONSTERS && !fog.activeInHierarchy && state == State.Inactive) {
@@ -138,7 +146,6 @@ public class RoomController : MonoBehaviour {
 		//Debug.Log("Level is " + level);
 		foreach (Vector2 spawnPoint in spawnPoints) {
 			float spawnFactor = minSpawnFactor + level * (maxSpawnFactor - minSpawnFactor);
-			//Debug.Log("Spawn factor is " + spawnFactor);
 			if (Random.Range(0f, 1f) < spawnFactor) {
 				Vector2 temp = spawnPoint;
 				temp.x += transform.position.x;
@@ -173,9 +180,6 @@ public class RoomController : MonoBehaviour {
 
 	public void SetLevel(float level) {
 		this.level = level;
-		//Debug.Log("startColor=" + startColor);
-		//Debug.Log("stepColor=" + (endColor - startColor));
-		//Debug.Log("current step=" + level * (endColor - startColor));
 		light.color = startColor + level * (endColor - startColor);
 	}
 
@@ -184,5 +188,29 @@ public class RoomController : MonoBehaviour {
 			Gizmos.color = Color.red;
 			Gizmos.DrawSphere(v, 0.5f);
 		}
+	}
+
+	public void setNorthWallActive(bool active) {
+		GameObject northWall = transform.Find("NorthSolid").gameObject;
+		northWall.SetActive(active);
+	}
+
+	public void setWestWallActive(bool active) {
+		GameObject westWall = transform.Find("WestSolid").gameObject;
+		westWall.SetActive(active);
+	}
+
+	public void setSouthWallActive(bool active) {
+		GameObject southWall = transform.Find("South").gameObject;
+		GameObject southSolidWall = transform.Find("SouthSolid").gameObject;
+		southWall.SetActive(!active);
+		southSolidWall.SetActive(active);
+	}
+
+	public void setEastWallActive(bool active) {
+		GameObject eastWall = transform.Find("East").gameObject;
+		GameObject eastSolidWall = transform.Find("EastSolid").gameObject;
+		eastWall.SetActive(!active);
+		eastSolidWall.SetActive(active);
 	}
 }

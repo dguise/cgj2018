@@ -15,7 +15,7 @@ public class SpecialBullet : Projectile
     //private Vector2 pos3 = Vector2.zero;
     //private Vector2 pos4 = Vector2.zero;
     Vector2 vectorFromGraph;
-    private static int sound = 13;
+    private static int sound = 15;
 
     public AnimationCurve bulletCurve;
 

@@ -5,6 +5,20 @@ using UnityEngine.SceneManagement;
 
 
 public class CustomGameManager : MonoBehaviour{
+    float timestamp = 0;
+    float cooldown = 60f;
+
+    public void FixedUpdate() {
+
+        if (PlayerManager.gameStarted) {
+            if (timestamp + cooldown < Time.time) {
+                timestamp = Time.time;
+                cooldown = Random.Range(80, 140);
+                PlayerManager.Capricious();
+            }
+        }
+    }
+
 
     public void GameOver() {
         Invoke("Restart", 1f);

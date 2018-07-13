@@ -12,7 +12,7 @@ public class SoundManager : MonoBehaviour {
 	private string[] soundsToLoad = {"crash1", "crash2", "crash3", "crash4",
 									"plopp1", "plopp2", "mouth1-1", "mouth2-1", 
 									"mouth3-1", "mouth4-1", "mouth5-1", "tssss1", 
-									"tssss2", "pew1", "shield"};
+									"tssss2", "pew1", "shield", "swish1"};
 	private List<AudioClip> sounds = new List<AudioClip>();
 	private int currentTrack = 0;
 

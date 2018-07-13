@@ -22,6 +22,8 @@ public class StartGame : MonoBehaviour {
 			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
 			SoundManager sm = SoundManager.instance;
 			sm.PlayMusic(1);
+			PlayerManager.gameStarted = true;
+			PlayerManager.time = Time.time;
         }
     }
 }

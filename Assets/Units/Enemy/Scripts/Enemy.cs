@@ -20,12 +20,22 @@ public class Enemy : Unit {
     [Range(0, 10)]
     public float AggroRange = 5;
 
-    Vector3 randomOffset = Vector2.zero;
+    public bool shouldDropPowerup = true;
+    [Range(0f, 1f)]
+    public float powerupDropRate = 0.1f;
+    private bool willDropPowerup = false;
+
+    public bool IsEliteEnemy = false;
+    [Range(1, 3)]
+    public float EliteSizeIncrease = 1.2f;
+
     public Boolean RandomOffset = true;
+    Vector3 randomOffset = Vector2.zero;
 
+    private Vector3 targetPosition;
     private bool readyToChangeAggro = true;
-
     GameObject[] players;
+
 
 	void Start () {
         rb = GetComponent<Rigidbody2D>();
@@ -40,12 +50,26 @@ public class Enemy : Unit {
         movementSpeed = movementSpeed * UnityEngine.Random.Range(0.7f, 1.15f);
 
         body = transform.FindWithTagInChildren("Body");
+
+        willDropPowerup = powerupDropRate > UnityEngine.Random.Range(0f, 1f);
+        if (IsEliteEnemy)
+        {
+            // Elites always drop powerups
+            willDropPowerup = true;
+            transform.localScale *= EliteSizeIncrease;
+            AttackRange *= EliteSizeIncrease;
+            GetComponentInChildren<Renderer>().material.shader = Shader.Find("Custom/Outline");
+
+            shouldDropPowerup = true;
+            ExperienceWorth *= 2;
+            Stats.GainExperience(100000 * Stats.Level);
+        }
 	}
     Transform body;
 	void FixedUpdate () {
         if (target != null)
         {
-            var targetPosition = target.position + randomOffset;
+            targetPosition = target.position + randomOffset;
 
             if (Vector2.Distance(transform.position, target.position) < 0.5 && !targetIsPlayer)
             {
@@ -93,7 +117,7 @@ public class Enemy : Unit {
 
         foreach (var player in players)
         {
-            if (player == null) continue;
+            if (player == null || player.GetComponent<Unit>().Stats.Status.Contains(Statuses.Invisible)) continue;
             var distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
             if (distanceToPlayer < AggroRange && target == null)
                 Target(player.transform);
@@ -166,7 +190,7 @@ public class Enemy : Unit {
         if (readyToChangeAggro && sender.tag == Tags.Player)
             Target(sender.transform);
 
-        if (IsDead)
+        if (shouldDropPowerup && IsDead && willDropPowerup)
             PowerupManager.instance.SpawnRandomPowerUp(transform.position);
 
     }
