@@ -129,3 +129,8 @@ public static class PlayerManager {
         }
     }
 }
+
+public static class LevelManager
+{
+    public static int TempleFloor = 1;
+}
