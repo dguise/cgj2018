@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class CamFollowZoomScript : MonoBehaviour 
 {
-#pragma warning disable 0108
     private Camera camera;
-#pragma warning restore 0108
 	Vector3 offset;
 
 	public List<GameObject> players = new List<GameObject>();

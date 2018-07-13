@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
+[Serializable]
 public abstract class Weapon : IWeapon
 {
     protected abstract GameObject attackWeapon { get; set; }

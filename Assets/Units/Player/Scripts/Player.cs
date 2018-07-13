@@ -58,6 +58,7 @@ public class Player : Unit
 
     private void Update()
     {
+
         if (Input.GetKeyDown(KeyCode.Alpha1))
             weapon = new Gun(gameObject);
         if (Input.GetKeyDown(KeyCode.Alpha2))
@@ -66,6 +67,9 @@ public class Player : Unit
             weapon = new ShieldGun(gameObject);
         if (Input.GetKeyDown(KeyCode.Alpha4))
             weapon = new EnemySpawnerGun(gameObject);
+
+        Debug.Log(Stats.Status.IndexOf(Statuses.Invisible));
+
     }
 
     private void FixedUpdate()

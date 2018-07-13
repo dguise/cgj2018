@@ -52,7 +52,7 @@ public abstract class Unit : MonoBehaviour
         if (damage > 0)
         {
             TextManager.CreateDamageText(damage.ToString(), transform, 0.2f);
-        } else {
+        } else if (damage < 0) {
             TextManager.CreateHealText((-1 * damage).ToString(), transform, 0.2f);
         }
         TakeDamageExtender(damage, sender, collider);
