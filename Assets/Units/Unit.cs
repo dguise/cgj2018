@@ -52,7 +52,7 @@ public abstract class Unit : MonoBehaviour
         if (damage > 0)
         {
             TextManager.CreateDamageText(damage.ToString(), transform, 0.2f);
-        } else {
+        } else if (damage < 0) {
             TextManager.CreateHealText((-1 * damage).ToString(), transform, 0.2f);
         }
         TakeDamageExtender(damage, sender, collider);
@@ -62,7 +62,7 @@ public abstract class Unit : MonoBehaviour
                 bool isReady = PlayerManager.playerReady[gameObject.GetComponent<Player>().playerID];
                 if (isReady) {
                     PlayerManager.playerReady[gameObject.GetComponent<Player>().playerID] = false;
-                    PlayerManager.players -= 1;
+                    PlayerManager.playersReady -= 1;
                     Rigidbody2D rigid = gameObject.GetComponent<Rigidbody2D>();
                     rigid.velocity = Vector2.zero;
                     gameObject.transform.rotation = Quaternion.Euler(90, 0, 90);

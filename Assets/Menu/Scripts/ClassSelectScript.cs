@@ -66,6 +66,8 @@ public class ClassSelectScript : MonoBehaviour {
                         PlayerManager.controllers.Add(i);
                         PlayerManager.playerReady[playerID] = true;
                         PlayerManager.players += 1;
+                        PlayerManager.playersReady += 1;
+
                         //Instantiate Player
                         GameObject player = Resources.Load<GameObject>("Player3D");
                         players[playerID] = Instantiate(player, spawner.spawners[playerID].transform.position, player.transform.rotation);

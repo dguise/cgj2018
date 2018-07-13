@@ -4,10 +4,10 @@ using UnityEngine;
 
 public static class PlayerManager {
 
-    public static int players = 0;
     public static Dictionary<int, int> controllerId = new Dictionary<int, int>();
     public static List<int> controllers = new List<int>(); 
     public static List<GameObject> PlayerObjects = new List<GameObject>();
+    private static bool hasSwitched = false;
 
 	public enum CharacterClassesEnum
     {
@@ -20,7 +20,9 @@ public static class PlayerManager {
     }
 
     public static CharacterClassesEnum[] playerClass = {CharacterClassesEnum.Emil, CharacterClassesEnum.Emil};
+    public static int players = 0;
     public static bool[] playerReady = {false, false};
+    public static int playersReady = 0;
 
 
 
@@ -64,6 +66,7 @@ public static class PlayerManager {
                     controllers.Add(i);
                     playerReady[players] = true;
                     players += 1;
+                    playersReady += 1;
                 }
             }
 
@@ -73,7 +76,33 @@ public static class PlayerManager {
                 controllers.Add(-1);
                 playerReady[players] = true;
                 players += 1;
+                playersReady += 1;
             }
+        }
+    }
+
+    public static void Capricious() {
+        if (players == 2) {
+            Debug.Log("Test");
+            //PlaySomeTextEvent
+            int tempController = controllerId[0];
+            controllerId[0] = controllerId[1];
+            controllerId[1] = tempController;
+            bool tempReady = playerReady[0];
+            playerReady[0] = playerReady[1];
+            playerReady[1] = tempReady;
+
+        } else if (players == 1) {
+            //PlaySomeTextEvent
+            int tempClass = (int)playerClass[0];
+            tempClass += 2 * (hasSwitched ? 1 : 0) - 1; 
+            Debug.Log(tempClass);
+            int length = CharacterClassesEnum.GetNames(typeof(PlayerManager.CharacterClassesEnum)).Length;
+            playerClass[0] = (CharacterClassesEnum)(((tempClass % length) + length) % length); // hardcoded player 1, could easily be changed later
+            Player playerScript = PlayerObjects[0].GetComponent<Player>();
+            playerScript.PlayerClass = playerClass[0];
+            playerScript.weapon = PlayerManager.GetWeapon(playerScript.PlayerClass, PlayerObjects[0]);
+            playerScript.UpdateMask(playerClass[0]);
         }
     }
 }

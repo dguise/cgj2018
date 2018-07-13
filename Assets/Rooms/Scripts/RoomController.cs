@@ -28,6 +28,8 @@ public class RoomController : MonoBehaviour {
 	
 	public GameObject[] monsters;
 	public Vector2[] spawnPoints;
+	public float minSpawnFactor = 0.4f;
+	public float maxSpawnFactor = 0.9f;
 	private float level;
 
 	private List<GameObject> myMonsters = new List<GameObject>(); 
@@ -42,7 +44,6 @@ public class RoomController : MonoBehaviour {
 		doors.Add(Direction.SOUTH, transform.Find(Direction.SOUTH).GetComponent<DoorController>());
 
 		light = transform.Find("Light").gameObject.GetComponent<Light>();
-
 		fog = transform.Find("Fog").gameObject;
 	}
 
@@ -132,7 +133,9 @@ public class RoomController : MonoBehaviour {
 
 		//Debug.Log("Level is " + level);
 		foreach (Vector2 spawnPoint in spawnPoints) {
-			if (Random.Range(0f, 1f) < 0.8) {
+			float spawnFactor = minSpawnFactor + level * (maxSpawnFactor - minSpawnFactor);
+			Debug.Log("Spawn factor is " + spawnFactor);
+			if (Random.Range(0f, 1f) < spawnFactor) {
 				Vector2 temp = spawnPoint;
 				temp.x += transform.position.x;
 				temp.y += transform.position.y;
@@ -170,5 +173,12 @@ public class RoomController : MonoBehaviour {
 		//Debug.Log("stepColor=" + (endColor - startColor));
 		//Debug.Log("current step=" + level * (endColor - startColor));
 		light.color = startColor + level * (endColor - startColor);
+	}
+
+	void OnDrawGizmos() {
+		foreach (Vector2 v in spawnPoints) {
+			Gizmos.color = Color.red;
+			Gizmos.DrawSphere(v, 0.5f);
+		}
 	}
 }
