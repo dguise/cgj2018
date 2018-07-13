@@ -22,7 +22,7 @@ public abstract class Projectile : MonoBehaviour
     private void Awake()
     {
 		SoundManager sm = SoundManager.instance;
-        sm.PlayRandomize(0.05f, Sound);
+        //sm.PlayRandomize(0.05f, Sound);
         Invoke("Die", Lifetime);
     }
 

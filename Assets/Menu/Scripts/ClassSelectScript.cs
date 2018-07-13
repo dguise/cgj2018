@@ -34,7 +34,8 @@ public class ClassSelectScript : MonoBehaviour {
                 released = false;
                 this.currentChoice = ((this.currentChoice + (int)Mathf.Ceil(horizontal)) % choices + choices) % choices;
 
-                this.portraitImage.sprite = portraitsArray[this.currentChoice];
+                if (portraitsArray.Length - 1 >= this.currentChoice)
+                    this.portraitImage.sprite = portraitsArray[this.currentChoice];
                 
                 if (horizontal > 0) {
                     Transform rightArrow = transform.Find("RightArrow");
