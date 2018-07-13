@@ -69,7 +69,6 @@ public class Player : Unit
             weapon = new EnemySpawnerGun(gameObject);
 
         //Debug.Log(Stats.Status.IndexOf(Statuses.Invisible));
-
     }
 
     private void FixedUpdate()

@@ -22,6 +22,7 @@ public class Enemy : Unit {
 
     Vector3 randomOffset = Vector2.zero;
     public Boolean RandomOffset = true;
+    private Vector3 targetPosition;
 
     private bool readyToChangeAggro = true;
 
@@ -45,7 +46,7 @@ public class Enemy : Unit {
 	void FixedUpdate () {
         if (target != null)
         {
-            var targetPosition = target.position + randomOffset;
+            targetPosition = target.position + randomOffset;
 
             if (Vector2.Distance(transform.position, target.position) < 0.5 && !targetIsPlayer)
             {
@@ -93,7 +94,7 @@ public class Enemy : Unit {
 
         foreach (var player in players)
         {
-            if (player == null) continue;
+            if (player == null || player.GetComponent<Unit>().Stats.Status.Contains(Statuses.Invisible)) continue;
             var distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
             if (distanceToPlayer < AggroRange && target == null)
                 Target(player.transform);
