@@ -165,5 +165,9 @@ public class Enemy : Unit {
         // Maybe run away if taking damage? Random?
         if (readyToChangeAggro && sender.tag == Tags.Player)
             Target(sender.transform);
+
+        if (IsDead)
+            PowerupManager.instance.SpawnRandomPowerUp(transform.position);
+
     }
 }
