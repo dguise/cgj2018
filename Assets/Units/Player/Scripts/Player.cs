@@ -176,6 +176,7 @@ public class Player : Unit
             ParticleSpawner.instance.SpawnParticleEffect(player.transform.position, Vector2.up, ParticleSpawner.ParticleTypes.Hit);
             PlayerManager.playerReady[player.playerID] = true;
             PlayerManager.playersReady += 1;
+            collision.transform.rotation = transform.rotation;
             Rigidbody2D rigid = player.GetComponent<Rigidbody2D>();
             rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
         }

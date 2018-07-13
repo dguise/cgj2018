@@ -58,31 +58,26 @@ public class CamFollowZoomScript : MonoBehaviour
 			Move();
 			ZoomPerspective();
 		}
-
-		
-        if (Input.GetKeyDown("space"))
-        {
-            PlayerManager.Capricious();
-        }
 	}
 
 	private void Awake ()
     {
         camera = GetComponent<Camera>();
-
     }
 
 	private int FindPlayers() {
-		int found = 0;
-		for (int i = 0; i < PlayerManager.players; i++) {
-			GameObject player = PlayerManager.PlayerObjects[i];
-			if (player != null && !players.Contains(player)) {
-				players.Add(player);
-				found += 1;
-			}
-		}
+        players.Clear();
+        players.AddRange(GameObject.FindGameObjectsWithTag(Tags.Player));
+        return players.Count;
+		//for (int i = 0; i < PlayerManager.players; i++) {
+		//	GameObject player = PlayerManager.PlayerObjects[i];
+		//	if (player != null && !players.Contains(player)) {
+		//		//players.Add(player);
+		//		//found += 1;
+		//	}
+		//}
 
-		return found;
+		//return found;
 	}
 
 	private void Move() 
