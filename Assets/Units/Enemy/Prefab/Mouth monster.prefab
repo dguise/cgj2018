@@ -495,16 +495,16 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1162629795480400}
-  m_LocalRotation: {x: -0, y: 0.9212875, z: -0.38888237, w: 0}
+  m_LocalRotation: {x: -0.000000008331126, y: 0.9990098, z: -0.04449116, w: -0.00000018706808}
   m_LocalPosition: {x: -15.285974, y: -18.09, z: 0.17637633}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.18179458, y: 0.18179455, z: 0.18179455}
   m_Children:
   - {fileID: 4026593275712400}
   - {fileID: 4506334043028914}
   - {fileID: 224915661630242334}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 45.77, y: 180.00002, z: 0}
+  m_LocalEulerAnglesHint: {x: 5.1, y: 180.00002, z: 0}
 --- !u!4 &4615824074015482
 Transform:
   m_ObjectHideFlags: 1
@@ -697,7 +697,7 @@ MonoBehaviour:
   Portrait: {fileID: 21300000, guid: d6fb85cf42a116b458b97ec9df41c3db, type: 3}
   movementSpeed: 3
   ExperienceWorth: 50
-  maxHealth: 300
+  maxHealth: 100
   target: {fileID: 0}
   AttackRange: 12.2
   enemyClass: 4
