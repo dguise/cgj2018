@@ -30,8 +30,11 @@ class ShieldGun : Weapon
         if (projectiles.Count < _bulletLimit)
         {
             projectile = base.Attack(position, direction, rotation, radius);
-            if (projectile != null)
+            if (projectile != null) {
                 projectile.GetComponent<Projectile>().destroyOnCollision = false;
+                ShieldBullet bullet = projectile.GetComponent<ShieldBullet>();
+                bullet.Invoke("Die", bullet.Lifetime);
+            }
         }
         else
         {
@@ -41,7 +44,6 @@ class ShieldGun : Weapon
                 bullet.ShouldCirculate = false;
                 bullet.destroyOnCollision = true;
                 proj.GetComponent<Rigidbody2D>().velocity = direction.normalized * speed;
-                bullet.Invoke("Die", bullet.Lifetime);
             }
             projectiles.Clear();
         }
