@@ -12,6 +12,9 @@ public class RoomSpawner : MonoBehaviour {
 	private List<GameObject> roomList = new List<GameObject>();
 	private GameObject[,] rooms;
 
+	public GameObject bossRoom;
+	public GameObject exitRoom;
+
 	// Use this for initialization
 	void Start () {
 		rooms = new GameObject[nTiles, nTiles];
@@ -27,17 +30,26 @@ public class RoomSpawner : MonoBehaviour {
 		Vector2 exit = new Vector2(Random.Range(0, 2), Random.Range(0, 2));
 		for(int x = -(nTiles - 1) / 2; x <= (nTiles - 1) / 2; x++) {
 			for(int y = -(nTiles - 1) / 2; y <= (nTiles - 1) / 2; y++) {
-				if (x == exit.x && y == exit.y) {
-					// SPAWN EXIT ROOM
-					// Can be a prefab room added to the spawner manually
-				}
-
 				Vector3 v = new Vector3(x * xTileSize, y * yTileSize, 0);
-				int r = Random.Range(0, roomList.Count);
 				int xroom = x + (nTiles - 1) / 2;
 				int yroom = y + (nTiles - 1) / 2;
 				float level = 1f - (float) Mathf.Max(Mathf.Abs(x), Mathf.Abs(y)) / ((nTiles - 1) / 2);
-				rooms[xroom, yroom] = Object.Instantiate(roomList[r], v, Quaternion.identity, transform);
+				int r = Random.Range(0, roomList.Count);
+
+				GameObject room;
+				if (x == exit.x && y == exit.y) {
+					if (LevelManager.TempleFloor == 1) {
+						Debug.Log("BOSS HAS SPAWNED IN " + x + ", " + y);
+						room = bossRoom;
+					} else {
+						// room = exitRoom;
+						room = roomList[r];
+					}
+				} else {
+					room = roomList[r];
+				}
+
+				rooms[xroom, yroom] = Object.Instantiate(room, v, Quaternion.identity, transform);
 				rooms[xroom, yroom].transform.localScale = new Vector3(scale, scale, 1f);
 				rooms[xroom, yroom].GetComponent<RoomController>().SetLevel(level);
 			}
