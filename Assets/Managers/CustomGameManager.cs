@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 
 public class CustomGameManager : MonoBehaviour{
     float timestamp = 0;
     float cooldown = 60f;
+
 
     public void FixedUpdate() {
 
@@ -18,7 +20,6 @@ public class CustomGameManager : MonoBehaviour{
             }
         }
     }
-
 
     public void GameOver() {
         Invoke("Restart", 1f);
@@ -35,5 +36,22 @@ public class CustomGameManager : MonoBehaviour{
         Destroy(this.gameObject);
     }
 
+    public void Victory() {
+        Invoke("Win", 2f);
+    }
+    
 
+    public void Win() {
+        var time = Time.time - PlayerManager.time; 
+        var record = PlayerPrefs.GetFloat("score");
+
+        if (time <= record) {
+            GuiScript.instance.Talk(new Message(aText: "YOU HAVE WON!\nTIME: " + time + ".\nRECORD: "));
+        } else {
+            GuiScript.instance.Talk(new Message(aText: "YOU HAVE WON AND BEATEN THE RECORD!\nTIME: " + time + ".\nLAST RECORD: " + record));
+            PlayerPrefs.SetFloat("score", time);
+        }
+
+        Invoke("Restart", 30f);
+    }
 }

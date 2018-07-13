@@ -118,6 +118,7 @@ public static class PlayerManager {
             GuiScript.instance.Talk(new Message(p1, aText: "Capricious...", aMessageType: Message.MessagetypeEnum.QuickMessageAllAtOnce));
             GuiScript.instance.Talk(new Message(p1, aText: "Capricious?", aMessageType: Message.MessagetypeEnum.QuickMessageAllAtOnce));
             GuiScript.instance.Talk(new Message(p1, aText: "Capricious!", aMessageType: Message.MessagetypeEnum.QuickMessageAllAtOnce));
+
             int tempClass = (int)playerClass[0];
             tempClass += 2 * (hasSwitched ? 1 : 0) - 1; 
             hasSwitched = !hasSwitched;
