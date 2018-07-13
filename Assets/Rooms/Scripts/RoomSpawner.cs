@@ -13,7 +13,7 @@ public class RoomSpawner : MonoBehaviour {
 	private GameObject[,] rooms;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		nTiles = 5 - (LevelManager.TempleFloor - 1) * 2;
 
 		rooms = new GameObject[nTiles, nTiles];
@@ -24,6 +24,10 @@ public class RoomSpawner : MonoBehaviour {
 			GameObject lo = (GameObject)subListObject;
 			roomList.Add(lo);
 		}
+
+		Vector3 spawnPos = new Vector3(-(nTiles - 1) / 2 * xTileSize, -(nTiles - 1) / 2 * yTileSize, 0);
+		GameObject spawn = GameObject.Find("PlayerSpawner");
+		spawn.transform.position = spawnPos;
 
 		// Instantiate rooms
 		Object[] bossRooms = Resources.LoadAll("Boss", typeof(GameObject));
