@@ -62,7 +62,7 @@ public abstract class Unit : MonoBehaviour
                 bool isReady = PlayerManager.playerReady[gameObject.GetComponent<Player>().playerID];
                 if (isReady) {
                     PlayerManager.playerReady[gameObject.GetComponent<Player>().playerID] = false;
-                    PlayerManager.players -= 1;
+                    PlayerManager.playersReady -= 1;
                     Rigidbody2D rigid = gameObject.GetComponent<Rigidbody2D>();
                     rigid.velocity = Vector2.zero;
                     gameObject.transform.rotation = Quaternion.Euler(90, 0, 90);

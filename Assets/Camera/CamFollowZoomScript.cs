@@ -26,11 +26,11 @@ public class CamFollowZoomScript : MonoBehaviour
 	
 	private void FixedUpdate() 
 	{
-		if (foundPlayers < PlayerManager.players) {
+		if (foundPlayers < PlayerManager.playersReady) {
 			foundPlayers = FindPlayers();
 		}
 
-		if (foundPlayers > PlayerManager.players) {
+		if (foundPlayers > PlayerManager.playersReady) {
 			int amountOfPlayers = 0;
 			int alivePlayer = -1;
 			for (int i = 0; i < PlayerManager.playerReady.Length; i++) {
@@ -58,6 +58,12 @@ public class CamFollowZoomScript : MonoBehaviour
 			Move();
 			ZoomPerspective();
 		}
+
+		
+        if (Input.GetKeyDown("space"))
+        {
+            PlayerManager.Capricious();
+        }
 	}
 
 	private void Awake ()
@@ -70,7 +76,7 @@ public class CamFollowZoomScript : MonoBehaviour
 		int found = 0;
 		for (int i = 0; i < PlayerManager.players; i++) {
 			GameObject player = PlayerManager.PlayerObjects[i];
-			if (player && !players.Contains(player)) {
+			if (player != null && !players.Contains(player)) {
 				players.Add(player);
 				found += 1;
 			}
