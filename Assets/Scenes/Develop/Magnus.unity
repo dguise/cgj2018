@@ -365,6 +365,12 @@ Prefab:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114649861078622778, guid: d59330debfef1da46a7f9c924ff7248b,
+        type: 2}
+      propertyPath: winText
+      value: 
+      objectReference: {fileID: 114647677430115156, guid: f2e465f11804042558ac3c1aa4cac82e,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d59330debfef1da46a7f9c924ff7248b, type: 2}
   m_IsPrefabParent: 0
@@ -779,8 +785,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -48612535
-  m_SortingLayer: 0
+  m_SortingLayerID: 2133474761
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: f3984ca76507f4738b4cd6b473b85ef3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

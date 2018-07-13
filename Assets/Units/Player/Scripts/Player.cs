@@ -162,6 +162,5 @@ public class Player : Unit
         // If class is X heal yourself and all around with 15% of damage
         var EvilDoer = (sender != null ? (sender.GetComponent<Unit>()) : null);
         var EvilDoerPortrait = (EvilDoer != null ? EvilDoer.Portrait : null);
-        GuiScript.instance.Talk(new Message(this.UnitPortrait, EvilDoerPortrait, "aj aj aj", Message.MessagetypeEnum.QuickMessageAllAtOnce));
     }
 }
