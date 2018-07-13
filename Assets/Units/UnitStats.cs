@@ -7,7 +7,8 @@ using System;
 public class UnitStats
 {
     public List<Statuses> Status = new List<Statuses>();
-    public bool CanMove {
+    public bool CanMove
+    {
         get
         {
             return Status.Any(x => _disables.Contains(x));
@@ -42,6 +43,20 @@ public class UnitStats
         }
         Experience += xp;
     }
+
+    public void SetStatus(params Statuses[] stati)
+    {
+        Status.AddRange(stati);
+    }
+
+    public void RemoveStatus(params Statuses[] stati)
+    {
+        foreach (var status in stati)
+        {
+            Status.Remove(status);
+        }
+    }
+
 }
 
 public enum Statuses {
