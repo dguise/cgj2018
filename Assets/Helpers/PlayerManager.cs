@@ -23,7 +23,6 @@ public static class PlayerManager {
         Melee,
         Bowman,
         Magician,
-        Roger,
         Dartblower
     }
 
@@ -56,9 +55,6 @@ public static class PlayerManager {
                 break;
             case CharacterClassesEnum.Magician:
                 weapon = new ShieldGun(go);
-                break;
-            case CharacterClassesEnum.Roger:
-                weapon = new Gun(go);
                 break;
             case CharacterClassesEnum.Dartblower:
                 weapon = new Gun(go);

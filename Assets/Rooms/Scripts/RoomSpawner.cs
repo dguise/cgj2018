@@ -12,43 +12,38 @@ public class RoomSpawner : MonoBehaviour {
 	private List<GameObject> roomList = new List<GameObject>();
 	private GameObject[,] rooms;
 
-	public GameObject bossRoom;
-	public GameObject exitRoom;
-
 	// Use this for initialization
 	void Start () {
+		nTiles = 5 - (LevelManager.TempleFloor - 1) * 2;
+
 		rooms = new GameObject[nTiles, nTiles];
 
 		// Fetch all room prefabs
-		Object[] subListObjects = Resources.LoadAll("Prefabs", typeof(GameObject));
+		Object[] subListObjects = Resources.LoadAll("Regular", typeof(GameObject));
 		foreach (GameObject subListObject in subListObjects) {
 			GameObject lo = (GameObject)subListObject;
 			roomList.Add(lo);
 		}
 
 		// Instantiate rooms
-		Vector2 exit = new Vector2(Random.Range(0, 2), Random.Range(0, 2));
+		Object[] bossRooms = Resources.LoadAll("Boss", typeof(GameObject));
+		GameObject bossRoom = (GameObject) bossRooms[0];
+		rooms[(nTiles - 1) / 2, (nTiles - 1) / 2] = Object.Instantiate(bossRoom, Vector3.zero, Quaternion.identity, transform);
+		rooms[(nTiles - 1) / 2, (nTiles - 1) / 2].transform.localScale = new Vector3(scale, scale, 1f);
+		rooms[(nTiles - 1) / 2, (nTiles - 1) / 2].GetComponent<RoomController>().SetLevel(1f);
+
 		for(int x = -(nTiles - 1) / 2; x <= (nTiles - 1) / 2; x++) {
 			for(int y = -(nTiles - 1) / 2; y <= (nTiles - 1) / 2; y++) {
+				if (x == 0 && y == 0) // Skip boss room
+					continue;
+
 				Vector3 v = new Vector3(x * xTileSize, y * yTileSize, 0);
 				int xroom = x + (nTiles - 1) / 2;
 				int yroom = y + (nTiles - 1) / 2;
 				float level = 1f - (float) Mathf.Max(Mathf.Abs(x), Mathf.Abs(y)) / ((nTiles - 1) / 2);
 				int r = Random.Range(0, roomList.Count);
 
-				GameObject room;
-				if (x == exit.x && y == exit.y) {
-					if (LevelManager.TempleFloor == 1) {
-						Debug.Log("BOSS HAS SPAWNED IN " + x + ", " + y);
-						room = bossRoom;
-					} else {
-						// room = exitRoom;
-						room = roomList[r];
-					}
-				} else {
-					room = roomList[r];
-				}
-
+				GameObject room = roomList[r];
 				rooms[xroom, yroom] = Object.Instantiate(room, v, Quaternion.identity, transform);
 				rooms[xroom, yroom].transform.localScale = new Vector3(scale, scale, 1f);
 				rooms[xroom, yroom].GetComponent<RoomController>().SetLevel(level);

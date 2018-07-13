@@ -6,6 +6,8 @@ public enum EnemyClass
     EnemySpawner,
     Melee,
     SuicideCrawler,
+    SpeedyRange,
+    ShieldImp,
 }
 public class EnemyHelper
 {
@@ -26,6 +28,12 @@ public class EnemyHelper
                 break;
             case EnemyClass.SuicideCrawler:
                 weapon = new ExplodeSelfGun(go);
+                break;
+            case EnemyClass.SpeedyRange:
+                weapon = new SpecialGun(go, 1f);
+                break;
+            case EnemyClass.ShieldImp:
+                weapon = new ShieldGun(go, 0.8f, 10);
                 break;
 
         }

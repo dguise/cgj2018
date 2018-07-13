@@ -17,7 +17,7 @@ public abstract class Unit : MonoBehaviour
     public int ExperienceWorth = 1;
 
     [SerializeField]
-    [Range(10f, 500f)]
+    [Range(10f, 2000f)]
     public float maxHealth;
     private float _health;
     public float Health
@@ -90,6 +90,12 @@ public abstract class Unit : MonoBehaviour
                 var killer = sender.GetComponent<Unit>();
                 if (killer != null)
                     killer.Stats.GainExperience(ExperienceWorth);
+
+                // TODO: Refactor this to event ffs
+                var spawnyThing = GetComponent<SpawnThingOnDeath>();
+                if (spawnyThing != null)
+                    spawnyThing.SpawnThing();
+
                 Destroy(gameObject);
                 // Play generic death particle & sound?
                 ParticleSpawner.instance.SpawnParticleEffect((Vector2)collider.transform.position, (gameObject.transform.position - collider.transform.position).normalized, ParticleSpawner.ParticleTypes.Blood);

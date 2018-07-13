@@ -163,4 +163,21 @@ public class Player : Unit
         var EvilDoer = (sender != null ? (sender.GetComponent<Unit>()) : null);
         var EvilDoerPortrait = (EvilDoer != null ? EvilDoer.Portrait : null);
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        // Revive player on touch
+        var player = collision.collider.GetComponent<Player>();
+
+        if (player != null && player.IsDead)
+        {
+            player.Health = player.maxHealth / 2;
+            SoundManager.instance.PlayAudio(14);
+            ParticleSpawner.instance.SpawnParticleEffect(player.transform.position, Vector2.up, ParticleSpawner.ParticleTypes.Hit);
+            PlayerManager.playerReady[player.playerID] = true;
+            PlayerManager.playersReady += 1;
+            Rigidbody2D rigid = player.GetComponent<Rigidbody2D>();
+            rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
+        }
+    }
 }

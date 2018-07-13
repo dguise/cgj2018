@@ -10,15 +10,16 @@ class ShieldGun : Weapon
     protected override float speed { get; set; }
     protected override float attackTimestamp { get; set; }
 
-    private int _bulletLimit = 4;
+    private int _bulletLimit;
     List<GameObject> projectiles = new List<GameObject>();
 
-    public ShieldGun(GameObject owner) : base(owner)
+    public ShieldGun(GameObject owner, float cd = 0.2f, int bulletLimit = 4) : base(owner)
     {
         attackWeapon = Resources.Load<GameObject>("ShieldBullet");
         attackTimestamp = -(cooldown + 1);
-        cooldown = 0.2f;
+        cooldown = cd;
         speed = 4f;
+        _bulletLimit = bulletLimit;
     }
 
     public override GameObject Attack(Vector2 position, Vector2 direction, Quaternion rotation, float radius)
