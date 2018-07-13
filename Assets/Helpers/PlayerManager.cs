@@ -107,7 +107,8 @@ public static class PlayerManager {
             Sprite p2 = PlayerObjects[1].GetComponent<Player>().Portrait;
             GuiScript.instance.Talk(new Message(p1, p2, "I don't feel so good...", aMessageType: Message.MessagetypeEnum.QuickMessageAllAtOnce));
             GuiScript.instance.Talk(new Message(p2, p1, "Neither do ... ", aMessageType: Message.MessagetypeEnum.QuickMessageAllAtOnce));
-            GuiScript.instance.Talk(new Message(p1, p2, "... I.", aMessageType: Message.MessagetypeEnum.QuickMessageAllAtOnce));
+            GuiScript.instance.Talk(new Message(p1, p2, "... I...", aMessageType: Message.MessagetypeEnum.QuickMessageAllAtOnce));
+            GuiScript.instance.Talk(new Message(p2, p1, "Wow, capricious!", aMessageType: Message.MessagetypeEnum.QuickMessageAllAtOnce));
 
             int tempController = controllerId[0];
             controllerId[0] = controllerId[1];
