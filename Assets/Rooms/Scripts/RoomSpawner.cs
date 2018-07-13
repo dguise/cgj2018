@@ -49,9 +49,6 @@ public class RoomSpawner : MonoBehaviour {
 			rooms[i, 0].GetComponent<RoomController>().setSouthWallActive(true);
 			rooms[i, nTiles-1].GetComponent<RoomController>().setNorthWallActive(true);
 		}
-        // TODO: Remove this:
-        //Debug.LogWarning("Remove this line for production!!!!1111");
-		PlayerManager.PlayerObjects.Add(GameObject.FindGameObjectWithTag(Tags.Player));
 	}
 
 	public void UnlockAllRooms() {
