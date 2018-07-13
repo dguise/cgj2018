@@ -59,6 +59,8 @@ public class RoomController : MonoBehaviour {
 			return;
 		}
 
+		Debug.Log(PlayerManager.PlayerObjects.Count);
+
 		bool playerInRange = 
 		Vector2.Distance(PlayerManager.PlayerObjects[0].transform.position, light.transform.position) < lightTriggerRadius ||
 			(PlayerManager.PlayerObjects.Count == 2 && 
