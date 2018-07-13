@@ -97,6 +97,12 @@ public class GuiScript : MonoBehaviour
 
         if (!currentlySpammingText)  //Vi väntar på input ifrån spelaren
         {
+            if (messageQueue.Count > 0 && this.targetAlpha == 0) //Vi håller på att fadea ut eller har fadeat ut.
+            {
+                FadeIn();
+                StartCoroutine(AddText(true));
+            }
+
             if (Input.GetButtonDown(Inputs.AButton()))  //Spelaren vill få nästa äventyrsbubbla
                 if (clickToGetToNextMessageBubble)
                     StartCoroutine(AddText());
@@ -120,9 +126,12 @@ public class GuiScript : MonoBehaviour
         this.targetAlpha = 1.0f;
     }
 
-    IEnumerator AddText()
+    IEnumerator AddText(bool waitForFadein = false)
     {
         ClearText();
+        yield return new WaitForSeconds(1);
+
+        if (waitForFadein)
         if (messageQueue.Count > 0)
         {
             Message msg = (Message)messageQueue.Dequeue(); //Hämta första elementet i kön (och ta bort det ifrån listan)

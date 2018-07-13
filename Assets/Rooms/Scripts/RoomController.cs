@@ -134,7 +134,7 @@ public class RoomController : MonoBehaviour {
 		//Debug.Log("Level is " + level);
 		foreach (Vector2 spawnPoint in spawnPoints) {
 			float spawnFactor = minSpawnFactor + level * (maxSpawnFactor - minSpawnFactor);
-			Debug.Log("Spawn factor is " + spawnFactor);
+			//Debug.Log("Spawn factor is " + spawnFactor);
 			if (Random.Range(0f, 1f) < spawnFactor) {
 				Vector2 temp = spawnPoint;
 				temp.x += transform.position.x;

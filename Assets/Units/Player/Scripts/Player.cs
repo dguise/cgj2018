@@ -68,7 +68,7 @@ public class Player : Unit
         if (Input.GetKeyDown(KeyCode.Alpha4))
             weapon = new EnemySpawnerGun(gameObject);
 
-        Debug.Log(Stats.Status.IndexOf(Statuses.Invisible));
+        //Debug.Log(Stats.Status.IndexOf(Statuses.Invisible));
 
     }
 
