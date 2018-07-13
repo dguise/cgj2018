@@ -41,7 +41,7 @@ public class SoundManager : MonoBehaviour {
 
 		PlayMusic(0);
 
-		DontDestroyOnLoad(gameObject);
+		//DontDestroyOnLoad(gameObject);
 	}
 
 	public void PlayAudio(int sound) {

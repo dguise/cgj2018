@@ -28,7 +28,7 @@ public class ParticleSpawner : MonoBehaviour
     }
     void Start()
     {
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
         //SpawnParticleEffect(this.transform.position, Vector2.zero, ParticleTypes.Hit);
     }
 

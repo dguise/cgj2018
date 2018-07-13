@@ -66,8 +66,8 @@ public class GuiScript : MonoBehaviour
         //messageQueue.Enqueue("Jag menar, jag håller på att implodera!");
         //messageQueue.Enqueue("BAM!  Okej, sorry!");
         //StartCoroutine(AddText());
-        var parentGO = this.transform.parent.gameObject;
-        GameObject.DontDestroyOnLoad(parentGO);
+        //var parentGO = this.transform.parent.gameObject;
+        //GameObject.DontDestroyOnLoad(parentGO);
     }
 
 
