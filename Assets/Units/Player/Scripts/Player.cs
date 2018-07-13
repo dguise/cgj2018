@@ -85,7 +85,7 @@ public class Player : Unit
             else if (!dashing)
             {
                 Vector2 playerVelocity = new Vector2(Input.GetAxisRaw(Inputs.Horizontal(PlayerManager.controllerId[playerID])), Input.GetAxisRaw(Inputs.Vertical(PlayerManager.controllerId[playerID])));
-                rb.velocity = playerVelocity.normalized * movementSpeed;
+                rb.velocity = playerVelocity.normalized * (movementSpeed * 1 + (Stats.Agility / 50));
                 anim.SetFloat(AnimatorConstants.Speed, playerVelocity.magnitude);
 
                 if (rb.velocity.magnitude > DEADZONE)

@@ -14,6 +14,7 @@ public class CamFollowZoomScript : MonoBehaviour
 	float minSize = 7f;
 	Vector3 wantedPosition;
 	public int foundPlayers = 0;
+	public int playersReady;
 	
 
 	// Use this for initialization
@@ -24,6 +25,7 @@ public class CamFollowZoomScript : MonoBehaviour
 	
 	private void FixedUpdate() 
 	{
+		playersReady = PlayerManager.playersReady;
 		if (foundPlayers < PlayerManager.playersReady) {
 			foundPlayers = FindPlayers();
 		}

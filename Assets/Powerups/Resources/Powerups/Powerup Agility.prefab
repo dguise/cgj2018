@@ -52,7 +52,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -87,16 +87,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce4a236b4ab60674899f01fdaeb69426, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Agility: 10
-  Intelligence: 0
-  Strength: 0
-  ModifyStatus: 0
-  Status: 0
-  Health: 0
-  MaxHealth: 0
-  Experience: 0
-  ShouldBeTemporary: 0
-  Seconds: 0
+  powerup:
+    Agility: 0
+    Intelligence: 0
+    Strength: 0
+    ModifyStatus: 0
+    Status: 0
+    WeaponIncrement: 0
+    Health: 0
+    MaxHealth: 0
+    Experience: 0
+    ShouldBeTemporary: 0
+    Seconds: 0
 --- !u!212 &212529615067696166
 SpriteRenderer:
   m_ObjectHideFlags: 1
