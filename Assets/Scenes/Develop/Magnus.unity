@@ -579,6 +579,16 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114270531268787864, guid: 274b698ce3ca65641bd10601e638f5e2,
+        type: 2}
+      propertyPath: portraitsArray.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114932112201941494, guid: 274b698ce3ca65641bd10601e638f5e2,
+        type: 2}
+      propertyPath: portraitsArray.Array.size
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 224768507679161254, guid: 274b698ce3ca65641bd10601e638f5e2,
         type: 2}
       propertyPath: m_LocalPosition.x
@@ -744,6 +754,42 @@ Prefab:
       propertyPath: m_LocalScale.y
       value: 1.5
       objectReference: {fileID: 0}
+    - target: {fileID: 114932112201941494, guid: 274b698ce3ca65641bd10601e638f5e2,
+        type: 2}
+      propertyPath: portraitsArray.Array.data[3]
+      value: 
+      objectReference: {fileID: 21300000, guid: d1a49794dc7d1244ab4afa18131c28ba,
+        type: 3}
+    - target: {fileID: 114270531268787864, guid: 274b698ce3ca65641bd10601e638f5e2,
+        type: 2}
+      propertyPath: portraitsArray.Array.data[3]
+      value: 
+      objectReference: {fileID: 21300000, guid: d1a49794dc7d1244ab4afa18131c28ba,
+        type: 3}
+    - target: {fileID: 114270531268787864, guid: 274b698ce3ca65641bd10601e638f5e2,
+        type: 2}
+      propertyPath: portraitsArray.Array.data[4]
+      value: 
+      objectReference: {fileID: 21300000, guid: a1b02fe9d99c66c41a874d9c11dad072,
+        type: 3}
+    - target: {fileID: 114270531268787864, guid: 274b698ce3ca65641bd10601e638f5e2,
+        type: 2}
+      propertyPath: portraitsArray.Array.data[5]
+      value: 
+      objectReference: {fileID: 21300000, guid: 50e6113d1f49db4459b353aa5762ed60,
+        type: 3}
+    - target: {fileID: 114932112201941494, guid: 274b698ce3ca65641bd10601e638f5e2,
+        type: 2}
+      propertyPath: portraitsArray.Array.data[4]
+      value: 
+      objectReference: {fileID: 21300000, guid: a1b02fe9d99c66c41a874d9c11dad072,
+        type: 3}
+    - target: {fileID: 114932112201941494, guid: 274b698ce3ca65641bd10601e638f5e2,
+        type: 2}
+      propertyPath: portraitsArray.Array.data[5]
+      value: 
+      objectReference: {fileID: 21300000, guid: 50e6113d1f49db4459b353aa5762ed60,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 274b698ce3ca65641bd10601e638f5e2, type: 2}
   m_IsPrefabParent: 0
@@ -1061,3 +1107,4 @@ MonoBehaviour:
   players: []
   extraSize: 7
   foundPlayers: 0
+  playersReady: 0
