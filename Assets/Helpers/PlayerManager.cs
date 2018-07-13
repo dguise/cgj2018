@@ -98,12 +98,20 @@ public static class PlayerManager {
 
     public static void Capricious() {
         if (players == 2) {
-            //PlaySomeTextEvent
+            Sprite p1 = PlayerObjects[0].GetComponent<Player>().Portrait;
+            Sprite p2 = PlayerObjects[1].GetComponent<Player>().Portrait;
+            GuiScript.instance.Talk(new Message(p1, p2, "I don't feel so good...", aMessageType: Message.MessagetypeEnum.QuickMessageAllAtOnce));
+            GuiScript.instance.Talk(new Message(p2, p1, "Neither do ... ", aMessageType: Message.MessagetypeEnum.QuickMessageAllAtOnce));
+            GuiScript.instance.Talk(new Message(p1, p2, "... I.", aMessageType: Message.MessagetypeEnum.QuickMessageAllAtOnce));
+
             int tempController = controllerId[0];
             controllerId[0] = controllerId[1];
             controllerId[1] = tempController;
         } else if (players == 1) {
-            //PlaySomeTextEvent
+            Sprite p1 = PlayerObjects[0].GetComponent<Player>().Portrait;
+            GuiScript.instance.Talk(new Message(p1, aText: "Capricious...", aMessageType: Message.MessagetypeEnum.QuickMessageAllAtOnce));
+            GuiScript.instance.Talk(new Message(p1, aText: "Capricious?", aMessageType: Message.MessagetypeEnum.QuickMessageAllAtOnce));
+            GuiScript.instance.Talk(new Message(p1, aText: "Capricious!", aMessageType: Message.MessagetypeEnum.QuickMessageAllAtOnce));
             int tempClass = (int)playerClass[0];
             tempClass += 2 * (hasSwitched ? 1 : 0) - 1; 
             hasSwitched = !hasSwitched;
