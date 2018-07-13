@@ -20,6 +20,8 @@ public class Enemy : Unit {
     [Range(0, 10)]
     public float AggroRange = 5;
 
+    public bool shouldDropPowerup = true;
+
     Vector3 randomOffset = Vector2.zero;
     public Boolean RandomOffset = true;
     private Vector3 targetPosition;
@@ -27,6 +29,7 @@ public class Enemy : Unit {
     private bool readyToChangeAggro = true;
 
     GameObject[] players;
+
 
 	void Start () {
         rb = GetComponent<Rigidbody2D>();
@@ -167,7 +170,7 @@ public class Enemy : Unit {
         if (readyToChangeAggro && sender.tag == Tags.Player)
             Target(sender.transform);
 
-        if (IsDead)
+        if (shouldDropPowerup && IsDead && UnityEngine.Random.Range(0, 1) > 0.9)
             PowerupManager.instance.SpawnRandomPowerUp(transform.position);
 
     }

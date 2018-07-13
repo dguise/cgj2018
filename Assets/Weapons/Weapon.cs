@@ -43,7 +43,7 @@ public abstract class Weapon : IWeapon
 
             // Stat modifier
             projectile.Damage = projectile.Damage + ownerUnit.Stats.Strength;
-            if (Random.Range(0f, 1f) > ownerUnit.Stats.Intelligence / 100)
+            if (Random.Range(0f, 1f) < ownerUnit.Stats.Intelligence / 100)
                 projectile.Damage = projectile.Damage * 2;
 
             if (owner.tag == Tags.Player)

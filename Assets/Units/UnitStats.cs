@@ -30,7 +30,12 @@ public class UnitStats
             // TODO: Graphical level up?
             if (OnLevelUp != null)
                 OnLevelUp();
+
             Level++;
+            Strength += 4;
+            Intelligence += 4;
+            Agility += 4;
+
             xp -= _experiencePerLevel;
             _experiencePerLevel += 50;
             GainExperience(xp);
