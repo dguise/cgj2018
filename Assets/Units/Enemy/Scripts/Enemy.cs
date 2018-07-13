@@ -109,7 +109,7 @@ public class Enemy : Unit {
         // Do we need random offset here?
         if (target != null && targetIsPlayer && Vector2.Distance(target.position, transform.position) <= AttackRange)
         {
-            if (!target.GetComponent<Unit>().Stats.Status.Contains(Statuses.Invisible))
+            if (!target.GetComponent<Unit>().Stats.Status.Contains(Statuses.Invisible) && !target.GetComponent<Unit>().IsDead)
             {
                 weapon.Attack(transform, target.transform);
             } else
