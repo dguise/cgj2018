@@ -68,11 +68,11 @@ public class Player : Unit
     {
         GameObject firstActiveGameObject = null;
 
-        for (int i = 0; i < gameObject.transform.childCount; i++)
+        for (int i = 0; i < head.childCount; i++)
         {
-            if (gameObject.transform.GetChild(i).gameObject.activeSelf == true)
+            if (head.GetChild(i).gameObject.activeSelf == true)
             {
-                firstActiveGameObject = transform.GetChild(i).gameObject;
+                firstActiveGameObject = head.GetChild(i).gameObject;
             }
         }
         return firstActiveGameObject;
