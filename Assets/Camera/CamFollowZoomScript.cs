@@ -123,8 +123,8 @@ public class CamFollowZoomScript : MonoBehaviour
 		float distance = Vector3.Scale(wantedPosition - players[0].transform.position, new Vector3(1, 1, 0)).magnitude;
 		float oppositeCathethus = Mathf.Abs(distance);
 		float newDistance = oppositeCathethus/(Mathf.Tan(Mathf.PI/180 *camera.fieldOfView/2));
-		Debug.Log("OppositeCathetus: " + oppositeCathethus);
-		Debug.Log("New Distance: " + newDistance);
+		//Debug.Log("OppositeCathetus: " + oppositeCathethus);
+		//Debug.Log("New Distance: " + newDistance);
 		newDistance = Mathf.Max(newDistance/2 + extraSize, 13f);
         camera.transform.position = new Vector3(camera.transform.position.x, 
 												camera.transform.position.y,

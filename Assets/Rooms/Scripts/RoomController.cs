@@ -130,7 +130,7 @@ public class RoomController : MonoBehaviour {
 		// GameObject myMon = Instantiate(initMon, myFirstSpawnPoint, Quaternion.identity);
 		// myMonsters.Add(myMon);
 
-		Debug.Log("Level is " + level);
+		//Debug.Log("Level is " + level);
 		foreach (Vector2 spawnPoint in spawnPoints) {
 			if (Random.Range(0f, 1f) < 0.8) {
 				Vector2 temp = spawnPoint;
@@ -166,9 +166,9 @@ public class RoomController : MonoBehaviour {
 
 	public void SetLevel(float level) {
 		this.level = level;
-		Debug.Log("startColor=" + startColor);
-		Debug.Log("stepColor=" + (endColor - startColor));
-		Debug.Log("current step=" + level * (endColor - startColor));
+		//Debug.Log("startColor=" + startColor);
+		//Debug.Log("stepColor=" + (endColor - startColor));
+		//Debug.Log("current step=" + level * (endColor - startColor));
 		light.color = startColor + level * (endColor - startColor);
 	}
 }
