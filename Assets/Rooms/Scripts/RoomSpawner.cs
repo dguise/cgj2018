@@ -30,8 +30,10 @@ public class RoomSpawner : MonoBehaviour {
 				int r = Random.Range(0, roomList.Count);
 				int xroom = x + (nTiles - 1) / 2;
 				int yroom = y + (nTiles - 1) / 2;
+				float level = 1f - (float) Mathf.Max(Mathf.Abs(x), Mathf.Abs(y)) / ((nTiles - 1) / 2);
 				rooms[xroom, yroom] = Object.Instantiate(roomList[r], v, Quaternion.identity, transform);
 				rooms[xroom, yroom].transform.localScale = new Vector3(scale, scale, 1f);
+				rooms[xroom, yroom].GetComponent<RoomController>().SetLevel(level);
 			}
 		}
 

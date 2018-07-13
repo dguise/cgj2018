@@ -1174,6 +1174,8 @@ MonoBehaviour:
   lightTriggerRadius: 15
   lightMaxRadius: 8
   maxLight: 30
+  startColor: {r: 1, g: 0.98451024, b: 0.3066038, a: 0}
+  endColor: {r: 1, g: 0.1462264, b: 0.1462264, a: 0}
   monsters:
   - {fileID: 1070222423902940, guid: 4776c521a9d79e34595b2030be8b7452, type: 2}
   - {fileID: 1070222423902940, guid: 657fc8fb13f859c4d8302ccf8069f12c, type: 2}
@@ -1195,6 +1197,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c99beb637a8481428ede3c5120e496a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  state: 0
   lightRadius: 20
 --- !u!114 &114795646610772198
 MonoBehaviour:
@@ -1219,6 +1222,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c99beb637a8481428ede3c5120e496a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  state: 0
   lightRadius: 20
 --- !u!212 &212031998348959186
 SpriteRenderer:

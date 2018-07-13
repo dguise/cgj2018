@@ -24,9 +24,11 @@ public class RoomController : MonoBehaviour {
 	public float lightMaxRadius = 2f;
 	public float maxLight = 30;
     // private float magicFociNumber = 3.47f;
+	public Color startColor, endColor;
 	
 	public GameObject[] monsters;
 	public Vector2[] spawnPoints;
+	private float level;
 
 	private List<GameObject> myMonsters = new List<GameObject>(); 
 
@@ -128,6 +130,7 @@ public class RoomController : MonoBehaviour {
 		// GameObject myMon = Instantiate(initMon, myFirstSpawnPoint, Quaternion.identity);
 		// myMonsters.Add(myMon);
 
+		Debug.Log("Level is " + level);
 		foreach (Vector2 spawnPoint in spawnPoints) {
 			if (Random.Range(0f, 1f) < 0.8) {
 				Vector2 temp = spawnPoint;
@@ -136,6 +139,7 @@ public class RoomController : MonoBehaviour {
 				GameObject mon = monsters[Random.Range(0, monsters.Length)];
 				GameObject obj = Instantiate(mon, temp, mon.transform.rotation);
 				myMonsters.Add(obj);
+				// Set level for monster
 			}
 		}
 	}
@@ -158,5 +162,13 @@ public class RoomController : MonoBehaviour {
 	public void UnlockAllDoors() {
 		doors[Direction.EAST].UnlockDoor();
 		doors[Direction.SOUTH].UnlockDoor();
+	}
+
+	public void SetLevel(float level) {
+		this.level = level;
+		Debug.Log("startColor=" + startColor);
+		Debug.Log("stepColor=" + (endColor - startColor));
+		Debug.Log("current step=" + level * (endColor - startColor));
+		light.color = startColor + level * (endColor - startColor);
 	}
 }
