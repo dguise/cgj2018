@@ -3,6 +3,8 @@
 [RequireComponent(typeof(CircleCollider2D), typeof(Rigidbody2D))]
 public abstract class Unit : MonoBehaviour
 {
+    public Sprite Portrait;
+
     [SerializeField]
     [Range(0, 10)]
     protected float movementSpeed;

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class GuiScript : MonoBehaviour
 {
-
+    public static GuiScript instance = null;
 #pragma warning disable 0414
     float lifetime = 5.0f;   //lifetime in seconds
     float rateOfText = 0.1f;  //Time between letters
@@ -21,6 +21,8 @@ public class GuiScript : MonoBehaviour
     private float FadeRate = 2.5f;  //Rate of fade
     private Image image;
     private float targetAlpha;
+    private Image leftPortraitImage;
+    private Image rightPortraitImage;
     //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -29,33 +31,41 @@ public class GuiScript : MonoBehaviour
     Text myText;
     string currentText = string.Empty;
     private float targetAlphaText;
-    enum MessagetypeEnum
-    {
-        Helptext,
-        Infotext,
-        Warning,
-        Nonskippable
-    }
-    MessagetypeEnum messageType = MessagetypeEnum.Helptext;
+    
 
-    private Queue messageQueue = new Queue();
+    private Queue<Message> messageQueue = new Queue<Message>();
 
     string textToAdd = "";
     //////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma warning restore 0414
-
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != null)
+        {
+            Destroy(gameObject);
+        }
+    }
 
     void Start()
     {
         this.image = GetComponent<Image>();
         this.targetAlpha = this.image.color.a;
         myText = this.GetComponentInChildren<Text>();
-        messageQueue.Enqueue("Ret 2 go!\n\nAdd some cool rp text here and profit from great fame and fortune!");
-        messageQueue.Enqueue("Hello Emil, tell me about your day!");
-        messageQueue.Enqueue("Jag kan inte, jag håller på att svimma!");
-        messageQueue.Enqueue("Jag menar, jag håller på att implodera!");
-        messageQueue.Enqueue("BAM!  Okej, sorry!");
-        StartCoroutine(AddText());
+
+        leftPortraitImage = transform.GetChild(1).GetComponent<Image>();
+        rightPortraitImage = transform.GetChild(2).GetComponent<Image>();
+        
+        //messageQueue.Enqueue("Ret 2 go!\n\nAdd some cool rp text here and profit from great fame and fortune!");
+        //messageQueue.Enqueue("Hello Emil, tell me about your day!");
+        //messageQueue.Enqueue("Jag kan inte, jag håller på att svimma!");
+        //messageQueue.Enqueue("Jag menar, jag håller på att implodera!");
+        //messageQueue.Enqueue("BAM!  Okej, sorry!");
+        //StartCoroutine(AddText());
+        DontDestroyOnLoad(gameObject);
     }
 
 
@@ -67,6 +77,8 @@ public class GuiScript : MonoBehaviour
         {
             curColor.a = Mathf.Lerp(curColor.a, targetAlpha, this.FadeRate * Time.deltaTime);
             this.image.color = curColor;
+            this.leftPortraitImage.color = curColor;
+            this.rightPortraitImage.color = curColor;
         }
         Color curColorText = this.myText.color;
         //float alphaDiffText = Mathf.Abs(curColorText.a - this.targetAlpha);
@@ -111,8 +123,10 @@ public class GuiScript : MonoBehaviour
     {
         ClearText();
         if (messageQueue.Count > 0)
-            textToAdd = messageQueue.Dequeue().ToString(); //Hämta första elementet i kön (och ta bort det ifrån listan)
-
+        {
+            Message msg = (Message)messageQueue.Dequeue(); //Hämta första elementet i kön (och ta bort det ifrån listan)
+            textToAdd = msg.text;
+        }
         if (messageQueue.Count > 0) //Det kommer mer text efter detta
             textToAdd += "      ...";
 
@@ -133,4 +147,40 @@ public class GuiScript : MonoBehaviour
     {
         myText.text = string.Empty;
     }
+
+
+    private void SetPortraits(Sprite aLeftPortrait = null, Sprite aRightPortrait = null)
+    {
+        leftPortraitImage.sprite = aLeftPortrait;
+        rightPortraitImage.sprite = aRightPortrait;
+
+        leftPortraitImage.gameObject.SetActive(aLeftPortrait != null);
+        rightPortraitImage.gameObject.SetActive(aRightPortrait != null);
+    }
+
+    public void Talk(Message msg)
+    {
+        messageQueue.Enqueue(msg);
+    }
+}
+
+public class Message
+{
+    public Sprite LeftPortraitSprite = null;
+    public Sprite RightPortraitSprite = null;
+    public string text = string.Empty;
+
+    public Message(Sprite aLeftPortrait = null, Sprite aRightPortrait = null, string aText = "")
+    {
+        LeftPortraitSprite = aLeftPortrait;
+        RightPortraitSprite = aRightPortrait;
+        text = aText;
+    }
+
+    public enum MessagetypeEnum
+    {
+        ClickToAdvance,
+        Destroy2secondsAfterFinish
+    }
+    public MessagetypeEnum messageType = MessagetypeEnum.Destroy2secondsAfterFinish;
 }
