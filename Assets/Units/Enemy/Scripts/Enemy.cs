@@ -83,7 +83,12 @@ public class Enemy : Unit {
         if (target != null && targetIsPlayer && Vector2.Distance(target.position, transform.position) <= AttackRange)
         {
             if (!target.GetComponent<Unit>().Stats.Status.Contains(Statuses.Invisible))
+            {
                 weapon.Attack(transform, target.transform);
+            } else
+            {
+                Target(start);
+            }
         }
 
         foreach (var player in players)

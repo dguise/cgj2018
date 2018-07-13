@@ -43,7 +43,8 @@ public class RoomSpawner : MonoBehaviour {
 			rooms[i, 0].GetComponent<RoomController>().SetDoor(false, RoomController.Direction.SOUTH);
 			// rooms[i, nTiles-1].GetComponent<RoomController>().SetDoor(false, RoomController.Direction.NORTH);
 		}
-
+        // TODO: Remove this:
+        Debug.LogWarning("Remove this line for production!!!!1111");
 		PlayerManager.PlayerObjects.Add(GameObject.FindGameObjectWithTag(Tags.Player));
 	}
 
