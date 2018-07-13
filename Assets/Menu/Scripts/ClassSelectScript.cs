@@ -19,7 +19,7 @@ public class ClassSelectScript : MonoBehaviour {
 
     void Start ()
     {
-        this.portraitImage = this.GetComponentsInChildren<UnityEngine.UI.Image>()[3];
+        this.portraitImage = this.GetComponentsInChildren<UnityEngine.UI.Image>()[4];
         spawner = GameObject.Find("PlayerSpawner").GetComponent<PlayerSpawner>();
         released = true;
     }
