@@ -67,12 +67,13 @@ public class Enemy : Unit {
         }
 	}
     Transform body;
-	void FixedUpdate () {
+	void FixedUpdate ()
+    {
         if (target != null)
         {
             targetPosition = target.position + randomOffset;
 
-            if (Vector2.Distance(transform.position, target.position) < 0.5 && !targetIsPlayer)
+            if (Vector2.Distance(transform.position, target.position) < 1 && !targetIsPlayer)
             {
                 Debug.Log("You're home!");
 
@@ -127,18 +128,17 @@ public class Enemy : Unit {
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = new Color(0, 0, 255);
+        Gizmos.color = new Color(0, 0, 255, 0.2f);
         Gizmos.DrawWireSphere(transform.position, AttackRange);
-        Gizmos.color = new Color(255, 0, 0);
+        Gizmos.color = new Color(255, 0, 0, 0.2f);
         Gizmos.DrawWireSphere(transform.position, AggroRange);
-    }
 
-    private void OnTriggerEnter2D(Collider2D collider)
-    {
-        if (collider.tag == Tags.Player && target == null)
-        {
-            Target(collider.transform);
-        }
+        if (target == null) return;
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(transform.position, target.position);
+
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawLine(transform.position, targetPosition);
     }
 
     private Coroutine _aggroCooldown;
