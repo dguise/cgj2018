@@ -38,10 +38,10 @@ public class RoomSpawner : MonoBehaviour {
 		}
 
 		for (int i = 0; i < nTiles; i++) {
-			// rooms[0, i].GetComponent<RoomController>().SetDoor(false, RoomController.Direction.WEST);
-			rooms[nTiles-1, i].GetComponent<RoomController>().SetDoor(false, RoomController.Direction.EAST);
-			rooms[i, 0].GetComponent<RoomController>().SetDoor(false, RoomController.Direction.SOUTH);
-			// rooms[i, nTiles-1].GetComponent<RoomController>().SetDoor(false, RoomController.Direction.NORTH);
+			rooms[0, i].GetComponent<RoomController>().setWestWallActive(true);
+			rooms[nTiles-1, i].GetComponent<RoomController>().setEastWallActive(true);
+			rooms[i, 0].GetComponent<RoomController>().setSouthWallActive(true);
+			rooms[i, nTiles-1].GetComponent<RoomController>().setNorthWallActive(true);
 		}
         // TODO: Remove this:
         //Debug.LogWarning("Remove this line for production!!!!1111");

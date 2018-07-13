@@ -45,6 +45,10 @@ public class RoomController : MonoBehaviour {
 
 		light = transform.Find("Light").gameObject.GetComponent<Light>();
 		fog = transform.Find("Fog").gameObject;
+
+		setWestWallActive(false);
+		setNorthWallActive(false);
+		setSouthWallActive(false);
 	}
 
 	void Update() {
@@ -138,7 +142,6 @@ public class RoomController : MonoBehaviour {
 		//Debug.Log("Level is " + level);
 		foreach (Vector2 spawnPoint in spawnPoints) {
 			float spawnFactor = minSpawnFactor + level * (maxSpawnFactor - minSpawnFactor);
-			//Debug.Log("Spawn factor is " + spawnFactor);
 			if (Random.Range(0f, 1f) < spawnFactor) {
 				Vector2 temp = spawnPoint;
 				temp.x += transform.position.x;
@@ -173,9 +176,6 @@ public class RoomController : MonoBehaviour {
 
 	public void SetLevel(float level) {
 		this.level = level;
-		//Debug.Log("startColor=" + startColor);
-		//Debug.Log("stepColor=" + (endColor - startColor));
-		//Debug.Log("current step=" + level * (endColor - startColor));
 		light.color = startColor + level * (endColor - startColor);
 	}
 
@@ -184,5 +184,29 @@ public class RoomController : MonoBehaviour {
 			Gizmos.color = Color.red;
 			Gizmos.DrawSphere(v, 0.5f);
 		}
+	}
+
+	public void setNorthWallActive(bool active) {
+		GameObject northWall = transform.Find("NorthSolid").gameObject;
+		northWall.SetActive(active);
+	}
+
+	public void setWestWallActive(bool active) {
+		GameObject westWall = transform.Find("WestSolid").gameObject;
+		westWall.SetActive(active);
+	}
+
+	public void setSouthWallActive(bool active) {
+		GameObject southWall = transform.Find("South").gameObject;
+		GameObject southSolidWall = transform.Find("SouthSolid").gameObject;
+		southWall.SetActive(!active);
+		southSolidWall.SetActive(active);
+	}
+
+	public void setEastWallActive(bool active) {
+		GameObject eastWall = transform.Find("East").gameObject;
+		GameObject eastSolidWall = transform.Find("EastSolid").gameObject;
+		eastWall.SetActive(!active);
+		eastSolidWall.SetActive(active);
 	}
 }
