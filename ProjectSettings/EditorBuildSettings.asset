@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Develop/Magnus4.unity
     guid: b37943a67be9c488f8e447cc1ba48c55
+  - enabled: 1
+    path: Assets/Scenes/Develop/EndScene.unity
+    guid: 8c07ff9d0d414496e8debdec949c83f5
   m_configObjects: {}

@@ -37,6 +37,11 @@ public class CustomGameManager : MonoBehaviour{
     }
 
     public void Victory() {
+        foreach (GameObject player in PlayerManager.PlayerObjects) {
+            if (player != null) {
+                Destroy(player);
+            }
+        }
         Invoke("Win", 2f);
     }
     
@@ -45,13 +50,14 @@ public class CustomGameManager : MonoBehaviour{
         var time = Time.time - PlayerManager.time; 
         var record = PlayerPrefs.GetFloat("score");
 
-        if (time <= record) {
+        if (time >= record) {
             GuiScript.instance.Talk(new Message(aText: "YOU HAVE WON!\nTIME: " + time + ".\nRECORD: "));
         } else {
             GuiScript.instance.Talk(new Message(aText: "YOU HAVE WON AND BEATEN THE RECORD!\nTIME: " + time + ".\nLAST RECORD: " + record));
             PlayerPrefs.SetFloat("score", time);
         }
 
+        PlayerManager.Reset();
         Invoke("Restart", 30f);
     }
 }
