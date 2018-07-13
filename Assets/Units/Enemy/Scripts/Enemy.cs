@@ -21,13 +21,19 @@ public class Enemy : Unit {
     public float AggroRange = 5;
 
     public bool shouldDropPowerup = true;
+    [Range(0f, 1f)]
+    public float powerupDropRate = 0.1f;
+    private bool willDropPowerup = false;
 
-    Vector3 randomOffset = Vector2.zero;
+    public bool IsEliteEnemy = false;
+    [Range(1, 3)]
+    public float EliteSizeIncrease = 1.2f;
+
     public Boolean RandomOffset = true;
+    Vector3 randomOffset = Vector2.zero;
+
     private Vector3 targetPosition;
-
     private bool readyToChangeAggro = true;
-
     GameObject[] players;
 
 
@@ -44,6 +50,20 @@ public class Enemy : Unit {
         movementSpeed = movementSpeed * UnityEngine.Random.Range(0.7f, 1.15f);
 
         body = transform.FindWithTagInChildren("Body");
+
+        willDropPowerup = powerupDropRate > UnityEngine.Random.Range(0f, 1f);
+        if (IsEliteEnemy)
+        {
+            // Elites always drop powerups
+            willDropPowerup = true;
+            transform.localScale *= EliteSizeIncrease;
+            AttackRange *= EliteSizeIncrease;
+            GetComponentInChildren<Renderer>().material.shader = Shader.Find("Custom/Outline");
+
+            shouldDropPowerup = true;
+            ExperienceWorth *= 2;
+            Stats.GainExperience(100000 * Stats.Level);
+        }
 	}
     Transform body;
 	void FixedUpdate () {
@@ -170,7 +190,7 @@ public class Enemy : Unit {
         if (readyToChangeAggro && sender.tag == Tags.Player)
             Target(sender.transform);
 
-        if (shouldDropPowerup && IsDead && UnityEngine.Random.Range(0, 1) > 0.9)
+        if (shouldDropPowerup && IsDead && willDropPowerup)
             PowerupManager.instance.SpawnRandomPowerUp(transform.position);
 
     }
