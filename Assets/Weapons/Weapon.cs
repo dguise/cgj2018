@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System;
 
-[Serializable]
+[System.Serializable]
 public abstract class Weapon : IWeapon
 {
     protected abstract GameObject attackWeapon { get; set; }
@@ -12,11 +11,13 @@ public abstract class Weapon : IWeapon
     protected abstract float attackTimestamp { get; set; }
 
     protected GameObject owner;
+    protected Unit ownerUnit;
     protected float radius;
 
     public Weapon(GameObject owner)
     {
         this.owner = owner;
+        this.ownerUnit = owner.GetComponent<Unit>();
         radius = owner.GetComponent<CircleCollider2D>().radius;
         
     }
@@ -37,7 +38,14 @@ public abstract class Weapon : IWeapon
             attackTimestamp = currentTime;
             spawnAttack = MonoBehaviour.Instantiate(attackWeapon, position + direction * radius, rotation);
             spawnAttack.GetComponent<Rigidbody2D>().velocity = direction * speed;
-            spawnAttack.GetComponent<Projectile>().Owner = owner;
+            var projectile = spawnAttack.GetComponent<Projectile>();
+            projectile.Owner = owner;
+
+            // Stat modifier
+            projectile.Damage = projectile.Damage + ownerUnit.Stats.Strength;
+            if (Random.Range(0f, 1f) > ownerUnit.Stats.Intelligence / 100)
+                projectile.Damage = projectile.Damage * 2;
+
             if (owner.tag == Tags.Player)
             {
                 spawnAttack.layer = LayerConstants.GetLayer(LayerConstants.PlayerProjectiles);
