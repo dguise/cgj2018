@@ -153,7 +153,8 @@ public class RoomController : MonoBehaviour {
 				GameObject mon = monsters[Random.Range(0, monsters.Length)];
 				GameObject obj = Instantiate(mon, temp, mon.transform.rotation);
 				myMonsters.Add(obj);
-				// Set level for monster
+				obj.GetComponent<Unit>().Stats.GainExperience((int) (1000 * level));
+				// TODO: Add temple level
 			}
 		}
 	}

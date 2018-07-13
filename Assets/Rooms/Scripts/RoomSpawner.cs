@@ -24,8 +24,14 @@ public class RoomSpawner : MonoBehaviour {
 		}
 
 		// Instantiate rooms
+		Vector2 exit = new Vector2(Random.Range(0, 2), Random.Range(0, 2));
 		for(int x = -(nTiles - 1) / 2; x <= (nTiles - 1) / 2; x++) {
 			for(int y = -(nTiles - 1) / 2; y <= (nTiles - 1) / 2; y++) {
+				if (x == exit.x && y == exit.y) {
+					// SPAWN EXIT ROOM
+					// Can be a prefab room added to the spawner manually
+				}
+
 				Vector3 v = new Vector3(x * xTileSize, y * yTileSize, 0);
 				int r = Random.Range(0, roomList.Count);
 				int xroom = x + (nTiles - 1) / 2;
