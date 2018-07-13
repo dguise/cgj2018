@@ -73,12 +73,13 @@ public class Enemy : Unit {
         {
             targetPosition = target.position + randomOffset;
 
-            if (Vector2.Distance(transform.position, target.position) < 1 && !targetIsPlayer)
+            if (Vector2.Distance(transform.position, target.position) < 3 && !targetIsPlayer)
             {
                 Debug.Log("You're home!");
 
                 target = null;
                 rb.velocity = Vector2.zero;
+                return;
             }
 
             // Apply movement
