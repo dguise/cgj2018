@@ -36,7 +36,12 @@ public class ClassSelectScript : MonoBehaviour {
 
                 if (portraitsArray.Length - 1 >= this.currentChoice)
                     this.portraitImage.sprite = portraitsArray[this.currentChoice];
-                
+                //this.portraitImage.gameObject.transform.localScale.Set(1.5f, 1.5f, 1.5f);
+                Vector3 newScale = this.portraitImage.transform.localScale;
+                newScale.x = 1.5f;
+                newScale.y = 2.5f;
+                this.portraitImage.gameObject.transform.localScale = newScale;
+
                 if (horizontal > 0) {
                     Transform rightArrow = transform.Find("RightArrow");
                     var anim = rightArrow.GetComponent<Animator>();
@@ -63,6 +68,10 @@ public class ClassSelectScript : MonoBehaviour {
                 for (int i = 1; i <= 16; i++) {
                     if (Input.GetButton(Inputs.AButton(i)) && !PlayerManager.controllers.Contains(i)) {
                         this.portraitImage.sprite = portraitsArray[this.currentChoice];
+                        Vector3 newScale = this.portraitImage.transform.localScale;
+                        newScale.x = 1.5f;
+                        newScale.y = 2.5f;
+                        this.portraitImage.gameObject.transform.localScale = newScale;
                         PlayerManager.controllerId[playerID] = i;
                         PlayerManager.controllers.Add(i);
                         PlayerManager.playerReady[playerID] = true;
