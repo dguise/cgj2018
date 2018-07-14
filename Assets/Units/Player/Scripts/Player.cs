@@ -8,15 +8,19 @@ using UnityEngine;
 public class Player : Unit
 {
     public Weapon weapon;
+    public Ability ability;
+
     float radius = 0.5f;
     const float DEADZONE = 0.98f;
     public int playerID;
-    Animator anim;
+    public Animator anim { get; set; }
+    float originalMovementSpeed;
 
     Transform head;
     Transform body;
-
-    Rigidbody2D rb;
+    private Transform bodyMesh;
+    [HideInInspector]
+    public Rigidbody2D rb;
 
     public new Sprite UnitPortrait
     {
@@ -26,22 +30,19 @@ public class Player : Unit
             return SendPredatorRetrieveActiveChild().GetComponent<Player_Head_Script>().Portrait;
         }
     }
-    private bool canDash = true;
-    private bool dashing = false;
-    private float dashTime = 0.5f;
-    private float dashResetTime
-    {
-        get { return dashTime * 5; }
-    }
 
     public PlayerManager.CharacterClassesEnum PlayerClass;
 
     void Start()
     {
         weapon = PlayerManager.GetWeapon(PlayerClass, gameObject);
+        ability = PlayerManager.GetAbility(PlayerClass, gameObject);
 
         head = transform.Find("monkeyhead");
         body = transform.Find("Armature.001");
+        bodyMesh = transform.Find("Cube.001");
+
+        originalMovementSpeed = movementSpeed;
 
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
@@ -81,15 +82,44 @@ public class Player : Unit
 
     private void Update()
     {
-
+#if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.Alpha1))
-            weapon = new Gun(gameObject);
+        {
+            PlayerClass = PlayerManager.CharacterClassesEnum.Melee;
+            weapon = PlayerManager.GetWeapon(PlayerClass, gameObject);
+            ability = PlayerManager.GetAbility(PlayerClass, gameObject);
+        }
         if (Input.GetKeyDown(KeyCode.Alpha2))
-            weapon = new SpecialGun(gameObject);
+        {
+            PlayerClass = PlayerManager.CharacterClassesEnum.Bowman;
+            weapon = PlayerManager.GetWeapon(PlayerClass, gameObject);
+            ability = PlayerManager.GetAbility(PlayerClass, gameObject);
+        }
         if (Input.GetKeyDown(KeyCode.Alpha3))
-            weapon = new ShieldGun(gameObject);
+        {
+            PlayerClass = PlayerManager.CharacterClassesEnum.Magician;
+            weapon = PlayerManager.GetWeapon(PlayerClass, gameObject);
+            ability = PlayerManager.GetAbility(PlayerClass, gameObject);
+        }
         if (Input.GetKeyDown(KeyCode.Alpha4))
-            weapon = new PlayerMeleeGun(gameObject);
+        {
+            PlayerClass = PlayerManager.CharacterClassesEnum.Dartblower;
+            weapon = PlayerManager.GetWeapon(PlayerClass, gameObject);
+            ability = PlayerManager.GetAbility(PlayerClass, gameObject);
+        }
+        
+#endif
+        movementSpeed = (originalMovementSpeed * (1 + (Stats.Agility / 100f)));
+
+        if (Stats.HasStatus(Statuses.Slowed))
+            movementSpeed = movementSpeed * 0.5f;
+
+        if (Stats.HasStatus(Statuses.Bleeding))
+        {
+            Health -= 10 * Time.deltaTime;
+        }
+
+        bodyMesh.gameObject.SetActive(!Stats.HasStatus(Statuses.Invisible));
     }
 
     private void FixedUpdate()
@@ -99,13 +129,13 @@ public class Player : Unit
             // Movement
             if (Input.GetButtonDown(Inputs.AButton(playerID + 1)))
             {
-                if (canDash)
-                    StartCoroutine(Dash());
+                if (ability.CanUse)
+                    ability.Use();
             }
-            else if (!dashing)
+            else if (Stats.CanMove)
             {
                 Vector2 playerVelocity = new Vector2(Input.GetAxisRaw(Inputs.Horizontal(PlayerManager.controllerId[playerID])), Input.GetAxisRaw(Inputs.Vertical(PlayerManager.controllerId[playerID])));
-                rb.velocity = playerVelocity.normalized * (movementSpeed * 1 + (Stats.Agility / 50));
+                rb.velocity = playerVelocity.normalized * movementSpeed;
                 anim.SetFloat(AnimatorConstants.Speed, playerVelocity.magnitude);
 
                 if (rb.velocity.magnitude > DEADZONE)
@@ -132,28 +162,6 @@ public class Player : Unit
                 PlayerManager.MapControllerToPlayer();
             }
         }
-    }
-
-    IEnumerator Dash()
-    {
-        dashing = true;
-        canDash = false;
-
-        Vector2 lastDirection = rb.velocity.normalized;
-
-        rb.velocity = Vector2.zero;
-
-        rb.AddRelativeForce(-1 * (lastDirection * movementSpeed * 2), ForceMode2D.Impulse);
-        anim.SetFloat(AnimatorConstants.Speed, rb.velocity.magnitude);
-
-        Invoke("EnableDash", dashResetTime);
-        yield return new WaitForSeconds(dashTime);
-        dashing = false;
-    }
-
-    void EnableDash()
-    {
-        canDash = true;
     }
 
     public override void TakeDamageExtender(float damage, GameObject sender, Collider2D collider)

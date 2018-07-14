@@ -11,7 +11,7 @@ public class UnitStats
     {
         get
         {
-            return Status.Any(x => _disables.Contains(x));
+            return !Status.Any(x => _disables.Contains(x));
         }
     }
     private Statuses[] _disables = new Statuses[] { Statuses.Frozen, Statuses.Stunned };
@@ -44,9 +44,19 @@ public class UnitStats
         Experience += xp;
     }
 
-    public void SetStatus(params Statuses[] stati)
+    public void SetStatus(MonoBehaviour any, float duration = 0, params Statuses[] stati)
     {
         Status.AddRange(stati);
+        if (duration != 0)
+        {
+            any.StartCoroutine(DelayedRemoveStatus(duration, stati));
+        }
+    }
+
+    IEnumerator DelayedRemoveStatus(float duration, Statuses[] stati)
+    {
+        yield return new WaitForSeconds(duration);
+        RemoveStatus(stati);
     }
 
     public void RemoveStatus(params Statuses[] stati)
@@ -57,6 +67,10 @@ public class UnitStats
         }
     }
 
+    internal bool HasStatus(Statuses slowed)
+    {
+        return Status.Contains(slowed);
+    }
 }
 
 public enum Statuses {
@@ -68,4 +82,5 @@ public enum Statuses {
     Frozen,
     Stunned,
     Bleeding,
+    Slowed,
 }

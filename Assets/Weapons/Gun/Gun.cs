@@ -7,11 +7,11 @@ class Gun : Weapon {
     protected override float speed { get; set; }
     protected override float attackTimestamp { get; set; }
 
-    public Gun(GameObject owner): base(owner)
+    public Gun(GameObject owner, float cd = 0.2f): base(owner)
 	{
 		attackWeapon = Resources.Load<GameObject>("Bullet");
 		attackTimestamp = -(cooldown + 1);
-        cooldown = 0.2f;
+        cooldown = cd;
         speed = 4f;
 	}
 }
