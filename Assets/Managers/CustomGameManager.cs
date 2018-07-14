@@ -8,11 +8,16 @@ using UnityEngine.SceneManagement;
 public class CustomGameManager : MonoBehaviour{
     float timestamp = 0;
     float cooldown = 60f;
+    bool first = true;
 
 
     public void FixedUpdate() {
-
         if (PlayerManager.gameStarted) {
+            if (first) {
+                timestamp = Time.time;
+                first = false;
+            }
+            
             if (timestamp + cooldown < Time.time) {
                 timestamp = Time.time;
                 cooldown = Random.Range(80, 140);
