@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 65593878185195986}
   - component: {fileID: 114946057479385394}
   m_Layer: 0
-  m_Name: Boll
+  m_Name: BollMellan2Punkter_Prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
