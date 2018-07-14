@@ -25,16 +25,15 @@ public class SiphonAoeBlood : Ability
         {
             OwnerPlayer.TakeDamage(-(damage * healRatio), hit.gameObject, hit);
             hit.GetComponent<Unit>().TakeDamage(damage, Owner, hit);
-            ParticleSpawner.instance.SpawnParticleEffect(hit.transform.position, Vector2.zero, ParticleSpawner.ParticleTypes.Blood);
-            ParticleSpawner.instance.SpawnParticleEffect(hit.transform.position, Vector2.zero, ParticleSpawner.ParticleTypes.Blood);
-            ParticleSpawner.instance.SpawnParticleEffect(hit.transform.position, Vector2.zero, ParticleSpawner.ParticleTypes.Blood);
-            ParticleSpawner.instance.SpawnParticleEffect(hit.transform.position, Vector2.zero, ParticleSpawner.ParticleTypes.Blood);
-            ParticleSpawner.instance.SpawnParticleEffect(hit.transform.position, Vector2.zero, ParticleSpawner.ParticleTypes.Blood);
-            ParticleSpawner.instance.SpawnParticleEffect(hit.transform.position, Vector2.zero, ParticleSpawner.ParticleTypes.Blood);
-            ParticleSpawner.instance.SpawnParticleEffect(hit.transform.position, Vector2.zero, ParticleSpawner.ParticleTypes.Blood);
-
-
         }
+
+        ParticleSpawner.instance.SpawnParticleEffect(Owner.transform.position, Vector2.zero, ParticleSpawner.ParticleTypes.Blood);
+        ParticleSpawner.instance.SpawnParticleEffect(Owner.transform.position, Vector2.zero, ParticleSpawner.ParticleTypes.Blood);
+        ParticleSpawner.instance.SpawnParticleEffect(Owner.transform.position, Vector2.zero, ParticleSpawner.ParticleTypes.Blood);
+        ParticleSpawner.instance.SpawnParticleEffect(Owner.transform.position, Vector2.zero, ParticleSpawner.ParticleTypes.Blood);
+        ParticleSpawner.instance.SpawnParticleEffect(Owner.transform.position, Vector2.zero, ParticleSpawner.ParticleTypes.Blood);
+        ParticleSpawner.instance.SpawnParticleEffect(Owner.transform.position, Vector2.zero, ParticleSpawner.ParticleTypes.Blood);
+        ParticleSpawner.instance.SpawnParticleEffect(Owner.transform.position, Vector2.zero, ParticleSpawner.ParticleTypes.Blood);
         yield return null;
     }
 }

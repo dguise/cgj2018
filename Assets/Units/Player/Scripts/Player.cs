@@ -127,7 +127,7 @@ public class Player : Unit
         if (PlayerManager.playerReady[playerID])
         {
             // Movement
-            if (Input.GetButtonDown(Inputs.AButton(playerID + 1)))
+            if (Input.GetButtonDown(Inputs.AButton(PlayerManager.controllerId[playerID])))
             {
                 if (ability.CanUse)
                     ability.Use();

@@ -56,6 +56,7 @@ public class ClassSelectScript : MonoBehaviour {
                 Player playerScript = players[playerID].GetComponent<Player>();
                 playerScript.PlayerClass = (PlayerManager.CharacterClassesEnum)this.currentChoice;
                 playerScript.weapon = PlayerManager.GetWeapon(playerScript.PlayerClass, players[playerID]);
+                playerScript.ability = PlayerManager.GetAbility(playerScript.PlayerClass, players[playerID]);
                 playerScript.UpdateMask(playerScript.PlayerClass);
                 //Debug.Log(players[playerID].GetComponent<Player>().PlayerClass);
 
