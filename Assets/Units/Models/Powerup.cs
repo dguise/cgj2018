@@ -59,12 +59,15 @@ public class PowerupObject
     public void HandlePowerup(PowerupObject powerup, Player player)
     {
         if (powerup.ModifyStatus)
+        {
+            Debug.Log(powerup.Status);
             player.Stats.Status.Add(powerup.Status);
+        }
 
         if (powerup.WeaponIncrement > 0)
             // TODO: Add a weapon of same type
 
-            player.Stats.GainExperience(powerup.Experience);
+        player.Stats.GainExperience(powerup.Experience);
 
         player.Stats.Agility += powerup.Agility;
         player.Stats.Intelligence += powerup.Intelligence;
@@ -86,10 +89,13 @@ public class PowerupObject
                 player.Stats.Status.Remove(powerup.Status);
 
             if (powerup.WeaponIncrement > 0)
+            {
                 // TODO: Remove one weapon of same type
+            }
 
-            // Cannot lose experience
-            //player.Stats.GainExperience(powerup.Experience);
+                // Cannot lose experience
+                //player.Stats.GainExperience(powerup.Experience);
+                Debug.Log("fucking remove the fucking agility you piece of shit");
 
             player.Stats.Agility -= powerup.Agility;
             player.Stats.Intelligence -= powerup.Intelligence;

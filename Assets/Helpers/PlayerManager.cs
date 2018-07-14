@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -26,6 +27,7 @@ public static class PlayerManager {
         Dartblower
     }
 
+
     public static void Reset() {
         controllerId = new Dictionary<int, int>();
         controllers = new List<int>(); 
@@ -39,6 +41,30 @@ public static class PlayerManager {
         time = 0f;
     }
 
+    public static Ability GetAbility(CharacterClassesEnum playerClass, GameObject go)
+    {
+        Ability ability = new DashAbility(go);
+
+        switch (playerClass)
+        {
+            case CharacterClassesEnum.Melee:
+                ability = new DashAbility(go);
+                break;
+            case CharacterClassesEnum.Bowman:
+                ability = new InvisibilityAbility(go);
+                break;
+            case CharacterClassesEnum.Magician:
+                ability = new SiphonAoeBlood(go);
+                break;
+            case CharacterClassesEnum.Dartblower:
+                ability = new DashAbility(go);
+                break;
+            default:
+                break;
+        }
+
+        return ability;
+    }
 
 
     public static Weapon GetWeapon(CharacterClassesEnum playerClass, GameObject go)

@@ -11,7 +11,7 @@ public abstract class Unit : MonoBehaviour
 
     [SerializeField]
     [Range(0, 10)]
-    protected float movementSpeed;
+    public float movementSpeed;
     public UnitStats Stats = new UnitStats();
 
     public int ExperienceWorth = 1;
