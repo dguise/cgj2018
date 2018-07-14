@@ -21,7 +21,7 @@ public class EnemyHelper
                 weapon = new EnemySpawnerGun(go);
                 break;
             case EnemyClass.RegularEnemy:
-                weapon = new Gun(go);
+                weapon = new Gun(go, 0.5f);
                 break;
             case EnemyClass.Melee:
                 weapon = new MeleeGun(go);

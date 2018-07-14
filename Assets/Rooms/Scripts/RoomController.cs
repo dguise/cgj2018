@@ -38,7 +38,7 @@ public class RoomController : MonoBehaviour {
 	private bool isActive = false;
 	private GameObject fog;
 
-	private const bool SPAWNMONSTERS = true;
+	private bool shouldSpawnMonsters = true;
 
 	void Awake () {
 		doors.Add(Direction.EAST, transform.Find(Direction.EAST).GetComponent<DoorController>());
@@ -77,8 +77,9 @@ public class RoomController : MonoBehaviour {
 			lightController.SetActive(false);
 		}
 
-		if (SPAWNMONSTERS && !fog.activeInHierarchy && state == State.Inactive) {
-			SpawnMonsters();
+		if (!fog.activeInHierarchy && state == State.Inactive) {
+			if (shouldSpawnMonsters)
+				SpawnMonsters();
 			state = State.Active;
 		}
 
@@ -213,5 +214,9 @@ public class RoomController : MonoBehaviour {
 		GameObject eastSolidWall = transform.Find("EastSolid").gameObject;
 		eastWall.SetActive(!active);
 		eastSolidWall.SetActive(active);
+	}
+
+	public void SetShouldSpawnMonsters(bool ayy) {
+		shouldSpawnMonsters = ayy;
 	}
 }

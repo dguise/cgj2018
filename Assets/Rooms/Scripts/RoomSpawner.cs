@@ -51,6 +51,9 @@ public class RoomSpawner : MonoBehaviour {
 				rooms[xroom, yroom] = Object.Instantiate(room, v, Quaternion.identity, transform);
 				rooms[xroom, yroom].transform.localScale = new Vector3(scale, scale, 1f);
 				rooms[xroom, yroom].GetComponent<RoomController>().SetLevel(level);
+
+				if (x == -(nTiles - 1) / 2 && y == -(nTiles - 1) / 2) // Skip spawn room
+					rooms[xroom, yroom].GetComponent<RoomController>().SetShouldSpawnMonsters(false);
 			}
 		}
 
