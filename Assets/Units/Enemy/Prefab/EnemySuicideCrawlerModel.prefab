@@ -772,7 +772,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1609c1fc2b53517409cf796ebe35f7a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Portrait: {fileID: 21300000, guid: d6fb85cf42a116b458b97ec9df41c3db, type: 3}
+  Portrait: {fileID: 21300000, guid: dd0c23d7d6cb8fb4390e76a40bc0af8c, type: 3}
   movementSpeed: 4.88
   ExperienceWorth: 0
   maxHealth: 10
