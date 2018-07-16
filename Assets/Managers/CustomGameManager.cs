@@ -10,6 +10,12 @@ public class CustomGameManager : MonoBehaviour{
     float cooldown = 60f;
     bool first = true;
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+            GameOver();
+    }
+
 
     public void FixedUpdate() {
         if (PlayerManager.gameStarted) {
@@ -37,6 +43,7 @@ public class CustomGameManager : MonoBehaviour{
     }
 
     public void Restart() {
+        LevelManager.TempleFloor = 1;
         SceneManager.LoadScene(1);
         Destroy(this.gameObject);
     }
