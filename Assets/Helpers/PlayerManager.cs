@@ -57,7 +57,7 @@ public static class PlayerManager {
                 ability = new SiphonAoeBlood(go);
                 break;
             case CharacterClassesEnum.Dartblower:
-                ability = new DashAbility(go);
+                ability = new ImmolationAbility(go);
                 break;
             default:
                 break;
