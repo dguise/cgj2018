@@ -11,7 +11,7 @@ public class Player : Unit
     public Ability ability;
 
     float radius = 0.5f;
-    const float DEADZONE = 0.98f;
+    const float DEADZONE = 0.70f;
     public int playerID;
     public Animator anim { get; set; }
     float originalMovementSpeed;
