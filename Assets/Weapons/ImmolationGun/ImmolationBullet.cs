@@ -4,7 +4,7 @@ public class ImmolationBullet : Projectile
 {
     private static float speed = 10;
     private static float lifetime = 5;
-    private static float damage = 1;
+    private static float damage = 2;
     private float range = 1;
 
     private Vector2 direction;
