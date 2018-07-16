@@ -45,6 +45,7 @@ class ShieldGun : Weapon
                 bullet.ShouldCirculate = false;
                 bullet.destroyOnCollision = true;
                 proj.GetComponent<Rigidbody2D>().velocity = direction.normalized * speed;
+                bullet.Invoke("Die", bullet.Lifetime);
             }
             projectiles.Clear();
         }

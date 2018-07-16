@@ -9,20 +9,21 @@ public class ImmolationAbility : Ability
     float duration;
     int amount;
     int max;
+    GameObject attackWeapon;
 
     public ImmolationAbility(GameObject go): base(go)
     {
-        Cooldown = 15;
+        attackWeapon = Resources.Load<GameObject>("ImmolationBullet"); 
+        Cooldown = 10;
         duration = 5;
         amount = 3;
-        max = 5;
+        max = 3;
     }
 
 
     public override IEnumerator ActuallyUse()
     {
-        GameObject attackWeapon = Resources.Load<GameObject>("ImmolationBullet"); 
-        Weapon immolation = new ImmolationGun(Owner);
+        Weapon immolation = new ImmolationGun(Owner, 0.0f, amount, max, duration);
         immolation.Attack(Owner.transform.position, Vector2.right, OwnerPlayer.transform.rotation, 0.5f);
 
         yield return null;

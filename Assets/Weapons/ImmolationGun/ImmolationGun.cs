@@ -12,16 +12,19 @@ class ImmolationGun : Weapon
 
     private int _bulletLimit;
     private int _maxN;
+    private float _lifetime;
     List<GameObject> projectiles = new List<GameObject>();
+    
 
-    public ImmolationGun(GameObject owner, float cd = 0.0f, int bulletLimit = 4) : base(owner)
+    public ImmolationGun(GameObject owner, float cd = 0.0f, int bulletLimit = 4, int maxN = 4, float lifetime = 4) : base(owner)
     {
         attackWeapon = Resources.Load<GameObject>("ImmolationBullet");
         attackTimestamp = -(cooldown + 1);
         cooldown = cd;
         speed = 4f;
         _bulletLimit = bulletLimit;
-        _maxN = bulletLimit;
+        _maxN = maxN;
+        _lifetime = lifetime;
     }
 
     public override GameObject Attack(Vector2 position, Vector2 direction, Quaternion rotation, float radius)
@@ -40,7 +43,7 @@ class ImmolationGun : Weapon
                     projectile.GetComponent<Projectile>().destroyOnCollision = false;
                     ImmolationBullet bullet = projectile.GetComponent<ImmolationBullet>();
                     bullet.Rotate(MMath.DFT(i, _maxN));
-                    bullet.Invoke("Die", bullet.Lifetime);
+                    bullet.Invoke("Die", _lifetime);
                 }
             }
         }
