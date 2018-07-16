@@ -189,7 +189,7 @@ public class Enemy : Unit {
     public override void TakeDamageExtender(float damage, GameObject sender, Collider2D collider)
     {
         // Maybe run away if taking damage? Random?
-        if (readyToChangeAggro && sender.tag == Tags.Player)
+        if (readyToChangeAggro && sender != null && sender.tag == Tags.Player)
             Target(sender.transform);
 
         if (shouldDropPowerup && IsDead && willDropPowerup)
