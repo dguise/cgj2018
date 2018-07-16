@@ -21,7 +21,7 @@ public class ArcBetweenTwoPoints : MonoBehaviour {
     }
     public float lerpTime = 0.5f;
     private float travelTime = 0;
-    public float WaitAfterTravelTime = 5.0f;
+    public float WaitAfterTravelTime = 10.0f;
 
     private GameObject particleTrail;
     private GameObject particleFire;

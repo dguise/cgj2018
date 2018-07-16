@@ -720,6 +720,11 @@ Prefab:
       propertyPath: Stop_GameObject
       value: 
       objectReference: {fileID: 1994868279}
+    - target: {fileID: 114946057479385394, guid: 0c9346cdf945def45b146828f5cbd07f,
+        type: 2}
+      propertyPath: WaitAfterTravelTime
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0c9346cdf945def45b146828f5cbd07f, type: 2}
   m_IsPrefabParent: 0

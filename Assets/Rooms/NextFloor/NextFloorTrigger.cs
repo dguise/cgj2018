@@ -3,19 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class NextFloorTrigger : MonoBehaviour {
+public class NextFloorTrigger : MonoBehaviour
+{
+    private bool activated = false;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == Tags.Player)
         {
-            LevelManager.TempleFloor++;
-            if (LevelManager.TempleFloor == 4)
+            if (!activated)
             {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-                return;
+                activated = true;
+                LevelManager.TempleFloor++;
+                if (LevelManager.TempleFloor == 4)
+                {
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+                    return;
+                }
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 }
