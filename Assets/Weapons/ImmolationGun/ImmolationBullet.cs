@@ -47,22 +47,15 @@ public class ImmolationBullet : Projectile
             Vector2 beizerVector = Vector2.zero;
 
             if (lifetime % 2 < 1) {
-                beizerVector = BeizerCurve(pos1, pos2, pos3, pos4, lifetime % 1).normalized * range;
+                beizerVector = MMath.BeizerCurve(pos1, pos2, pos3, pos4, lifetime % 1).normalized * range;
             } else {
-                beizerVector = BeizerCurve(pos4, -1 * pos2, -1 * pos3, pos1, lifetime % 1).normalized * range;
+                beizerVector = MMath.BeizerCurve(pos4, -1 * pos2, -1 * pos3, pos1, lifetime % 1).normalized * range;
             }
 
             transform.position = ownerTransform.position + new Vector3(beizerVector.x, beizerVector.y, 0);
         }
     }
 
-    private Vector2 BeizerCurve(Vector2 p0, Vector2 p1, Vector2 p2, Vector2 p3, float t)
-    {
-        return Mathf.Pow((1 - t), 3) * p0
-                + 3 * Mathf.Pow((1 - t), 2) * t * p1 
-                + 3 * (1 - t) * Mathf.Pow(t, 2) * p2 
-                + Mathf.Pow(t, 3) * p3;
-    }
 }
 
 

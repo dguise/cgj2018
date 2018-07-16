@@ -39,7 +39,7 @@ class ImmolationGun : Weapon
                 {
                     projectile.GetComponent<Projectile>().destroyOnCollision = false;
                     ImmolationBullet bullet = projectile.GetComponent<ImmolationBullet>();
-                    bullet.Rotate(DFT(i, _maxN));
+                    bullet.Rotate(MMath.DFT(i, _maxN));
                     bullet.Invoke("Die", bullet.Lifetime);
                 }
             }
@@ -49,11 +49,5 @@ class ImmolationGun : Weapon
             projectiles.Add(projectile);
 
         return projectile;
-    }
-
-    public Vector2 DFT(int i, int length) {
-        float real = Mathf.Cos(2 * i * Mathf.PI / length);
-        float imag = Mathf.Sin(2 * i * Mathf.PI / length);
-        return new Vector2(real, imag);
     }
 }
