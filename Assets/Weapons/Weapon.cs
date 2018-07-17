@@ -14,12 +14,15 @@ public abstract class Weapon : IWeapon
     protected Unit ownerUnit;
     protected float radius;
 
+    public int projectiles = 1;
+    private float projectileWidthInDegrees = 15;
+
     public Weapon(GameObject owner)
     {
         this.owner = owner;
         this.ownerUnit = owner.GetComponent<Unit>();
         radius = owner.GetComponent<CircleCollider2D>().radius;
-        
+
     }
     public virtual GameObject Attack(Transform from, Transform towards)
     {
@@ -33,25 +36,37 @@ public abstract class Weapon : IWeapon
     {
         var currentTime = Time.time;
         direction = direction.normalized;
+        var attackDirection = direction;
         if (attackTimestamp + cooldown <= currentTime)
         {
             attackTimestamp = currentTime;
-            spawnAttack = MonoBehaviour.Instantiate(attackWeapon, position + direction * radius, rotation);
-            spawnAttack.GetComponent<Rigidbody2D>().velocity = direction * speed;
-            var projectile = spawnAttack.GetComponent<Projectile>();
-            projectile.Owner = owner;
 
-            // Stat modifier
-            projectile.Damage = projectile.Damage + ownerUnit.Stats.Strength;
-            if (Random.Range(0f, 1f) < ownerUnit.Stats.Intelligence / 100)
-                projectile.Damage = projectile.Damage * 2;
+            if (projectiles > 1)
+                attackDirection = direction.MaakepRotate(-(projectileWidthInDegrees * projectiles / 2));
 
-            if (owner.tag == Tags.Player)
+            for (int i = 0; i < projectiles; i++)
             {
-                spawnAttack.layer = LayerConstants.GetLayer(LayerConstants.PlayerProjectiles);
-            } else
-            {
-                spawnAttack.layer = LayerConstants.GetLayer(LayerConstants.EnemyProjectiles);
+                spawnAttack = MonoBehaviour.Instantiate(attackWeapon, position + direction * radius, rotation);
+                spawnAttack.GetComponent<Rigidbody2D>().velocity = attackDirection * speed;
+                var projectile = spawnAttack.GetComponent<Projectile>();
+                projectile.Owner = owner;
+
+                // Stat modifier
+                projectile.Damage = projectile.Damage + ownerUnit.Stats.Strength;
+                if (ownerUnit.Stats.Intelligence / 100 > Random.Range(0f, 1f))
+                    projectile.Damage = projectile.Damage * 2;
+
+                if (owner.tag == Tags.Player)
+                {
+                    spawnAttack.layer = LayerConstants.GetLayer(LayerConstants.PlayerProjectiles);
+                }
+                else
+                {
+                    spawnAttack.layer = LayerConstants.GetLayer(LayerConstants.EnemyProjectiles);
+                }
+
+                // For next projectile
+                attackDirection = attackDirection.MaakepRotate(projectileWidthInDegrees);
             }
             return spawnAttack;
         }
