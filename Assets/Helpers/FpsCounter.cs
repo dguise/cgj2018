@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
+[ExecuteInEditMode]
 public class FpsCounter : MonoBehaviour {
 
     float deltaTime = 0.0f;
