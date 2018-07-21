@@ -59,7 +59,7 @@ public class Enemy : Unit {
             willDropPowerup = true;
             transform.localScale *= EliteSizeIncrease;
             AttackRange *= EliteSizeIncrease;
-            GetComponentInChildren<Renderer>().material.shader = Shader.Find("Custom/Outline");
+            //GetComponentInChildren<Renderer>().material.shader = Shader.Find("Custom/Outline");
 
             shouldDropPowerup = true;
             ExperienceWorth *= 2;
@@ -75,7 +75,7 @@ public class Enemy : Unit {
 
             if (Vector2.Distance(transform.position, target.position) < 3 && !targetIsPlayer)
             {
-                Debug.Log("You're home!");
+                //Debug.Log("You're home!");
 
                 target = null;
                 rb.velocity = Vector2.zero;

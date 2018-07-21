@@ -60,7 +60,7 @@ public class PowerupObject
     {
         if (powerup.ModifyStatus)
         {
-            Debug.Log(powerup.Status);
+            //Debug.Log(powerup.Status);
             player.Stats.Status.Add(powerup.Status);
         }
 
@@ -95,7 +95,7 @@ public class PowerupObject
 
                 // Cannot lose experience
                 //player.Stats.GainExperience(powerup.Experience);
-                Debug.Log("fucking remove the fucking agility you piece of shit");
+                //Debug.Log("fucking remove the fucking agility you piece of shit");
 
             player.Stats.Agility -= powerup.Agility;
             player.Stats.Intelligence -= powerup.Intelligence;
