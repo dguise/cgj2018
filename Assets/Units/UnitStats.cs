@@ -2,10 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System;
 
 public class UnitStats
 {
+
     public List<Statuses> Status = new List<Statuses>();
     public bool CanMove
     {
@@ -20,7 +20,9 @@ public class UnitStats
     public int Intelligence = 1;
     public int Agility = 1;
 
-    public Action OnLevelUp;
+    public delegate void LevelUp();
+    public event LevelUp OnLevelUp;
+
     public int Experience = 0;
     public int Level = 1;
     private int _experiencePerLevel = 200;
@@ -28,7 +30,6 @@ public class UnitStats
     {
         if (xp >= _experiencePerLevel)
         {
-            // TODO: Graphical level up?
             if (OnLevelUp != null)
                 OnLevelUp();
 

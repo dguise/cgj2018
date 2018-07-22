@@ -49,12 +49,13 @@ public class Player : Unit
 
         DontDestroyOnLoad(this);
 
-        Stats.OnLevelUp = new Action(HandleLevelUp);
+        Stats.OnLevelUp += HandleLevelUp;
     }
 
     void HandleLevelUp()
     {
         Debug.Log("You are now level " + Stats.Level + " with exp: " + Stats.Experience);
+        ParticleSpawner.instance.SpawnParticleEffect(transform.position, Vector2.zero, ParticleSpawner.ParticleTypes.Hit);
         // Do Leveling stuff
         // Particle?
         // Add ability? 
