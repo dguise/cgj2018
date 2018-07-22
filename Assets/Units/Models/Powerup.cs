@@ -15,7 +15,7 @@ public class Powerup : MonoBehaviour
         {
             powerup.HandlePowerup(powerup, player);
 
-            ParticleSpawner.instance.SpawnParticleEffect(gameObject.transform.position, Vector2.up, ParticleSpawner.ParticleTypes.YellowPixelExplosion);
+            ParticleSpawner.instance.SpawnParticleEffect(gameObject.transform.position, ParticleTypes.YellowPixelExplosion);
             Destroy(gameObject);
         }
     }

@@ -41,12 +41,20 @@ public class ParticleSpawner : MonoBehaviour
         }
     }
 
-    public void SpawnParticleEffect(Vector2 where, Vector2 direction, ParticleTypes effect)
+    public void SpawnParticleEffect(Vector2 where, ParticleTypes effect, Vector2? direction = null, Transform parent = null, float lifetime = 0, bool keepAlive = false)
     {
+        Vector2 dir = Vector2.zero;
+
+        if (direction.HasValue)
+            dir = direction.Value;
+
         GameObject particleEffect = particleEffects[(int)effect];
-        float lifetime = 2.0f;
+        var particle = Instantiate(particleEffect, where, Quaternion.Euler(dir));
 
-        GameObject.Destroy(Instantiate(particleEffect, (Vector3)where, Quaternion.Euler(direction)), lifetime);
+        if (parent != null)
+            particle.transform.parent = parent;
 
+        if (lifetime > 0)
+            Destroy(particle, lifetime);
     }
 }

@@ -27,13 +27,13 @@ public class SiphonAoeBlood : Ability
             hit.GetComponent<Unit>().TakeDamage(damage, Owner, hit);
         }
 
-        ParticleSpawner.instance.SpawnParticleEffect(Owner.transform.position, Vector2.zero, ParticleSpawner.ParticleTypes.BloodParticles);
-        ParticleSpawner.instance.SpawnParticleEffect(Owner.transform.position, Vector2.zero, ParticleSpawner.ParticleTypes.BloodParticles);
-        ParticleSpawner.instance.SpawnParticleEffect(Owner.transform.position, Vector2.zero, ParticleSpawner.ParticleTypes.BloodParticles);
-        ParticleSpawner.instance.SpawnParticleEffect(Owner.transform.position, Vector2.zero, ParticleSpawner.ParticleTypes.BloodParticles);
-        ParticleSpawner.instance.SpawnParticleEffect(Owner.transform.position, Vector2.zero, ParticleSpawner.ParticleTypes.BloodParticles);
-        ParticleSpawner.instance.SpawnParticleEffect(Owner.transform.position, Vector2.zero, ParticleSpawner.ParticleTypes.BloodParticles);
-        ParticleSpawner.instance.SpawnParticleEffect(Owner.transform.position, Vector2.zero, ParticleSpawner.ParticleTypes.BloodParticles);
+        ParticleSpawner.instance.SpawnParticleEffect(
+            where: Owner.transform.position, 
+            effect: ParticleTypes.SiphonBloodAbility, 
+            parent: Owner.transform, 
+            lifetime: 2
+        );
+
         yield return null;
     }
 }
