@@ -17,14 +17,15 @@ public class SiphonAoeBlood : Ability
         radius = 5;
     }
 
-
     public override IEnumerator ActuallyUse()
     {
+        var dmg = damage + OwnerPlayer.Stats.Intelligence;
+
         var hits = Physics2D.OverlapCircleAll(Owner.transform.position, radius, LayerMask.GetMask("Enemies"));
         foreach(var hit in hits)
         {
-            OwnerPlayer.TakeDamage(-(damage * healRatio), hit.gameObject, hit);
-            hit.GetComponent<Unit>().TakeDamage(damage, Owner, hit);
+            OwnerPlayer.TakeDamage(-(dmg * healRatio), hit.gameObject, hit);
+            hit.GetComponent<Unit>().TakeDamage(dmg, Owner, hit);
         }
 
         ParticleSpawner.instance.SpawnParticleEffect(
