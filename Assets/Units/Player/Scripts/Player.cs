@@ -55,7 +55,7 @@ public class Player : Unit
     void HandleLevelUp()
     {
         Debug.Log("You are now level " + Stats.Level + " with exp: " + Stats.Experience);
-        ParticleSpawner.instance.SpawnParticleEffect(transform.position, Vector2.zero, ParticleSpawner.ParticleTypes.Hit);
+        ParticleSpawner.instance.SpawnParticleEffect(transform.position, Vector2.zero, ParticleSpawner.ParticleTypes.YellowPixelExplosion);
         // Do Leveling stuff
         // Particle?
         // Add ability? 
@@ -182,7 +182,7 @@ public class Player : Unit
         {
             player.Health = player.maxHealth / 2;
             SoundManager.instance.PlayAudio(14);
-            ParticleSpawner.instance.SpawnParticleEffect(player.transform.position, Vector2.up, ParticleSpawner.ParticleTypes.Hit);
+            ParticleSpawner.instance.SpawnParticleEffect(player.transform.position, Vector2.up, ParticleSpawner.ParticleTypes.YellowPixelExplosion);
             PlayerManager.playerReady[player.playerID] = true;
             PlayerManager.playersReady += 1;
             collision.transform.rotation = transform.rotation;

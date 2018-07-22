@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 198835358956801450}
   - component: {fileID: 199590582941834956}
   m_Layer: 0
-  m_Name: "Bl\xE5ttBlurryPixelTrail_PartikelSystem"
+  m_Name: BluePixelTrail_Streched_Fast
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

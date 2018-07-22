@@ -564,9 +564,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f97b910e28916cc4c8673858a0ad8023, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  List_Of_ParticleEffects:
+  _listIndexReference: 0
+  particleEffects:
   - {fileID: 1110511089817218, guid: 03ab21c63591f5f40a03b2afe1818435, type: 2}
   - {fileID: 1112876216573232, guid: a389b9a7f168bbd4f8a9a2ceb03a082a, type: 2}
+  - {fileID: 1561205167097698, guid: 7e07233a98c3b46d69e498c823710c98, type: 2}
+  - {fileID: 1236257550526160, guid: 32eaa780e5250483cb5f514683abe3ad, type: 2}
+  - {fileID: 1846176877020520, guid: 29d5aa1e6eeac6d418919d67835928b9, type: 2}
+  - {fileID: 1374897022833994, guid: 6f4cb7bb8ca8d7a459618063d9076735, type: 2}
+  - {fileID: 1145830601153896, guid: 09b26ae09b3cf564b8468a23efbca9b3, type: 2}
+  - {fileID: 1101798645339928, guid: 28534b7be9479cf42ae4b9b720f6a26e, type: 2}
+  - {fileID: 1891889281832948, guid: 4a4cfe76ef7bb374e954f9b978e1969a, type: 2}
+  - {fileID: 184992, guid: a5d72da27bd51354cbb7dbdea2dcd59a, type: 2}
+  - {fileID: 1363943104128572, guid: 46ce9983d8dadd04c8d253bbf6977470, type: 2}
+  - {fileID: 1429993823361276, guid: a5b7325616910184c8e22cd0dcef35a5, type: 2}
+  - {fileID: 167236, guid: 19599c93f59c1184abd18ccc4cbd4a2a, type: 2}
 --- !u!114 &114798433451099122
 MonoBehaviour:
   m_ObjectHideFlags: 1
