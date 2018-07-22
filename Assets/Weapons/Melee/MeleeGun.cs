@@ -34,7 +34,8 @@ public class MeleeGun : Weapon
     public void PerformAttack()
     {
         var atk = base.Attack(from, to);
-        atk.GetComponent<CircleCollider2D>().radius = owner.GetComponent<CircleCollider2D>().radius;
+        if (atk != null && owner != null)
+            atk.GetComponent<CircleCollider2D>().radius = owner.GetComponent<CircleCollider2D>().radius;
         isAttacking = false;
     }
 }
