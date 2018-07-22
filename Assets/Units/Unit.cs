@@ -98,7 +98,7 @@ public abstract class Unit : MonoBehaviour
 
                 Destroy(gameObject);
                 // Play generic death particle & sound?
-                ParticleSpawner.instance.SpawnParticleEffect((Vector2)collider.transform.position, (gameObject.transform.position - collider.transform.position).normalized, ParticleSpawner.ParticleTypes.Blood);
+                ParticleSpawner.instance.SpawnParticleEffect((Vector2)collider.transform.position, (gameObject.transform.position - collider.transform.position).normalized, ParticleSpawner.ParticleTypes.BloodParticles);
             }
         }
 

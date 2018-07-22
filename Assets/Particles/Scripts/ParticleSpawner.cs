@@ -8,12 +8,25 @@ public class ParticleSpawner : MonoBehaviour
 
     public enum ParticleTypes
     {
-        Hit,
-        Blood,
-        Death,
-        SomethingElse
+        YellowPixelExplosion,
+        BloodParticles,
+        LevelUp,
+        SiphonBloodAbility,
+        BlueGlitter_OverDistance,
+        BlueGlitter_OverTime,
+        BluePixelTrail,
+        BluePixelTrail_Fewer,
+        BluePixelTrail_Streched_Fast,
+        Fire,
+        Footsteps,
+        RedPixelExplosion_Up,
+        StaticFire,
     }
-    public List<GameObject> List_Of_ParticleEffects;
+
+    // No usage, just a quick reference in the Inspector to see what order the particles should be entered at
+    [SerializeField]
+    private ParticleTypes _listIndexReference;
+    public List<GameObject> particleEffects;
 
     void Awake()
     {
@@ -26,26 +39,10 @@ public class ParticleSpawner : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    void Start()
-    {
-        //DontDestroyOnLoad(gameObject);
-        //SpawnParticleEffect(this.transform.position, Vector2.zero, ParticleTypes.Hit);
-    }
-
-    //void Update()
-    //{
-    //    float rng = Random.Range(0, 100000);
-    //    if (rng > 90000)
-    //        if (Random.Range(0, 10) > 5)
-    //            SpawnParticleEffect(this.transform.position, Vector2.zero, ParticleTypes.Hit);
-    //        else
-    //            SpawnParticleEffect(this.transform.position, Vector2.zero, ParticleTypes.Blood);
-    //}
-
 
     public void SpawnParticleEffect(Vector2 where, Vector2 direction, ParticleTypes effect)
     {
-        GameObject particleEffect = List_Of_ParticleEffects[(int)effect];
+        GameObject particleEffect = particleEffects[(int)effect];
         float lifetime = 2.0f;
 
         GameObject.Destroy(Instantiate(particleEffect, (Vector3)where, Quaternion.Euler(direction)), lifetime);
