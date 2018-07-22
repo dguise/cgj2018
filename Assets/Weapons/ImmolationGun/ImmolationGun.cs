@@ -4,7 +4,7 @@ using UnityEngine;
 
 class ImmolationGun : Weapon
 {
-    protected override GameObject attackWeapon { get; set; }
+    protected override GameObject AttackWeapon { get; set; }
     protected override GameObject spawnAttack { get; set; }
     protected override float cooldown { get; set; }
     protected override float speed { get; set; }
@@ -13,12 +13,12 @@ class ImmolationGun : Weapon
     private int _bulletLimit;
     private int _maxN;
     private float _lifetime;
-    List<GameObject> projectiles = new List<GameObject>();
+    List<GameObject> bulletProjectiles = new List<GameObject>();
     
 
     public ImmolationGun(GameObject owner, float cd = 0.0f, int bulletLimit = 4, int maxN = 4, float lifetime = 4) : base(owner)
     {
-        attackWeapon = Resources.Load<GameObject>("ImmolationBullet");
+        AttackWeapon = Resources.Load<GameObject>("ImmolationBullet");
         attackTimestamp = -(cooldown + 1);
         cooldown = cd;
         speed = 4f;
@@ -31,9 +31,9 @@ class ImmolationGun : Weapon
     {
         GameObject projectile = null;
 
-        projectiles.RemoveAll(x => x == null);
+        bulletProjectiles.RemoveAll(x => x == null);
 
-        if (projectiles.Count < _bulletLimit)
+        if (bulletProjectiles.Count < _bulletLimit)
         {
             for (int i = 0; i < _bulletLimit; i++) {
                 projectile = base.Attack(position, direction, rotation, radius);
@@ -49,7 +49,7 @@ class ImmolationGun : Weapon
         }
 
         if (projectile != null)
-            projectiles.Add(projectile);
+            bulletProjectiles.Add(projectile);
 
         return projectile;
     }

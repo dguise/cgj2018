@@ -8,7 +8,6 @@ public class HealthBarScript : MonoBehaviour
     Unit owner;
     Image currentHealthImage;
     RectTransform foreground;
-    private float startSizeDeltaX;
     private float startSizeDeltaY;
     public Gradient healthGradient;
 
@@ -16,7 +15,6 @@ public class HealthBarScript : MonoBehaviour
     void Start()
     {
         foreground = (RectTransform)transform.GetChild(0);
-        startSizeDeltaX = foreground.sizeDelta.x;
         startSizeDeltaY = foreground.sizeDelta.y;
 
         owner = transform.parent.GetComponent<Unit>();

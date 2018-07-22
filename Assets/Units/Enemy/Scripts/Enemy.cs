@@ -75,8 +75,6 @@ public class Enemy : Unit {
 
             if (Vector2.Distance(transform.position, target.position) < 3 && !targetIsPlayer)
             {
-                //Debug.Log("You're home!");
-
                 target = null;
                 rb.velocity = Vector2.zero;
                 return;

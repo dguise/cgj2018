@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerMeleeGun : Weapon
 {
-    protected override GameObject attackWeapon { get; set; }
+    protected override GameObject AttackWeapon { get; set; }
     protected override GameObject spawnAttack { get; set; }
     protected override float cooldown { get; set; }
     protected override float speed { get; set; }
@@ -12,7 +12,7 @@ public class PlayerMeleeGun : Weapon
 
     public PlayerMeleeGun(GameObject go) : base(go)
     {
-        attackWeapon = Resources.Load<GameObject>("PlayerMeleeBullet");
+        AttackWeapon = Resources.Load<GameObject>("PlayerMeleeBullet");
         attackTimestamp = -(cooldown + 1);
         cooldown = 0.5f;
         speed = 1f;

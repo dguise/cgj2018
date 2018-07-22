@@ -169,8 +169,12 @@ public class Player : Unit
     public override void TakeDamageExtender(float damage, GameObject sender, Collider2D collider)
     {
         // If class is X heal yourself and all around with 15% of damage
-        var EvilDoer = sender != null ? (sender.GetComponent<Unit>()) : null;
-        var EvilDoerPortrait = (EvilDoer != null ? EvilDoer.Portrait : null);
+
+
+        /*
+         * If Player is killed, run a dialogue from its killer?
+         * var EvilDoer = sender != null ? (sender.GetComponent<Unit>()) : null;
+         * var EvilDoerPortrait = (EvilDoer != null ? EvilDoer.Portrait : null);*/
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

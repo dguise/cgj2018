@@ -4,18 +4,18 @@ using UnityEngine;
 
 class ShieldGun : Weapon
 {
-    protected override GameObject attackWeapon { get; set; }
+    protected override GameObject AttackWeapon { get; set; }
     protected override GameObject spawnAttack { get; set; }
     protected override float cooldown { get; set; }
     protected override float speed { get; set; }
     protected override float attackTimestamp { get; set; }
 
     private int _bulletLimit;
-    List<GameObject> projectiles = new List<GameObject>();
+    List<GameObject> bulletProjectiles = new List<GameObject>();
 
     public ShieldGun(GameObject owner, float cd = 0.2f, int bulletLimit = 4) : base(owner)
     {
-        attackWeapon = Resources.Load<GameObject>("ShieldBullet");
+        AttackWeapon = Resources.Load<GameObject>("ShieldBullet");
         attackTimestamp = -(cooldown + 1);
         cooldown = cd;
         speed = 4f;
@@ -26,9 +26,9 @@ class ShieldGun : Weapon
     {
         GameObject projectile = null;
 
-        projectiles.RemoveAll(x => x == null);
+        bulletProjectiles.RemoveAll(x => x == null);
 
-        if (projectiles.Count < _bulletLimit)
+        if (bulletProjectiles.Count < _bulletLimit)
         {
             projectile = base.Attack(position, direction, rotation, radius);
             if (projectile != null) {
@@ -39,7 +39,7 @@ class ShieldGun : Weapon
         }
         else
         {
-            foreach (var proj in projectiles)
+            foreach (var proj in bulletProjectiles)
             {
                 ShieldBullet bullet = proj.GetComponent<ShieldBullet>();
                 bullet.ShouldCirculate = false;
@@ -47,11 +47,11 @@ class ShieldGun : Weapon
                 proj.GetComponent<Rigidbody2D>().velocity = direction.normalized * speed;
                 bullet.Invoke("Die", bullet.Lifetime);
             }
-            projectiles.Clear();
+            bulletProjectiles.Clear();
         }
 
         if (projectile != null)
-            projectiles.Add(projectile);
+            bulletProjectiles.Add(projectile);
 
         return projectile;
     }

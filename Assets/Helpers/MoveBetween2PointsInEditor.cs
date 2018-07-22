@@ -5,8 +5,6 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class MoveBetween2PointsInEditor : MonoBehaviour
 {
-
-    float count = 0.0f;
     private GameObject GameObject1;
     private GameObject GameObject2;
     public GameObject Start_GameObject;

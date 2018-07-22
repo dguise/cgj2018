@@ -103,9 +103,6 @@ public static class PlayerManager {
                     playerReady[players] = true;
                     players += 1;
                     playersReady += 1;
-                    Debug.LogWarning("REMOVE THIS FOR PRODUCTION VVVV");
-                    PlayerManager.PlayerObjects.Add(GameObject.FindGameObjectWithTag(Tags.Player));
-                    // End of remove
                 }
             }
 
@@ -116,9 +113,6 @@ public static class PlayerManager {
                 playerReady[players] = true;
                 players += 1;
                 playersReady += 1;
-                Debug.LogWarning("REMOVE THIS FOR PRODUCTION VVVV");
-                PlayerManager.PlayerObjects.Add(GameObject.FindGameObjectWithTag(Tags.Player));
-                // End of remove
             }
         }
     }

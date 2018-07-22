@@ -19,7 +19,7 @@ public class RoomController : MonoBehaviour {
 	private State state = State.Inactive;
 
 	private Dictionary<string, DoorController> doors = new Dictionary<string, DoorController>();
-	private Light light;
+	private Light roomLight;
 	private LightController lightController;
 	public float lightTriggerRadius = 25f;
 	public float lightMaxRadius = 2f;
@@ -35,7 +35,6 @@ public class RoomController : MonoBehaviour {
 
 	private List<GameObject> myMonsters = new List<GameObject>(); 
 
-	private bool isActive = false;
 	private GameObject fog;
 
 	private bool shouldSpawnMonsters = true;
@@ -44,7 +43,7 @@ public class RoomController : MonoBehaviour {
 		doors.Add(Direction.EAST, transform.Find(Direction.EAST).GetComponent<DoorController>());
 		doors.Add(Direction.SOUTH, transform.Find(Direction.SOUTH).GetComponent<DoorController>());
 
-		light = transform.Find("Lights/Light").gameObject.GetComponent<Light>();
+		roomLight = transform.Find("Lights/Light").gameObject.GetComponent<Light>();
 		lightController = GetComponentInChildren<LightController>();
 		fog = transform.Find("Fog").gameObject;
 
@@ -60,15 +59,15 @@ public class RoomController : MonoBehaviour {
 		}
 
 		bool playerInRange = 
-		Vector2.Distance(PlayerManager.PlayerObjects[0].transform.position, light.transform.position) < lightTriggerRadius ||
+		Vector2.Distance(PlayerManager.PlayerObjects[0].transform.position, roomLight.transform.position) < lightTriggerRadius ||
 			(PlayerManager.PlayerObjects.Count == 2 && 
-			Vector2.Distance(PlayerManager.PlayerObjects[1].transform.position, light.transform.position) < lightTriggerRadius);
+			Vector2.Distance(PlayerManager.PlayerObjects[1].transform.position, roomLight.transform.position) < lightTriggerRadius);
 		if (playerInRange) {
 			// light.gameObject.SetActive(true);
 			lightController.SetActive(true);
-			float minPlayerDist = Vector2.Distance(PlayerManager.PlayerObjects[0].transform.position, light.transform.position) - lightMaxRadius;
+			float minPlayerDist = Vector2.Distance(PlayerManager.PlayerObjects[0].transform.position, roomLight.transform.position) - lightMaxRadius;
 			if (PlayerManager.PlayerObjects.Count == 2) {
-				minPlayerDist = Mathf.Min(minPlayerDist, Vector2.Distance(PlayerManager.PlayerObjects[1].transform.position, light.transform.position) - lightMaxRadius);
+				minPlayerDist = Mathf.Min(minPlayerDist, Vector2.Distance(PlayerManager.PlayerObjects[1].transform.position, roomLight.transform.position) - lightMaxRadius);
 			}
 			float normdist = Mathf.Max(minPlayerDist, 0);
 			float factor = 1 - normdist / (lightTriggerRadius - lightMaxRadius);
@@ -90,9 +89,8 @@ public class RoomController : MonoBehaviour {
         _monstersKilled++;
         if (state == State.Active && _monstersKilled >= myMonsters.Count)
         {
-            isActive = false;
             state = State.Finished;
-            ParticleSpawner.instance.SpawnParticleEffect(light.transform.position, ParticleTypes.BlueGlitter_OverTime, lifetime: 2);
+            ParticleSpawner.instance.SpawnParticleEffect(roomLight.transform.position, ParticleTypes.BlueGlitter_OverTime, lifetime: 2);
             var spawner = GetComponentInParent<RoomSpawner>();
             if (spawner != null)
                 spawner.UnlockAllRooms();

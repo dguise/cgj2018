@@ -2,7 +2,7 @@ using UnityEngine;
 
 class SpecialGun : Weapon
 {
-    protected override GameObject attackWeapon { get; set; }
+    protected override GameObject AttackWeapon { get; set; }
     protected override GameObject spawnAttack { get; set; }
     protected override float cooldown { get; set; }
     protected override float speed { get; set; }
@@ -10,7 +10,7 @@ class SpecialGun : Weapon
 
     public SpecialGun(GameObject owner, float cd = 0.2f): base (owner)
     {
-        attackWeapon = Resources.Load<GameObject>("SpecialBullet");
+        AttackWeapon = Resources.Load<GameObject>("SpecialBullet");
         attackTimestamp= -(cooldown + 1);
         cooldown = cd;
         speed = 4f;

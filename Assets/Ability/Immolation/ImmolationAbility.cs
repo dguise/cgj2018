@@ -9,11 +9,9 @@ public class ImmolationAbility : Ability
     float duration;
     int amount;
     int max;
-    GameObject attackWeapon;
 
     public ImmolationAbility(GameObject go): base(go)
     {
-        attackWeapon = Resources.Load<GameObject>("ImmolationBullet"); 
         Cooldown = 10;
         duration = 5;
         amount = 3;

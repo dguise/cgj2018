@@ -14,7 +14,6 @@ public class ClassSelectScript : MonoBehaviour {
     public bool released;
     PlayerSpawner spawner;
 
-    float cooldown = 0.3f;
     GameObject[] players = new GameObject[2];
 
     void Start ()

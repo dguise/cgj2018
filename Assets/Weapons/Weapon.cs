@@ -4,7 +4,7 @@ using System.Collections;
 [System.Serializable]
 public abstract class Weapon : IWeapon
 {
-    protected abstract GameObject attackWeapon { get; set; }
+    protected abstract GameObject AttackWeapon { get; set; }
     protected abstract GameObject spawnAttack { get; set; }
     protected abstract float cooldown { get; set; }
     protected abstract float speed { get; set; }
@@ -47,7 +47,7 @@ public abstract class Weapon : IWeapon
 
             for (int i = 0; i < projectiles; i++)
             {
-                spawnAttack = MonoBehaviour.Instantiate(attackWeapon, position + direction * radius, rotation);
+                spawnAttack = MonoBehaviour.Instantiate(AttackWeapon, position + direction * radius, rotation);
                 spawnAttack.GetComponent<Rigidbody2D>().velocity = attackDirection * speed;
                 var projectile = spawnAttack.GetComponent<Projectile>();
                 projectile.Owner = owner;
