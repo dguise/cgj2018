@@ -24,4 +24,11 @@ public static class CustomExtensions
         return null;
     }
 
+    public static Vector3 Offset(this Vector3 vector, float x = 0, float y = 0)
+    {
+        vector.x += x;
+        vector.y += y;
+        return vector;
+    }
+
 }
