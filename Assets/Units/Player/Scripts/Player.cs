@@ -26,7 +26,7 @@ public class Player : Unit
     {
         get
         {
-            return SendPredatorRetrieveActiveChild().GetComponent<Player_Head_Script>().Portrait;
+            return GetActiveHeadChild().GetComponent<Player_Head_Script>().Portrait;
         }
     }
 
@@ -67,7 +67,7 @@ public class Player : Unit
         head.GetComponent<MaskSelectorScript>().SetMask(aClass);
     }
 
-    private GameObject SendPredatorRetrieveActiveChild()
+    private GameObject GetActiveHeadChild()
     {
         GameObject firstActiveGameObject = null;
 
@@ -118,7 +118,7 @@ public class Player : Unit
 
         if (Stats.HasStatus(Statuses.Bleeding))
         {
-            Health -= 10 * Time.deltaTime;
+            TakeDamage(10f * Time.deltaTime, gameObject, GetComponent<Collider2D>());
         }
 
         bodyMesh.gameObject.SetActive(!Stats.HasStatus(Statuses.Invisible));
