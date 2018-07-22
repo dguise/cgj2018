@@ -10,7 +10,7 @@ public class Player : Unit
     public Weapon weapon;
     public Ability ability;
 
-    float radius = 0.5f;
+    float radius = 0f;
     const float DEADZONE = 0.70f;
     public int playerID;
     public Animator anim { get; set; }

@@ -13,5 +13,6 @@ class Gun : Weapon {
 		attackTimestamp = -(cooldown + 1);
         cooldown = cd;
         speed = 4f;
+        maxProjectiles = 5;
 	}
 }

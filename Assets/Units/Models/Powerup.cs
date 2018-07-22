@@ -55,17 +55,31 @@ public class PowerupObject
     [Range(0, 30)]
     public float Seconds;
 
-
+    private int _maxProjectilesDamageAmplifier = 10;
     public void HandlePowerup(PowerupObject powerup, Player player)
     {
         if (powerup.ModifyStatus)
         {
-            //Debug.Log(powerup.Status);
             player.Stats.Status.Add(powerup.Status);
         }
 
         if (powerup.WeaponIncrement > 0)
-            // TODO: Add a weapon of same type
+        {
+            if (player.weapon.projectiles + powerup.WeaponIncrement <= player.weapon.maxProjectiles)
+            {
+                player.weapon.projectiles += powerup.WeaponIncrement;
+            }
+            else if (player.weapon.projectiles == player.weapon.maxProjectiles)
+            {
+                powerup.Strength += _maxProjectilesDamageAmplifier;
+            }
+            else
+            {
+                powerup.WeaponIncrement = player.weapon.maxProjectiles - player.weapon.projectiles;
+                player.weapon.projectiles = player.weapon.maxProjectiles;
+            }
+
+        }
 
         player.Stats.GainExperience(powerup.Experience);
 
@@ -93,12 +107,11 @@ public class PowerupObject
 
             if (powerup.WeaponIncrement > 0)
             {
-                // TODO: Remove one weapon of same type
+                if (player.weapon.projectiles - powerup.WeaponIncrement >= 1)
+                {
+                    player.weapon.projectiles -= powerup.WeaponIncrement;
+                }
             }
-
-                // Cannot lose experience
-                //player.Stats.GainExperience(powerup.Experience);
-                //Debug.Log("fucking remove the fucking agility you piece of shit");
 
             player.Stats.Agility -= powerup.Agility;
             player.Stats.Intelligence -= powerup.Intelligence;
