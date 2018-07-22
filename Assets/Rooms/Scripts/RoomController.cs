@@ -82,50 +82,23 @@ public class RoomController : MonoBehaviour {
 				SpawnMonsters();
 			state = State.Active;
 		}
-
-		// Does room still have MORTAL ENEMYYYY?
-		if (state == State.Active && myMonsters.Where(x => x != null).Count() == 0) {
-			isActive = false;
-			state = State.Finished;
-			GetComponentInParent<RoomSpawner>().UnlockAllRooms();
-		}
 	}
 
-	// PERS ELLIPSE FOH-SIGH SHIZ
-
-    // void Update()
-    // {
-    //     var foci = Mathf.Sqrt(Mathf.Pow(lightTriggerRadius + magicFociNumber, 2) + Mathf.Pow(lightTriggerRadius, 2));  // major axis^2 - minor axis^2 
-
-    //     Vector2 leftFociPoint = new Vector2(light.transform.position.x - foci, light.transform.position.y);
-    //     Vector2 rightFociPoint = new Vector2(light.transform.position.x + foci, light.transform.position.y);
-    //     var totalDistanceFromFoci = Vector2.Distance(leftFociPoint, PlayerManager.PlayerObjects[0].transform.position) + Vector2.Distance(rightFociPoint, PlayerManager.PlayerObjects[0].transform.position);
-    //     //if (totalDistanceFromFoci < 50)
-    //     //Debug.Log("FociDistance = " + totalDistanceFromFoci + " lighttriggerradius = " + lightTriggerRadius);
-
-    //     if (totalDistanceFromFoci < 51)
-    //     {
-    //         light.gameObject.SetActive(true);
-    //         float normdist = Mathf.Max(Vector2.Distance(PlayerManager.PlayerObjects[0].transform.position, light.transform.position) - lightMaxRadius, 0);
-    //         float factor = 1 - normdist / (lightTriggerRadius - lightMaxRadius);
-    //         light.range = maxLight * factor;
-
-
-    //         //if (Vector2.Distance(PlayerManager.PlayerObjects[0].transform.position, light.transform.position) < lightTriggerRadius)
-    //         //{
-    //         //light.gameObject.SetActive(true);
-    //         //float normdist = Mathf.Max(Vector2.Distance(PlayerManager.PlayerObjects[0].transform.position, light.transform.position) - lightMaxRadius, 0);
-    //         //float factor = 1 - normdist / (lightTriggerRadius - lightMaxRadius);
-    //         //light.range = maxLight * factor;
-    //     }
-    //     else
-    //     {
-    //         light.gameObject.SetActive(false);
-    //     }
-
-    //     // TODO: Fix for both players
-    // }
-
+    private int _monstersKilled;
+    void OnMonsterDeath()
+    {
+        _monstersKilled++;
+        if (state == State.Active && _monstersKilled >= myMonsters.Count)
+        {
+            isActive = false;
+            state = State.Finished;
+            ParticleSpawner.instance.SpawnParticleEffect(light.transform.position, ParticleTypes.BlueGlitter_OverTime, lifetime: 2);
+            var spawner = GetComponentInParent<RoomSpawner>();
+            if (spawner != null)
+                spawner.UnlockAllRooms();
+        }
+    }
+    
     //Keep if needed to update foci calculations
     //private void OnDrawGizmos()
     //{
@@ -135,16 +108,8 @@ public class RoomController : MonoBehaviour {
     //    Gizmos.DrawWireSphere(new Vector3(light.transform.position.x + foci, light.transform.position.y, 0), 5.0f);
     //}
 
-	private void SpawnMonsters() {
-		// Create a new spawnpoint from the first
-		// Vector2 myFirstSpawnPoint = spawnPoints[0];
-		// myFirstSpawnPoint.x -= 2;
-
-		// GameObject initMon = monsters[Random.Range(0, monsters.Length)];
-		// GameObject myMon = Instantiate(initMon, myFirstSpawnPoint, Quaternion.identity);
-		// myMonsters.Add(myMon);
-
-		//Debug.Log("Level is " + level);
+	private void SpawnMonsters()
+    {
 		foreach (Vector2 spawnPoint in spawnPoints) {
 			float spawnFactor = minSpawnFactor + level * (maxSpawnFactor - minSpawnFactor);
 			if (Random.Range(0f, 1f) < spawnFactor) {
@@ -153,8 +118,10 @@ public class RoomController : MonoBehaviour {
 				temp.y += transform.position.y;
 				GameObject mon = monsters[Random.Range(0, monsters.Length)];
 				GameObject obj = Instantiate(mon, temp, mon.transform.rotation);
-				myMonsters.Add(obj);
-				obj.GetComponent<Unit>().Stats.GainExperience((int) (1000 * level * LevelManager.TempleFloor));
+                myMonsters.Add(obj);
+                var unit = obj.GetComponent<Unit>();
+                unit.Stats.GainExperience((int) (1000 * level * LevelManager.TempleFloor));
+                unit.OnDeath += OnMonsterDeath;
 				// TODO: Add temple level
 			}
 		}

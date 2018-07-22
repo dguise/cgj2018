@@ -43,6 +43,9 @@ public abstract class Unit : MonoBehaviour
         }
     }
 
+    public delegate void DeathEvent();
+    public event DeathEvent OnDeath;
+
     private void Awake()
     {
         Health = maxHealth;
@@ -66,6 +69,9 @@ public abstract class Unit : MonoBehaviour
 
         if (IsDead)
         {
+            if (OnDeath != null)
+                OnDeath();
+
             if (gameObject.tag == Tags.Player)
             {
                 bool isReady = PlayerManager.playerReady[gameObject.GetComponent<Player>().playerID];
@@ -87,10 +93,12 @@ public abstract class Unit : MonoBehaviour
             }
             else
             {
-                var killer = sender.GetComponent<Unit>();
-                if (killer != null)
-                    killer.Stats.GainExperience(ExperienceWorth);
-
+                if (sender != null)
+                {
+                    var killer = sender.GetComponent<Unit>();
+                    if (killer != null)
+                        killer.Stats.GainExperience(ExperienceWorth);
+                }
                 // TODO: Refactor this to event ffs
                 var spawnyThing = GetComponent<SpawnThingOnDeath>();
                 if (spawnyThing != null)
@@ -100,6 +108,7 @@ public abstract class Unit : MonoBehaviour
                 // Play generic death particle & sound?
                 ParticleSpawner.instance.SpawnParticleEffect((Vector2)collider.transform.position, ParticleTypes.RedPixelExplosion_Up, (gameObject.transform.position - collider.transform.position).normalized);
             }
+
         }
 
         return Health;
