@@ -77,7 +77,10 @@ public class PowerupObject
         player.maxHealth += powerup.MaxHealth;
 
         if (ShouldBeTemporary)
-            player.StartCoroutine(RevertAfterSeconds(Seconds, powerup, player));
+        {
+            ParticleSpawner.instance.SpawnParticleEffect(player.transform.position.Offset(y: 0.5f), ParticleTypes.BluePixelTrail_Fewer, lifetime: powerup.Seconds, parent: player.transform);
+            player.StartCoroutine(RevertAfterSeconds(powerup.Seconds, powerup, player));
+        }
     }
 
     IEnumerator RevertAfterSeconds(float seconds, PowerupObject powerup, Player player)
