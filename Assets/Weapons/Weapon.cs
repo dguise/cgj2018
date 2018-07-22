@@ -15,6 +15,7 @@ public abstract class Weapon : IWeapon
     protected float radius;
 
     public int projectiles = 1;
+    public int maxProjectiles = 1;
     private float projectileWidthInDegrees = 15;
 
     public Weapon(GameObject owner)

@@ -156,6 +156,21 @@ Prefab:
       propertyPath: m_Name
       value: Powerup Weapon (12)
       objectReference: {fileID: 0}
+    - target: {fileID: 114921141965113022, guid: 318885715ab7c924d809aaed67c956e5,
+        type: 2}
+      propertyPath: powerup.ShouldBeTemporary
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114921141965113022, guid: 318885715ab7c924d809aaed67c956e5,
+        type: 2}
+      propertyPath: powerup.Seconds
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114921141965113022, guid: 318885715ab7c924d809aaed67c956e5,
+        type: 2}
+      propertyPath: powerup.WeaponIncrement
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 318885715ab7c924d809aaed67c956e5, type: 2}
   m_IsPrefabParent: 0
@@ -249,6 +264,21 @@ Prefab:
       propertyPath: m_Name
       value: Powerup Weapon (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 114921141965113022, guid: 318885715ab7c924d809aaed67c956e5,
+        type: 2}
+      propertyPath: powerup.ShouldBeTemporary
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114921141965113022, guid: 318885715ab7c924d809aaed67c956e5,
+        type: 2}
+      propertyPath: powerup.Seconds
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114921141965113022, guid: 318885715ab7c924d809aaed67c956e5,
+        type: 2}
+      propertyPath: powerup.WeaponIncrement
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 318885715ab7c924d809aaed67c956e5, type: 2}
   m_IsPrefabParent: 0
@@ -294,6 +324,21 @@ Prefab:
     - target: {fileID: 1796837509373058, guid: 318885715ab7c924d809aaed67c956e5, type: 2}
       propertyPath: m_Name
       value: Powerup Weapon (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 114921141965113022, guid: 318885715ab7c924d809aaed67c956e5,
+        type: 2}
+      propertyPath: powerup.ShouldBeTemporary
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114921141965113022, guid: 318885715ab7c924d809aaed67c956e5,
+        type: 2}
+      propertyPath: powerup.Seconds
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114921141965113022, guid: 318885715ab7c924d809aaed67c956e5,
+        type: 2}
+      propertyPath: powerup.WeaponIncrement
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 318885715ab7c924d809aaed67c956e5, type: 2}
@@ -346,6 +391,21 @@ Prefab:
       propertyPath: m_Name
       value: Powerup Weapon (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 114921141965113022, guid: 318885715ab7c924d809aaed67c956e5,
+        type: 2}
+      propertyPath: powerup.ShouldBeTemporary
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114921141965113022, guid: 318885715ab7c924d809aaed67c956e5,
+        type: 2}
+      propertyPath: powerup.Seconds
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114921141965113022, guid: 318885715ab7c924d809aaed67c956e5,
+        type: 2}
+      propertyPath: powerup.WeaponIncrement
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 318885715ab7c924d809aaed67c956e5, type: 2}
   m_IsPrefabParent: 0
@@ -392,6 +452,21 @@ Prefab:
       propertyPath: m_Name
       value: Powerup Weapon (11)
       objectReference: {fileID: 0}
+    - target: {fileID: 114921141965113022, guid: 318885715ab7c924d809aaed67c956e5,
+        type: 2}
+      propertyPath: powerup.ShouldBeTemporary
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114921141965113022, guid: 318885715ab7c924d809aaed67c956e5,
+        type: 2}
+      propertyPath: powerup.Seconds
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114921141965113022, guid: 318885715ab7c924d809aaed67c956e5,
+        type: 2}
+      propertyPath: powerup.WeaponIncrement
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 318885715ab7c924d809aaed67c956e5, type: 2}
   m_IsPrefabParent: 0
@@ -437,21 +512,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7e07233a98c3b46d69e498c823710c98, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &494763906
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 1541658298}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 835020037}
-  m_Layer: 0
-  m_Name: Missing Prefab (Dummy)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1001 &678063413
 Prefab:
   m_ObjectHideFlags: 0
@@ -495,6 +555,21 @@ Prefab:
       propertyPath: m_Name
       value: Powerup Weapon (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 114921141965113022, guid: 318885715ab7c924d809aaed67c956e5,
+        type: 2}
+      propertyPath: powerup.ShouldBeTemporary
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114921141965113022, guid: 318885715ab7c924d809aaed67c956e5,
+        type: 2}
+      propertyPath: powerup.Seconds
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114921141965113022, guid: 318885715ab7c924d809aaed67c956e5,
+        type: 2}
+      propertyPath: powerup.WeaponIncrement
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 318885715ab7c924d809aaed67c956e5, type: 2}
   m_IsPrefabParent: 0
@@ -507,11 +582,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4867958897295932, guid: 9b5288a292f6d6a469e9a6df539f4a5d, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -4.59
+      value: -8.77
       objectReference: {fileID: 0}
     - target: {fileID: 4867958897295932, guid: 9b5288a292f6d6a469e9a6df539f4a5d, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 4.92
       objectReference: {fileID: 0}
     - target: {fileID: 4867958897295932, guid: 9b5288a292f6d6a469e9a6df539f4a5d, type: 2}
       propertyPath: m_LocalPosition.z
@@ -5333,21 +5408,11 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
---- !u!4 &835020037
+--- !u!4 &835020037 stripped
 Transform:
-  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 4496854826392346, guid: 32eaa780e5250483cb5f514683abe3ad,
     type: 2}
   m_PrefabInternal: {fileID: 1541658298}
-  m_GameObject: {fileID: 494763906}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 801583123}
-  m_Father: {fileID: 1426924422}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &899913001
 Prefab:
   m_ObjectHideFlags: 0
@@ -5390,6 +5455,21 @@ Prefab:
     - target: {fileID: 1796837509373058, guid: 318885715ab7c924d809aaed67c956e5, type: 2}
       propertyPath: m_Name
       value: Powerup Weapon (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 114921141965113022, guid: 318885715ab7c924d809aaed67c956e5,
+        type: 2}
+      propertyPath: powerup.ShouldBeTemporary
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114921141965113022, guid: 318885715ab7c924d809aaed67c956e5,
+        type: 2}
+      propertyPath: powerup.Seconds
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114921141965113022, guid: 318885715ab7c924d809aaed67c956e5,
+        type: 2}
+      propertyPath: powerup.WeaponIncrement
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 318885715ab7c924d809aaed67c956e5, type: 2}
@@ -5437,6 +5517,21 @@ Prefab:
       propertyPath: m_Name
       value: Powerup Weapon (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 114921141965113022, guid: 318885715ab7c924d809aaed67c956e5,
+        type: 2}
+      propertyPath: powerup.ShouldBeTemporary
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114921141965113022, guid: 318885715ab7c924d809aaed67c956e5,
+        type: 2}
+      propertyPath: powerup.Seconds
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114921141965113022, guid: 318885715ab7c924d809aaed67c956e5,
+        type: 2}
+      propertyPath: powerup.WeaponIncrement
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 318885715ab7c924d809aaed67c956e5, type: 2}
   m_IsPrefabParent: 0
@@ -5483,37 +5578,24 @@ Prefab:
       propertyPath: m_Name
       value: Powerup Weapon (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 114921141965113022, guid: 318885715ab7c924d809aaed67c956e5,
+        type: 2}
+      propertyPath: powerup.ShouldBeTemporary
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114921141965113022, guid: 318885715ab7c924d809aaed67c956e5,
+        type: 2}
+      propertyPath: powerup.Seconds
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114921141965113022, guid: 318885715ab7c924d809aaed67c956e5,
+        type: 2}
+      propertyPath: powerup.WeaponIncrement
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 318885715ab7c924d809aaed67c956e5, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &1299792086
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 458904435}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1299792087}
-  m_Layer: 0
-  m_Name: Missing Prefab
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1299792087
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 458904435}
-  m_GameObject: {fileID: 1299792086}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 219215224}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1316364846
 Prefab:
   m_ObjectHideFlags: 0
@@ -5604,38 +5686,24 @@ Prefab:
       propertyPath: m_Name
       value: Powerup Weapon (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 114921141965113022, guid: 318885715ab7c924d809aaed67c956e5,
+        type: 2}
+      propertyPath: powerup.ShouldBeTemporary
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114921141965113022, guid: 318885715ab7c924d809aaed67c956e5,
+        type: 2}
+      propertyPath: powerup.Seconds
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114921141965113022, guid: 318885715ab7c924d809aaed67c956e5,
+        type: 2}
+      propertyPath: powerup.WeaponIncrement
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 318885715ab7c924d809aaed67c956e5, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &1426924421
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 1541658298}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1426924422}
-  m_Layer: 0
-  m_Name: Missing Prefab
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1426924422
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 1541658298}
-  m_GameObject: {fileID: 1426924421}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 835020037}
-  m_Father: {fileID: 219215224}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1480013580
 Prefab:
   m_ObjectHideFlags: 0
@@ -5678,6 +5746,21 @@ Prefab:
     - target: {fileID: 1796837509373058, guid: 318885715ab7c924d809aaed67c956e5, type: 2}
       propertyPath: m_Name
       value: Powerup Weapon (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 114921141965113022, guid: 318885715ab7c924d809aaed67c956e5,
+        type: 2}
+      propertyPath: powerup.ShouldBeTemporary
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114921141965113022, guid: 318885715ab7c924d809aaed67c956e5,
+        type: 2}
+      propertyPath: powerup.Seconds
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114921141965113022, guid: 318885715ab7c924d809aaed67c956e5,
+        type: 2}
+      propertyPath: powerup.WeaponIncrement
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 318885715ab7c924d809aaed67c956e5, type: 2}
@@ -5924,6 +6007,21 @@ Prefab:
       propertyPath: m_Name
       value: Powerup Weapon (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 114921141965113022, guid: 318885715ab7c924d809aaed67c956e5,
+        type: 2}
+      propertyPath: powerup.ShouldBeTemporary
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114921141965113022, guid: 318885715ab7c924d809aaed67c956e5,
+        type: 2}
+      propertyPath: powerup.Seconds
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114921141965113022, guid: 318885715ab7c924d809aaed67c956e5,
+        type: 2}
+      propertyPath: powerup.WeaponIncrement
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 318885715ab7c924d809aaed67c956e5, type: 2}
   m_IsPrefabParent: 0
@@ -5965,6 +6063,21 @@ Prefab:
     - target: {fileID: 4445185907400218, guid: 318885715ab7c924d809aaed67c956e5, type: 2}
       propertyPath: m_RootOrder
       value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 114921141965113022, guid: 318885715ab7c924d809aaed67c956e5,
+        type: 2}
+      propertyPath: powerup.ShouldBeTemporary
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114921141965113022, guid: 318885715ab7c924d809aaed67c956e5,
+        type: 2}
+      propertyPath: powerup.Seconds
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114921141965113022, guid: 318885715ab7c924d809aaed67c956e5,
+        type: 2}
+      propertyPath: powerup.WeaponIncrement
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 318885715ab7c924d809aaed67c956e5, type: 2}
@@ -6025,11 +6138,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4733471577805786, guid: 275203fac049fe249830fbf773b68494, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 3.69
+      value: -14.18
       objectReference: {fileID: 0}
     - target: {fileID: 4733471577805786, guid: 275203fac049fe249830fbf773b68494, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -6.09
       objectReference: {fileID: 0}
     - target: {fileID: 4733471577805786, guid: 275203fac049fe249830fbf773b68494, type: 2}
       propertyPath: m_LocalPosition.z
