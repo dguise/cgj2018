@@ -26,7 +26,6 @@ public class Player : Unit
     {
         get
         {
-            //return null;
             return SendPredatorRetrieveActiveChild().GetComponent<Player_Head_Script>().Portrait;
         }
     }
@@ -54,7 +53,9 @@ public class Player : Unit
 
     void HandleLevelUp()
     {
-        Debug.Log("You are now level " + Stats.Level + " with exp: " + Stats.Experience);
+        Debug.Log("You are now level " + Stats.Level);
+        TextManager.CreateHealText((Stats.Level).ToString(), transform, 0.2f);
+
         ParticleSpawner.instance.SpawnParticleEffect(transform.position, ParticleTypes.LevelUp, parent: transform);
         // Do Leveling stuff
         // Particle?
@@ -167,9 +168,8 @@ public class Player : Unit
 
     public override void TakeDamageExtender(float damage, GameObject sender, Collider2D collider)
     {
-        // Currently don't give af
         // If class is X heal yourself and all around with 15% of damage
-        var EvilDoer = (sender != null ? (sender.GetComponent<Unit>()) : null);
+        var EvilDoer = sender != null ? (sender.GetComponent<Unit>()) : null;
         var EvilDoerPortrait = (EvilDoer != null ? EvilDoer.Portrait : null);
     }
 
@@ -182,12 +182,16 @@ public class Player : Unit
         {
             player.Health = player.maxHealth / 2;
             SoundManager.instance.PlayAudio(14);
-            ParticleSpawner.instance.SpawnParticleEffect(player.transform.position, Vector2.up, ParticleSpawner.ParticleTypes.YellowPixelExplosion);
             PlayerManager.playerReady[player.playerID] = true;
             PlayerManager.playersReady += 1;
             collision.transform.rotation = transform.rotation;
             Rigidbody2D rigid = player.GetComponent<Rigidbody2D>();
             rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
+
+            ParticleSpawner.instance.SpawnParticleEffect(transform.position, ParticleTypes.BlueGlitter_OverTime, lifetime: 2);
+
+            // Penalty for reviving
+            Stats.SetStatus(this, 3, Statuses.Slowed);
         }
     }
 }
