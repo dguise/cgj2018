@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class Enemy : Unit {
 
-    Rigidbody2D rb;
     Animator anim;
 
     Transform start;
@@ -36,9 +35,9 @@ public class Enemy : Unit {
     private bool readyToChangeAggro = true;
     GameObject[] players;
 
+    Transform body;
 
 	void Start () {
-        rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
 
         start = Instantiate<GameObject>(new GameObject(), transform.position, Quaternion.identity).transform;
@@ -59,14 +58,12 @@ public class Enemy : Unit {
             willDropPowerup = true;
             transform.localScale *= EliteSizeIncrease;
             AttackRange *= EliteSizeIncrease;
-            //GetComponentInChildren<Renderer>().material.shader = Shader.Find("Custom/Outline");
 
             shouldDropPowerup = true;
             ExperienceWorth *= 2;
             Stats.GainExperience(100000 * Stats.Level);
         }
 	}
-    Transform body;
 	void FixedUpdate ()
     {
         if (target != null)
@@ -76,23 +73,26 @@ public class Enemy : Unit {
             if (Vector2.Distance(transform.position, target.position) < 3 && !targetIsPlayer)
             {
                 target = null;
-                rb.velocity = Vector2.zero;
+                RigidBody.velocity = Vector2.zero;
                 return;
             }
 
             // Apply movement
-            rb.velocity = ((targetPosition) - transform.position).normalized * movementSpeed;
+            RigidBody.velocity = ((targetPosition) - transform.position).normalized * movementSpeed;
             // Apply rotation
-            body.eulerAngles = new Vector3(body.eulerAngles.x, body.eulerAngles.y, (Mathf.Atan2(rb.velocity.x, rb.velocity.y) * 180 / Mathf.PI) + 180);
+
+            UnitBodyDirection = RigidBody.velocity.normalized;
+            var direction = (Mathf.Atan2(RigidBody.velocity.x, RigidBody.velocity.y) * 180 / Mathf.PI) + 180;
+            body.eulerAngles = new Vector3(body.eulerAngles.x, body.eulerAngles.y, direction);
             if (targetIsPlayer && Vector2.Distance(target.position, transform.position) < AttackRange-1)
             {
-                rb.velocity = Vector2.zero;
+                RigidBody.velocity = Vector2.zero;
             }
             if (weapon.GetType() == typeof(MeleeGun) && targetIsPlayer && ((MeleeGun)weapon).isAttacking)
-                rb.velocity = Vector2.zero;
+                RigidBody.velocity = Vector2.zero;
 
             if (anim != null)
-                anim.SetFloat("Speed", rb.velocity.magnitude);
+                anim.SetFloat("Speed", RigidBody.velocity.magnitude);
         }
 
     }

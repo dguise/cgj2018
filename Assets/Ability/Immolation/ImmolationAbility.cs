@@ -22,7 +22,7 @@ public class ImmolationAbility : Ability
     public override IEnumerator ActuallyUse()
     {
         Weapon immolation = new ImmolationGun(Owner, 0.0f, amount, max, duration);
-        immolation.Attack(Owner.transform.position, Vector2.right, OwnerPlayer.transform.rotation, 0.5f);
+        immolation.Attack(Owner.transform.position, Vector2.right, OwnerUnit.transform.rotation, 0.5f);
 
         yield return null;
     }

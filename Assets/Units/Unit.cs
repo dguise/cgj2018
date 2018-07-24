@@ -9,6 +9,11 @@ public abstract class Unit : MonoBehaviour
         get { return Portrait; }
     }
 
+    [HideInInspector]
+    public Vector3 UnitBodyDirection;
+    [HideInInspector]
+    public Rigidbody2D RigidBody;
+
     [SerializeField]
     [Range(0, 10)]
     public float movementSpeed;
@@ -48,6 +53,7 @@ public abstract class Unit : MonoBehaviour
 
     private void Awake()
     {
+        RigidBody = GetComponent<Rigidbody2D>();
         Health = maxHealth;
     }
 
