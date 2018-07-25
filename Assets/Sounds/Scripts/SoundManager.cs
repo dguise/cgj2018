@@ -7,14 +7,11 @@ public class SoundManager : MonoBehaviour {
 	public AudioSource music;
 	public static SoundManager instance = null;
 	private AudioClip musicLoop;
-	private string[] songsToLoad = {"overworld", "spooky", "fight"};
-	private List<AudioClip[]> songs = new List<AudioClip[]>();
-	private string[] soundsToLoad = {"crash1", "crash2", "crash3", "crash4",
-									"plopp1", "plopp2", "mouth1-1", "mouth2-1", 
-									"mouth3-1", "mouth4-1", "mouth5-1", "tssss1", 
-									"tssss2", "pew1", "shield", "swish1"};
-	private List<AudioClip> sounds = new List<AudioClip>();
-	private int currentTrack = 0;
+
+    private List<AudioClip[]> songs;
+    private List<AudioClip> sounds;
+
+    private int currentTrack = 0;
 
 	// Use this for initialization
 	void Awake () {
@@ -23,20 +20,8 @@ public class SoundManager : MonoBehaviour {
 		} else if (instance != null) {
 			Destroy(gameObject);
 		}
-
-
-
-		foreach (string song in songsToLoad) {
-			songs.Add(
-				new AudioClip[] {
-					(Resources.Load(song + "-1") as AudioClip), 
-					(Resources.Load(song + "-2") as AudioClip)
-					});
-		}
-
-		foreach (string sound in soundsToLoad) {
-			sounds.Add(Resources.Load(sound) as AudioClip);
-		}
+        songs = PrefabRepository.instance.Songs;
+        sounds = PrefabRepository.instance.Sounds;
 
 		PlayMusic(0);
 

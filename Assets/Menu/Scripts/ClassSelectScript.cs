@@ -79,7 +79,7 @@ public class ClassSelectScript : MonoBehaviour {
                         PlayerManager.playersReady += 1;
 
                         //Instantiate Player
-                        GameObject player = Resources.Load<GameObject>("Player3D");
+                        GameObject player = PrefabRepository.instance.Player;
                         players[playerID] = Instantiate(player, spawner.spawners[playerID].transform.position, player.transform.rotation);
                         PlayerManager.PlayerObjects.Add(players[playerID]);
 
