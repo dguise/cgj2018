@@ -18,7 +18,7 @@ class ImmolationGun : Weapon
 
     public ImmolationGun(GameObject owner, float cd = 0.0f, int bulletLimit = 4, int maxN = 4, float lifetime = 4) : base(owner)
     {
-        AttackWeapon = Resources.Load<GameObject>("ImmolationBullet");
+        AttackWeapon = PrefabRepository.instance.ImmolationBullet;
         attackTimestamp = -(cooldown + 1);
         cooldown = cd;
         speed = 4f;

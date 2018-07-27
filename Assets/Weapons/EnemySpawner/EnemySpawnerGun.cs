@@ -11,7 +11,7 @@ public class EnemySpawnerGun : Weapon
 
     public EnemySpawnerGun(GameObject owner) : base(owner)
     {
-        AttackWeapon = Resources.Load<GameObject>("EnemySpawnerBullet");
+        AttackWeapon = PrefabRepository.instance.EnemySpawnerBullet;
         attackTimestamp = Time.time + cooldown;
         cooldown = 5;
         speed = 2f;

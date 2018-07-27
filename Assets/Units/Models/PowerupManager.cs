@@ -15,7 +15,7 @@ public class PowerupManager : MonoBehaviour {
         else
             Destroy(gameObject);
 
-        var objs = Resources.LoadAll<GameObject>("powerups");
+        var objs = PrefabRepository.instance.AllPowerups;
         foreach (var obj in objs)
             powerups.Add(obj.name, obj);
 

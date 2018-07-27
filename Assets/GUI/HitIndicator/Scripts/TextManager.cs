@@ -20,14 +20,14 @@ public class TextManager : MonoBehaviour
     ///</summary>
     static TextManager()
     {
-        GameObject screen_canvas = Resources.Load<GameObject>("ScreenCanvas");
+        GameObject screen_canvas = PrefabRepository.instance.TextManagerScreenCanvas;
         if (screen_canvas == null)
         {
             Debug.LogError("Could not load canvas resources");
         }
         m_screen_canvas = Instantiate(screen_canvas);
 
-        m_damage_text = Resources.Load<APopupText>("DamageTextParent");
+        m_damage_text = PrefabRepository.instance.DamageTextParent;
         if (m_damage_text == null)
         {
             Debug.LogError("Could not load damage text prefab");
@@ -55,7 +55,7 @@ public class TextManager : MonoBehaviour
         screen = Camera.main.WorldToScreenPoint(new Vector2(transform.position.x + pad_x, transform.position.y + pad_y));
 
         if (!m_screen_canvas) {
-            GameObject screen_canvas = Resources.Load<GameObject>("ScreenCanvas");
+            GameObject screen_canvas = PrefabRepository.instance.TextManagerScreenCanvas;
             m_screen_canvas = Instantiate(screen_canvas);
         }
 

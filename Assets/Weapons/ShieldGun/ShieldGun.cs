@@ -15,7 +15,7 @@ class ShieldGun : Weapon
 
     public ShieldGun(GameObject owner, float cd = 0.2f, int bulletLimit = 4) : base(owner)
     {
-        AttackWeapon = Resources.Load<GameObject>("ShieldBullet");
+        AttackWeapon = PrefabRepository.instance.ShieldBullet;
         attackTimestamp = -(cooldown + 1);
         cooldown = cd;
         speed = 4f;

@@ -9,7 +9,7 @@ class Gun : Weapon {
 
     public Gun(GameObject owner, float cd = 0.2f): base(owner)
 	{
-		AttackWeapon = Resources.Load<GameObject>("Bullet");
+        AttackWeapon = PrefabRepository.instance.Bullet;
 		attackTimestamp = -(cooldown + 1);
         cooldown = cd;
         speed = 4f;

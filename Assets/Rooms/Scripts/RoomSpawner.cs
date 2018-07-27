@@ -18,8 +18,8 @@ public class RoomSpawner : MonoBehaviour {
 
 		rooms = new GameObject[nTiles, nTiles];
 
-		// Fetch all room prefabs
-		Object[] subListObjects = Resources.LoadAll("Regular", typeof(GameObject));
+        // Fetch all room prefabs
+        Object[] subListObjects = PrefabRepository.instance.AllRegularRooms;
 		foreach (GameObject subListObject in subListObjects) {
 			GameObject lo = (GameObject)subListObject;
 			roomList.Add(lo);
@@ -29,8 +29,8 @@ public class RoomSpawner : MonoBehaviour {
 		GameObject spawn = GameObject.Find("PlayerSpawner");
 		spawn.transform.position = spawnPos;
 
-		// Instantiate rooms
-		Object[] bossRooms = Resources.LoadAll("Boss", typeof(GameObject));
+        // Instantiate rooms
+        Object[] bossRooms = PrefabRepository.instance.AllBossRooms;
 		GameObject bossRoom = (GameObject) bossRooms[0];
 		rooms[(nTiles - 1) / 2, (nTiles - 1) / 2] = Object.Instantiate(bossRoom, Vector3.zero, Quaternion.identity, transform);
 		rooms[(nTiles - 1) / 2, (nTiles - 1) / 2].transform.localScale = new Vector3(scale, scale, 1f);

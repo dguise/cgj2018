@@ -12,7 +12,7 @@ public class PlayerMeleeGun : Weapon
 
     public PlayerMeleeGun(GameObject go) : base(go)
     {
-        AttackWeapon = Resources.Load<GameObject>("PlayerMeleeBullet");
+        AttackWeapon = PrefabRepository.instance.PlayerMeleeBullet;
         attackTimestamp = -(cooldown + 1);
         cooldown = 0.5f;
         speed = 1f;

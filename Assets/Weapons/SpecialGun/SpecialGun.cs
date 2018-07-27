@@ -10,7 +10,7 @@ class SpecialGun : Weapon
 
     public SpecialGun(GameObject owner, float cd = 0.2f): base (owner)
     {
-        AttackWeapon = Resources.Load<GameObject>("SpecialBullet");
+        AttackWeapon = PrefabRepository.instance.SpecialBullet;
         attackTimestamp= -(cooldown + 1);
         cooldown = cd;
         speed = 4f;
