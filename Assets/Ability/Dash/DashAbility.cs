@@ -14,15 +14,12 @@ public class DashAbility : Ability
 
     public override IEnumerator ActuallyUse()
     {
-        OwnerPlayer.Stats.SetStatus(OwnerPlayer, duration, Statuses.Stunned);
+        OwnerUnit.Stats.SetStatus(OwnerUnit, duration, Statuses.Stunned);
 
-        var rb = OwnerPlayer.rb;
-        Vector2 lastDirection = rb.velocity.normalized;
-
+        var rb = OwnerUnit.RigidBody;
         rb.velocity = Vector2.zero;
 
-        rb.AddRelativeForce(-1 * (lastDirection * OwnerPlayer.movementSpeed * 2), ForceMode2D.Impulse);
-        OwnerPlayer.anim.SetFloat(AnimatorConstants.Speed, rb.velocity.magnitude);
+        rb.AddRelativeForce(-1 * (OwnerUnit.UnitBodyDirection * OwnerUnit.movementSpeed * 2), ForceMode2D.Impulse);
 
         yield return null;
     }

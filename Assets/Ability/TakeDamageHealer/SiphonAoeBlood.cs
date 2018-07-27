@@ -19,12 +19,12 @@ public class SiphonAoeBlood : Ability
 
     public override IEnumerator ActuallyUse()
     {
-        var dmg = damage + OwnerPlayer.Stats.Intelligence;
+        var dmg = damage + OwnerUnit.Stats.Intelligence;
 
         var hits = Physics2D.OverlapCircleAll(Owner.transform.position, radius, LayerMask.GetMask("Enemies"));
         foreach(var hit in hits)
         {
-            OwnerPlayer.TakeDamage(-(dmg * healRatio), hit.gameObject, hit);
+            OwnerUnit.TakeDamage(-(dmg * healRatio), hit.gameObject, hit);
             hit.GetComponent<Unit>().TakeDamage(dmg, Owner, hit);
         }
 

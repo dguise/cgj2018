@@ -19,8 +19,6 @@ public class Player : Unit
     Transform head;
     Transform body;
     private Transform bodyMesh;
-    [HideInInspector]
-    public Rigidbody2D rb;
 
     public new Sprite UnitPortrait
     {
@@ -44,7 +42,6 @@ public class Player : Unit
         originalMovementSpeed = movementSpeed;
 
         anim = GetComponent<Animator>();
-        rb = GetComponent<Rigidbody2D>();
 
         DontDestroyOnLoad(this);
 
@@ -128,32 +125,35 @@ public class Player : Unit
     {
         if (PlayerManager.playerReady[playerID])
         {
+            if (!Stats.CanMove) return;
+
             // Movement
             if (Input.GetButtonDown(Inputs.AButton(PlayerManager.controllerId[playerID])))
             {
                 if (ability.CanUse)
                     ability.Use();
             }
-            else if (Stats.CanMove)
+            else
             {
-                Vector2 playerVelocity = new Vector2(Input.GetAxisRaw(Inputs.Horizontal(PlayerManager.controllerId[playerID])), Input.GetAxisRaw(Inputs.Vertical(PlayerManager.controllerId[playerID])));
-                rb.velocity = playerVelocity.normalized * movementSpeed;
-                anim.SetFloat(AnimatorConstants.Speed, playerVelocity.magnitude);
+                Vector2 playerInput = new Vector2(Input.GetAxisRaw(Inputs.Horizontal(PlayerManager.controllerId[playerID])), Input.GetAxisRaw(Inputs.Vertical(PlayerManager.controllerId[playerID])));
+                RigidBody.velocity = playerInput.normalized * movementSpeed;
 
-                if (rb.velocity.magnitude > DEADZONE)
+                if (RigidBody.velocity.magnitude > DEADZONE)
                 {
-                    body.eulerAngles = new Vector3(body.eulerAngles.x, body.eulerAngles.y, (Mathf.Atan2(rb.velocity.x, rb.velocity.y) * 180 / Mathf.PI) + 180);
+                    UnitBodyDirection = RigidBody.velocity.normalized; 
+                    var direction = (Mathf.Atan2(RigidBody.velocity.x, RigidBody.velocity.y) * Mathf.Rad2Deg) + 180;
+                    body.eulerAngles = new Vector3(body.eulerAngles.x, body.eulerAngles.y, direction);
                 }
             }
 
             // Attack
             Vector2 attackDirection = new Vector2(Input.GetAxisRaw(Inputs.FireHorizontal(PlayerManager.controllerId[playerID])), Input.GetAxisRaw(Inputs.FireVertical(PlayerManager.controllerId[playerID])));
 
-            Vector2 attackPosition = transform.position;
             if (attackDirection.magnitude > DEADZONE)
             {
-                head.eulerAngles = new Vector3(head.eulerAngles.x, head.eulerAngles.y, (Mathf.Atan2(attackDirection.y, attackDirection.x) * 180 / Mathf.PI) * -1 - 90);
-                var attackRotation = new Vector3(0, 0, (Mathf.Atan2(attackDirection.y, attackDirection.x) * 180 / Mathf.PI) - 90);
+                head.eulerAngles = new Vector3(head.eulerAngles.x, head.eulerAngles.y, (Mathf.Atan2(attackDirection.y, attackDirection.x) * Mathf.Rad2Deg) * -1 - 90);
+                var attackRotation = new Vector3(0, 0, (Mathf.Atan2(attackDirection.y, attackDirection.x) * Mathf.Rad2Deg) - 90);
+                Vector2 attackPosition = transform.position;
                 weapon.Attack(attackPosition, attackDirection, Quaternion.Euler(attackRotation), radius);
             }
         }
@@ -164,6 +164,8 @@ public class Player : Unit
                 PlayerManager.MapControllerToPlayer();
             }
         }
+
+        anim.SetFloat(AnimatorConstants.Speed, RigidBody.velocity.magnitude);
     }
 
     public override void TakeDamageExtender(float damage, GameObject sender, Collider2D collider)

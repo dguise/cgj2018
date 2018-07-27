@@ -5,7 +5,7 @@ using System;
 public abstract class Ability
 {
     public GameObject Owner { get; set; }
-    public Player OwnerPlayer { get; set; }
+    public Unit OwnerUnit { get; set; }
     protected abstract float Cooldown { get; set; }
 
     protected float LastAttack = Single.MinValue;
@@ -13,7 +13,7 @@ public abstract class Ability
     public Ability(GameObject go)
     {
         Owner = go;
-        OwnerPlayer = go.GetComponent<Player>();
+        OwnerUnit = go.GetComponent<Unit>();
     }
 
     public bool CanUse {
@@ -26,7 +26,7 @@ public abstract class Ability
     public void Use()
     {
         LastAttack = Time.time;
-        OwnerPlayer.StartCoroutine(ActuallyUse());
+        OwnerUnit.StartCoroutine(ActuallyUse());
     }
 
     public abstract IEnumerator ActuallyUse();

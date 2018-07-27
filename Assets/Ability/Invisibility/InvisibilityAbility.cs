@@ -23,7 +23,7 @@ public class InvisibilityAbility : Ability
             ShouldBeTemporary = true,
             Seconds = duration,
         };
-        po.HandlePowerup(po, OwnerPlayer);
+        po.HandlePowerup(po, (Player)OwnerUnit);
         yield return null;
     }
 }

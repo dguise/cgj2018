@@ -25,7 +25,10 @@ public class UnitStats
 
     public int Experience = 0;
     public int Level = 1;
+
+    private int _statsPerLevel = 4;
     private int _experiencePerLevel = 200;
+    private int _experienceRequirementIncreasePerLevel = 50;
     public void GainExperience(int xp)
     {
         if (xp >= _experiencePerLevel)
@@ -34,12 +37,12 @@ public class UnitStats
                 OnLevelUp();
 
             Level++;
-            Strength += 4;
-            Intelligence += 4;
-            Agility += 4;
+            Strength += _statsPerLevel;
+            Intelligence += _statsPerLevel;
+            Agility += _statsPerLevel;
 
             xp -= _experiencePerLevel;
-            _experiencePerLevel += 50;
+            _experiencePerLevel += _experienceRequirementIncreasePerLevel;
             GainExperience(xp);
         }
         Experience += xp;
