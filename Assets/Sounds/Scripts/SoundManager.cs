@@ -14,7 +14,7 @@ public class SoundManager : MonoBehaviour {
     private int currentTrack = 0;
 
 	// Use this for initialization
-	void Awake () {
+	void Start () {
 		if (instance == null) {
 			instance = this;
 		} else if (instance != null) {
