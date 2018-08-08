@@ -84,8 +84,10 @@ public class RoomController : MonoBehaviour {
 	}
 
     private int _monstersKilled;
-    void OnMonsterDeath()
+    void OnMonsterDeath(Unit unit)
     {
+        if (unit.tag == Tags.Player) return;
+
         _monstersKilled++;
         if (state == State.Active && _monstersKilled >= myMonsters.Count)
         {

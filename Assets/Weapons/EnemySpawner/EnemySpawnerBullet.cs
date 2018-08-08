@@ -5,12 +5,11 @@ using System.Collections.Generic;
 
 class EnemySpawnerBullet : Projectile
 {
-    private static float speed = 10;
     private static float lifetime = 1;
     private static float damage = 0;
 
     public GameObject SpawnedEnemy;
-    public EnemySpawnerBullet() : base(speed, lifetime, damage)
+    public EnemySpawnerBullet() : base(lifetime, damage)
     {
     }
 

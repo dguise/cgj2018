@@ -7,11 +7,10 @@ public class PlayerSpawner : MonoBehaviour {
 
 	void Start () {
 		spawners = GetComponentsInChildren<Animator>();
-		for (int i = 0; i < PlayerManager.players; i++) {
-			if (PlayerManager.playerReady[i]) {
-				Spawn(i);
-			}
-		}
+
+        int i = 0;
+        foreach (var player in PlayerManager.PlayerObjects)
+            Spawn(i++, player);
 	}
 
 	public void Animate(int id) {
@@ -24,8 +23,7 @@ public class PlayerSpawner : MonoBehaviour {
 		}
 	}
 
-	public void Spawn(int id) {
-		GameObject player = PlayerManager.PlayerObjects[id];
+	public void Spawn(int id, GameObject player) {
 		player.transform.position = spawners[id].transform.position;
 		Animate(id);
 	}

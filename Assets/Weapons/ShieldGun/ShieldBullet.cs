@@ -2,7 +2,6 @@
 
 public class ShieldBullet : Projectile
 {
-    private static float speed = 10;
     private static float lifetime = 10;
     private static float damage = 10;
     private float life = 0;
@@ -21,7 +20,7 @@ public class ShieldBullet : Projectile
     //You can evaluate the curve(get the y for an x value) with:
     //float y = this.myCurve.Evaluate(x);
 
-    public ShieldBullet() : base(speed, lifetime, damage, sound)
+    public ShieldBullet() : base(lifetime, damage, sound)
     { }
 
     public void Awake() {

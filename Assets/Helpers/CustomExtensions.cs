@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using XInputDotNetPure;
 
 public static class CustomExtensions
 {
@@ -29,5 +30,15 @@ public static class CustomExtensions
         vector.x += x;
         vector.y += y;
         return vector;
+    }
+
+    public static bool IsDown(this ButtonState bs)
+    {
+        return bs == ButtonState.Pressed;
+    }
+
+    public static bool IsUp(this ButtonState bs)
+    {
+        return bs == ButtonState.Released;
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,7 +13,8 @@ public static class PlayerManager {
     public static List<GameObject> PlayerObjects = new List<GameObject>();
     private static bool hasSwitched = false;
     public static CharacterClassesEnum[] playerClass = {CharacterClassesEnum.Magician, CharacterClassesEnum.Magician};
-    public static int players = 0;
+    public static int players { get { return PlayerObjects.Count; } }
+    public static int PlayersAlive { get { return PlayerObjects.Where(x => x.GetComponent<Unit>().IsDead).Count(); } }
     public static bool[] playerReady = {false, false};
     public static int playersReady = 0;
     public static bool gameStarted = false;
@@ -34,7 +36,6 @@ public static class PlayerManager {
         PlayerObjects = new List<GameObject>();
         hasSwitched = false;
         playerClass = new CharacterClassesEnum[] {CharacterClassesEnum.Magician, CharacterClassesEnum.Magician};
-        players = 0;
         playerReady = new bool[] {false, false};
         playersReady = 0;
         gameStarted = false;
@@ -97,11 +98,10 @@ public static class PlayerManager {
     {
         if (players < 2) {
             for (int i = 1; i <= 16; i++) {
-                if (Input.GetButton(Inputs.AButton(i)) && !PlayerManager.controllers.Contains(i)) {
+                if (Input.GetButtonDown(Inputs.AButton(i)) && !PlayerManager.controllers.Contains(i)) {
                     controllerId[players] = i;
                     controllers.Add(i);
                     playerReady[players] = true;
-                    players += 1;
                     playersReady += 1;
                 }
             }
@@ -111,7 +111,6 @@ public static class PlayerManager {
                 controllerId[players] = -1;
                 controllers.Add(-1);
                 playerReady[players] = true;
-                players += 1;
                 playersReady += 1;
             }
         }
@@ -143,7 +142,8 @@ public static class PlayerManager {
             Player playerScript = PlayerObjects[0].GetComponent<Player>();
             playerScript.PlayerClass = playerClass[0];
             playerScript.weapon = PlayerManager.GetWeapon(playerScript.PlayerClass, PlayerObjects[0]);
-            playerScript.UpdateMask(playerClass[0]);
+            // TODO: Change controls
+            //playerScript.UpdateMask(playerClass[0]);
         }
     }
 }

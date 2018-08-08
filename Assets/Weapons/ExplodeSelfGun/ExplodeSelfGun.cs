@@ -30,6 +30,9 @@ public class ExplodeSelfGun : Weapon
             unit.TakeDamage(attackDamage, owner, owner.GetComponent<Collider2D>());
         }
         owner.GetComponent<Unit>().Health -= selfDamage;
+        ParticleSpawner.instance.SpawnParticleEffect(owner.transform.position, ParticleTypes.YellowPixelExplosion);
+        ParticleSpawner.instance.SpawnParticleEffect(owner.transform.position, ParticleTypes.YellowPixelExplosion);
+        ParticleSpawner.instance.SpawnParticleEffect(owner.transform.position, ParticleTypes.YellowPixelExplosion);
         return null;
     }
 }

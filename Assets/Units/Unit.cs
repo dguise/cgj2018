@@ -4,10 +4,6 @@
 public abstract class Unit : MonoBehaviour
 {
     public Sprite Portrait;
-    public Sprite UnitPortrait
-    {
-        get { return Portrait; }
-    }
 
     [HideInInspector]
     public Vector3 UnitBodyDirection;
@@ -48,7 +44,7 @@ public abstract class Unit : MonoBehaviour
         }
     }
 
-    public delegate void DeathEvent();
+    public delegate void DeathEvent(Unit unit);
     public event DeathEvent OnDeath;
 
     private void Awake()
@@ -76,25 +72,19 @@ public abstract class Unit : MonoBehaviour
         if (IsDead)
         {
             if (OnDeath != null)
-                OnDeath();
+                OnDeath(this);
 
             if (gameObject.tag == Tags.Player)
             {
-                bool isReady = PlayerManager.playerReady[gameObject.GetComponent<Player>().playerID];
-                if (isReady)
+                Rigidbody2D rigid = gameObject.GetComponent<Rigidbody2D>();
+                rigid.velocity = Vector2.zero;
+                gameObject.transform.rotation = Quaternion.Euler(90, 0, 90);
+                rigid.constraints = RigidbodyConstraints2D.FreezeAll;
+                if (PlayerManager.PlayersAlive <= 0)
                 {
-                    PlayerManager.playerReady[gameObject.GetComponent<Player>().playerID] = false;
-                    PlayerManager.playersReady -= 1;
-                    Rigidbody2D rigid = gameObject.GetComponent<Rigidbody2D>();
-                    rigid.velocity = Vector2.zero;
-                    gameObject.transform.rotation = Quaternion.Euler(90, 0, 90);
-                    rigid.constraints = RigidbodyConstraints2D.FreezeAll;
-                    if (PlayerManager.playersReady <= 0)
-                    {
-                        GameObject manager = GameObject.Find("ManagerManager");
-                        CustomGameManager gm = manager.GetComponent<CustomGameManager>();
-                        gm.GameOver();
-                    }
+                    GameObject manager = GameObject.Find("ManagerManager");
+                    CustomGameManager gm = manager.GetComponent<CustomGameManager>();
+                    gm.GameOver();
                 }
             }
             else

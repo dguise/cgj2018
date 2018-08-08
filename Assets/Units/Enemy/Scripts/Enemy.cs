@@ -11,6 +11,7 @@ public class Enemy : Unit {
     [HideInInspector]
     public Transform target;
     bool targetIsPlayer = false;
+    Unit targetUnit;
 
     Weapon weapon;
     [Range(0.2f, 20)]
@@ -45,7 +46,9 @@ public class Enemy : Unit {
         players = GameObject.FindGameObjectsWithTag(Tags.Player);
 
         if (RandomOffset)
-            randomOffset = new Vector2(UnityEngine.Random.Range(-3f, 3f), UnityEngine.Random.Range(-3f, 3f));
+        {
+            InvokeRepeating("GenerateNewRandomOffset", 0, 3);
+        }
         movementSpeed = movementSpeed * UnityEngine.Random.Range(0.7f, 1.15f);
 
         body = transform.FindWithTagInChildren("Body");
@@ -107,7 +110,8 @@ public class Enemy : Unit {
         // Do we need random offset here?
         if (target != null && targetIsPlayer && Vector2.Distance(target.position, transform.position) <= AttackRange)
         {
-            if (!target.GetComponent<Unit>().Stats.Status.Contains(Statuses.Invisible) && !target.GetComponent<Unit>().IsDead)
+            targetUnit = target.GetComponent<Unit>();
+            if (!targetUnit.Stats.Status.Contains(Statuses.Invisible) && !targetUnit.IsDead)
             {
                 weapon.Attack(transform, target.transform);
             } else
@@ -193,5 +197,10 @@ public class Enemy : Unit {
         if (shouldDropPowerup && IsDead && willDropPowerup)
             PowerupManager.instance.SpawnRandomPowerUp(transform.position);
 
+    }
+
+    void GenerateNewRandomOffset()
+    {
+        randomOffset = new Vector2(UnityEngine.Random.Range(-3f, 3f), UnityEngine.Random.Range(-3f, 3f));
     }
 }

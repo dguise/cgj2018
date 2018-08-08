@@ -2,7 +2,6 @@
 
 public class ImmolationBullet : Projectile
 {
-    private static float speed = 10;
     private static float lifetime = 5;
     private static float damage = 2;
     private float range = 1;
@@ -20,7 +19,7 @@ public class ImmolationBullet : Projectile
     //You can evaluate the curve(get the y for an x value) with:
     //float y = this.myCurve.Evaluate(x);
 
-    public ImmolationBullet() : base(speed, lifetime, damage, sound)
+    public ImmolationBullet() : base(lifetime, damage, sound)
     { }
 
     public void Awake() {

@@ -2,33 +2,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using XInputDotNetPure;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Player : Unit
 {
     public Weapon weapon;
     public Ability ability;
+    public PlayerManager.CharacterClassesEnum PlayerClass;
+    public Animator anim { get; set; }
+
+    public PlayerIndex playerID { get; set; }
+    GamePadState state;
+    GamePadState prevState;
+    const float DEADZONE = 0.70f;
 
     float radius = 0f;
-    const float DEADZONE = 0.70f;
-    public int playerID;
-    public Animator anim { get; set; }
     float originalMovementSpeed;
 
     Transform head;
     Transform body;
     private Transform bodyMesh;
-
-    public new Sprite UnitPortrait
-    {
-        get
-        {
-            return GetActiveHeadChild().GetComponent<Player_Head_Script>().Portrait;
-        }
-    }
-
-    public PlayerManager.CharacterClassesEnum PlayerClass;
 
     void Start()
     {
@@ -59,28 +53,9 @@ public class Player : Unit
         // Add ability? 
     }
 
-    public void UpdateMask(PlayerManager.CharacterClassesEnum aClass)
-    {
-        head.GetComponent<MaskSelectorScript>().SetMask(aClass);
-    }
-
-    private GameObject GetActiveHeadChild()
-    {
-        GameObject firstActiveGameObject = null;
-
-        for (int i = 0; i < head.childCount; i++)
-        {
-            if (head.GetChild(i).gameObject.activeSelf == true)
-            {
-                firstActiveGameObject = head.GetChild(i).gameObject;
-            }
-        }
-        return firstActiveGameObject;
-    }
-
-
     private void Update()
     {
+        state = GamePad.GetState(playerID);
 #if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
@@ -119,50 +94,45 @@ public class Player : Unit
         }
 
         bodyMesh.gameObject.SetActive(!Stats.HasStatus(Statuses.Invisible));
+
+        prevState = state;
     }
 
     private void FixedUpdate()
     {
-        if (PlayerManager.playerReady[playerID])
+        if (!Stats.CanMove || IsDead) return;
+
+        if (state.Buttons.A.IsDown() && prevState.Buttons.A.IsUp())
         {
-            if (!Stats.CanMove) return;
-
-            // Movement
-            if (Input.GetButtonDown(Inputs.AButton(PlayerManager.controllerId[playerID])))
-            {
-                if (ability.CanUse)
-                    ability.Use();
-            }
-            else
-            {
-                Vector2 playerInput = new Vector2(Input.GetAxisRaw(Inputs.Horizontal(PlayerManager.controllerId[playerID])), Input.GetAxisRaw(Inputs.Vertical(PlayerManager.controllerId[playerID])));
-                RigidBody.velocity = playerInput.normalized * movementSpeed;
-
-                if (RigidBody.velocity.magnitude > DEADZONE)
-                {
-                    UnitBodyDirection = RigidBody.velocity.normalized; 
-                    var direction = (Mathf.Atan2(RigidBody.velocity.x, RigidBody.velocity.y) * Mathf.Rad2Deg) + 180;
-                    body.eulerAngles = new Vector3(body.eulerAngles.x, body.eulerAngles.y, direction);
-                }
-            }
-
-            // Attack
-            Vector2 attackDirection = new Vector2(Input.GetAxisRaw(Inputs.FireHorizontal(PlayerManager.controllerId[playerID])), Input.GetAxisRaw(Inputs.FireVertical(PlayerManager.controllerId[playerID])));
-
-            if (attackDirection.magnitude > DEADZONE)
-            {
-                head.eulerAngles = new Vector3(head.eulerAngles.x, head.eulerAngles.y, (Mathf.Atan2(attackDirection.y, attackDirection.x) * Mathf.Rad2Deg) * -1 - 90);
-                var attackRotation = new Vector3(0, 0, (Mathf.Atan2(attackDirection.y, attackDirection.x) * Mathf.Rad2Deg) - 90);
-                Vector2 attackPosition = transform.position;
-                weapon.Attack(attackPosition, attackDirection, Quaternion.Euler(attackRotation), radius);
-            }
+            if (ability.CanUse)
+                ability.Use();
         }
         else
         {
-            if (!PlayerManager.playerReady[playerID])
+            var horizontalLeft = state.ThumbSticks.Left.X;
+            var verticalLeft = state.ThumbSticks.Left.Y;
+            Vector2 playerInput = new Vector2(horizontalLeft, verticalLeft);
+            RigidBody.velocity = playerInput.normalized * movementSpeed;
+
+            if (RigidBody.velocity.magnitude > DEADZONE)
             {
-                PlayerManager.MapControllerToPlayer();
+                UnitBodyDirection = RigidBody.velocity.normalized; 
+                var direction = (Mathf.Atan2(RigidBody.velocity.x, RigidBody.velocity.y) * Mathf.Rad2Deg) + 180;
+                body.eulerAngles = new Vector3(body.eulerAngles.x, body.eulerAngles.y, direction);
             }
+        }
+
+        // Attack
+        var horizontalRight = state.ThumbSticks.Right.X;
+        var verticalRight = state.ThumbSticks.Right.Y;
+        Vector2 attackDirection = new Vector2(horizontalRight, verticalRight);
+
+        if (attackDirection.magnitude > DEADZONE)
+        {
+            head.eulerAngles = new Vector3(head.eulerAngles.x, head.eulerAngles.y, (Mathf.Atan2(attackDirection.y, attackDirection.x) * Mathf.Rad2Deg) * -1 - 90);
+            var attackRotation = new Vector3(0, 0, (Mathf.Atan2(attackDirection.y, attackDirection.x) * Mathf.Rad2Deg) - 90);
+            Vector2 attackPosition = transform.position;
+            weapon.Attack(attackPosition, attackDirection, Quaternion.Euler(attackRotation), radius);
         }
 
         anim.SetFloat(AnimatorConstants.Speed, RigidBody.velocity.magnitude);
@@ -179,6 +149,20 @@ public class Player : Unit
          * var EvilDoerPortrait = (EvilDoer != null ? EvilDoer.Portrait : null);*/
     }
 
+    public void Revive(Player sender)
+    {
+        this.Health = this.maxHealth / 2;
+        SoundManager.instance.PlayAudio(14);
+        PlayerManager.playersReady += 1;
+        this.transform.rotation = sender.transform.rotation; // Copy the other players rotation 
+        RigidBody.constraints = RigidbodyConstraints2D.FreezeRotation;
+
+        ParticleSpawner.instance.SpawnParticleEffect(transform.position, ParticleTypes.BlueGlitter_OverTime, lifetime: 2);
+
+        // Penalty for reviving
+        sender.Stats.SetStatus(this, 3, Statuses.Slowed);
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         // Revive player on touch
@@ -186,18 +170,7 @@ public class Player : Unit
 
         if (player != null && player.IsDead)
         {
-            player.Health = player.maxHealth / 2;
-            SoundManager.instance.PlayAudio(14);
-            PlayerManager.playerReady[player.playerID] = true;
-            PlayerManager.playersReady += 1;
-            collision.transform.rotation = transform.rotation;
-            Rigidbody2D rigid = player.GetComponent<Rigidbody2D>();
-            rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
-
-            ParticleSpawner.instance.SpawnParticleEffect(transform.position, ParticleTypes.BlueGlitter_OverTime, lifetime: 2);
-
-            // Penalty for reviving
-            Stats.SetStatus(this, 3, Statuses.Slowed);
+            player.Revive(this);
         }
     }
 }
