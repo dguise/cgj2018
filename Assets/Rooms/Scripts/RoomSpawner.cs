@@ -58,10 +58,10 @@ public class RoomSpawner : MonoBehaviour {
 		}
 
 		for (int i = 0; i < nTiles; i++) {
-			rooms[0, i].GetComponent<RoomController>().setWestWallActive(true);
-			rooms[nTiles-1, i].GetComponent<RoomController>().setEastWallActive(true);
-			rooms[i, 0].GetComponent<RoomController>().setSouthWallActive(true);
-			rooms[i, nTiles-1].GetComponent<RoomController>().setNorthWallActive(true);
+			rooms[0, i].GetComponent<RoomController>().SetWestWallActive(true);
+			rooms[nTiles-1, i].GetComponent<RoomController>().SetEastWallActive(true);
+			rooms[i, 0].GetComponent<RoomController>().SetSouthWallActive(true);
+			rooms[i, nTiles-1].GetComponent<RoomController>().SetNorthWallActive(true);
 		}
 	}
 

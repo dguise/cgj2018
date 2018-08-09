@@ -18,6 +18,7 @@ public class PrefabRepository : MonoBehaviour
     public GameObject[] AllPowerups { get; private set; }
     public GameObject EnemySpawnerBullet { get; private set; }
     public GameObject Bullet { get; private set; }
+    public GameObject EnemyBullet { get; private set; }
     public GameObject ImmolationBullet { get; private set; }
     public GameObject MeleeBullet { get; private set; }
     public GameObject PlayerMeleeBullet { get; private set; }
@@ -45,6 +46,7 @@ public class PrefabRepository : MonoBehaviour
         IncrementProgress();
 
         // Bullets
+        EnemyBullet = Resources.Load<GameObject>("EnemyBullet");
         EnemySpawnerBullet = Resources.Load<GameObject>("EnemySpawnerBullet");
         Bullet = Resources.Load<GameObject>("Bullet");
         ImmolationBullet = Resources.Load<GameObject>("ImmolationBullet");

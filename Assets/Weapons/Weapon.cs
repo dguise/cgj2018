@@ -25,6 +25,15 @@ public abstract class Weapon : IWeapon
         radius = owner.GetComponent<CircleCollider2D>().radius;
 
     }
+
+    public virtual GameObject Attack(Transform from, Vector3 towards)
+    {
+        if (from != null && towards != null)
+            return Attack(from.transform.position, towards - from.transform.position, Quaternion.identity, radius);
+
+        return null;
+    }
+
     public virtual GameObject Attack(Transform from, Transform towards)
     {
         if (from != null && towards != null)

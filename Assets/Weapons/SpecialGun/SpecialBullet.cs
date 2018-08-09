@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class SpecialBullet : Projectile
 {
-    private static float speed = 10;
     private static float lifetime = 3;
     private static float damage = 10;
     private float life = 0;
@@ -21,7 +20,7 @@ public class SpecialBullet : Projectile
 
     private Vector2 PrevVectorFromGraph;
 
-    public SpecialBullet() : base(speed, lifetime, damage, sound)
+    public SpecialBullet() : base(lifetime, damage, sound)
     { }
 
     private void Start()
@@ -43,12 +42,10 @@ public class SpecialBullet : Projectile
     }
 
 
-    public void SetStartAndDirectionVectorAndSpeed(Vector2 start, Vector2 dir, float aSpeed)
+    public void SetStartAndDirectionVectorAndSpeed(Vector2 start, Vector2 dir)
     {
         //startPos = start;
         direction = dir;
-        speed = aSpeed;
-
     }
 
     void SpawnTrail()

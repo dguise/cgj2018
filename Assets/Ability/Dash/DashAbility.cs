@@ -9,12 +9,12 @@ public class DashAbility : Ability
     public DashAbility(GameObject go): base (go)
     {
         Cooldown = 5;
-        duration = 1;
+        duration = 0.6f;
     }
 
     public override IEnumerator ActuallyUse()
     {
-        OwnerUnit.Stats.SetStatus(OwnerUnit, duration, Statuses.Stunned);
+        OwnerUnit.Stats.SetStatus(OwnerUnit, duration, Statuses.Stunned, Statuses.Invincible);
 
         var rb = OwnerUnit.RigidBody;
         rb.velocity = Vector2.zero;

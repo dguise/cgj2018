@@ -3,7 +3,6 @@
 [RequireComponent(typeof(Collider2D), typeof(Rigidbody2D))]
 public abstract class Projectile : MonoBehaviour
 {
-    public float Speed { get; set; }
     public float Lifetime { get; set; }
     public float Damage { get; set; }
     // Is set by Weapon.cs
@@ -11,9 +10,8 @@ public abstract class Projectile : MonoBehaviour
     public bool destroyOnCollision = true;
     public int Sound { get; set; }
 
-    public Projectile (float speed, float lifetime, float damage, int sound = 0)
+    public Projectile (float lifetime, float damage, int sound = 0)
     {
-        this.Speed = speed;
         this.Lifetime = lifetime;
         this.Damage = damage;
         this.Sound = sound;
@@ -45,11 +43,8 @@ public abstract class Projectile : MonoBehaviour
 
     private void OnAnyCollide(Collider2D col)
     {
-        if (col.gameObject.layer == LayerConstants.GetLayer("Wall").value)
-        {
-            if (destroyOnCollision)
-                Die();
-        }
+        if (destroyOnCollision || col.gameObject.layer == LayerConstants.GetLayer("Wall").value)
+            Die();
     }
 
     private void OnTriggerEnter2D(Collider2D collider)

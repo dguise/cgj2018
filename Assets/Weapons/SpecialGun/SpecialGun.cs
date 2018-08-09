@@ -21,7 +21,7 @@ class SpecialGun : Weapon
         var projectile = base.Attack(position, direction, rotation, radius);
         if (projectile != null)
         {
-            projectile.GetComponent<SpecialBullet>().SetStartAndDirectionVectorAndSpeed(position + direction * radius, direction, speed);
+            projectile.GetComponent<SpecialBullet>().SetStartAndDirectionVectorAndSpeed(position + direction * radius, direction);
         }
         return projectile;
     }
