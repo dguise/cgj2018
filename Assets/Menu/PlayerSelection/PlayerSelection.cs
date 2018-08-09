@@ -15,7 +15,7 @@ public class PlayerSelection : MonoBehaviour {
     private Sprite[] portraitsArray;
     private UnityEngine.UI.Image portraitImage;
 
-    private int choices = Enum.GetNames(typeof(PlayerManager.CharacterClassesEnum)).Length;
+    private int choices = Enum.GetNames(typeof(PlayerManager.CharacterClasses)).Length;
     private int currentChoice = 0;
 
     PlayerSpawner spawner;
@@ -39,7 +39,7 @@ public class PlayerSelection : MonoBehaviour {
         {
             ChangePortrait(++currentChoice);
         }
-        else if (state.Buttons.A.IsDown() && prevState.Buttons.A.IsUp())
+        else if (state.Buttons.Start.IsDown() && prevState.Buttons.Start.IsUp())
         {
             SpawnPlayer();
         }
@@ -66,7 +66,7 @@ public class PlayerSelection : MonoBehaviour {
         }
 
         spawnedPlayer = Instantiate<GameObject>(roster[currentChoice], spawner.spawners[(int)index].transform.position, roster[currentChoice].transform.rotation);
-        spawnedPlayer.GetComponent<Player>().playerID = index;
+        spawnedPlayer.GetComponent<Player>().playerIndex = index;
 
         PlayerManager.PlayerObjects.Add(spawnedPlayer);
         spawner.Spawn((int)index, spawnedPlayer);

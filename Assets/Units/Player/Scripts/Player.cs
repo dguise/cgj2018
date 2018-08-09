@@ -9,10 +9,10 @@ public class Player : Unit
 {
     public Weapon weapon;
     public Ability ability;
-    public PlayerManager.CharacterClassesEnum PlayerClass;
+    public PlayerManager.CharacterClasses PlayerClass;
     public Animator anim { get; set; }
 
-    public PlayerIndex playerID { get; set; }
+    public PlayerIndex playerIndex { get; set; }
     GamePadState state;
     GamePadState prevState;
     const float DEADZONE = 0.70f;
@@ -55,51 +55,8 @@ public class Player : Unit
 
     private void Update()
     {
-        state = GamePad.GetState(playerID);
-#if UNITY_EDITOR
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            PlayerClass = PlayerManager.CharacterClassesEnum.Melee;
-            weapon = PlayerManager.GetWeapon(PlayerClass, gameObject);
-            ability = PlayerManager.GetAbility(PlayerClass, gameObject);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            PlayerClass = PlayerManager.CharacterClassesEnum.Bowman;
-            weapon = PlayerManager.GetWeapon(PlayerClass, gameObject);
-            ability = PlayerManager.GetAbility(PlayerClass, gameObject);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            PlayerClass = PlayerManager.CharacterClassesEnum.Magician;
-            weapon = PlayerManager.GetWeapon(PlayerClass, gameObject);
-            ability = PlayerManager.GetAbility(PlayerClass, gameObject);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            PlayerClass = PlayerManager.CharacterClassesEnum.Dartblower;
-            weapon = PlayerManager.GetWeapon(PlayerClass, gameObject);
-            ability = PlayerManager.GetAbility(PlayerClass, gameObject);
-        }
-        
-#endif
-        movementSpeed = (originalMovementSpeed * (1 + (Stats.Agility / 100f)));
+        state = GamePad.GetState(playerIndex);
 
-        if (Stats.HasStatus(Statuses.Slowed))
-            movementSpeed = movementSpeed * 0.5f;
-
-        if (Stats.HasStatus(Statuses.Bleeding))
-        {
-            TakeDamage(10f * Time.deltaTime, gameObject, GetComponent<Collider2D>());
-        }
-
-        bodyMesh.gameObject.SetActive(!Stats.HasStatus(Statuses.Invisible));
-
-        prevState = state;
-    }
-
-    private void FixedUpdate()
-    {
         if (!Stats.CanMove || IsDead) return;
 
         if (state.Buttons.A.IsDown() && prevState.Buttons.A.IsUp())
@@ -107,19 +64,38 @@ public class Player : Unit
             if (ability.CanUse)
                 ability.Use();
         }
-        else
-        {
-            var horizontalLeft = state.ThumbSticks.Left.X;
-            var verticalLeft = state.ThumbSticks.Left.Y;
-            Vector2 playerInput = new Vector2(horizontalLeft, verticalLeft);
-            RigidBody.velocity = playerInput.normalized * movementSpeed;
 
-            if (RigidBody.velocity.magnitude > DEADZONE)
-            {
-                UnitBodyDirection = RigidBody.velocity.normalized; 
-                var direction = (Mathf.Atan2(RigidBody.velocity.x, RigidBody.velocity.y) * Mathf.Rad2Deg) + 180;
-                body.eulerAngles = new Vector3(body.eulerAngles.x, body.eulerAngles.y, direction);
-            }
+        ApplyStatusEffects();
+
+        prevState = state;
+    }
+
+    private void ApplyStatusEffects()
+    {
+        movementSpeed = (originalMovementSpeed * (1 + (Stats.Agility / 100f)));
+
+        if (Stats.HasStatus(Statuses.Slowed))
+            movementSpeed = movementSpeed * 0.5f;
+        if (Stats.HasStatus(Statuses.Bleeding))
+            TakeDamage(10f * Time.deltaTime, gameObject, GetComponent<Collider2D>());
+        if (Stats.HasStatus(Statuses.Invisible))
+            bodyMesh.gameObject.SetActive(!Stats.HasStatus(Statuses.Invisible));
+    }
+
+    private void FixedUpdate()
+    {
+        if (!Stats.CanMove || IsDead) return;
+
+        var horizontalLeft = state.ThumbSticks.Left.X;
+        var verticalLeft = state.ThumbSticks.Left.Y;
+        Vector2 playerInput = new Vector2(horizontalLeft, verticalLeft);
+        RigidBody.velocity = playerInput.normalized * movementSpeed;
+
+        if (RigidBody.velocity.magnitude > DEADZONE)
+        {
+            UnitBodyDirection = RigidBody.velocity.normalized; 
+            var direction = (Mathf.Atan2(RigidBody.velocity.x, RigidBody.velocity.y) * Mathf.Rad2Deg) + 180;
+            body.eulerAngles = new Vector3(body.eulerAngles.x, body.eulerAngles.y, direction);
         }
 
         // Attack
@@ -140,9 +116,9 @@ public class Player : Unit
 
     public override void TakeDamageExtender(float damage, GameObject sender, Collider2D collider)
     {
+        GamePadHelper.Rumble(this, playerIndex, 0.5f, 1, 0);
+
         // If class is X heal yourself and all around with 15% of damage
-
-
         /*
          * If Player is killed, run a dialogue from its killer?
          * var EvilDoer = sender != null ? (sender.GetComponent<Unit>()) : null;
@@ -153,7 +129,6 @@ public class Player : Unit
     {
         this.Health = this.maxHealth / 2;
         SoundManager.instance.PlayAudio(14);
-        PlayerManager.playersReady += 1;
         this.transform.rotation = sender.transform.rotation; // Copy the other players rotation 
         RigidBody.constraints = RigidbodyConstraints2D.FreezeRotation;
 

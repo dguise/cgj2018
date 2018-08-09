@@ -34,7 +34,7 @@ public class EnemyHelper
                 weapon = new EnemyGun(go, 1f);
                 break;
             case EnemyClass.ShieldImp:
-                weapon = new EnemyGun(go, 5, 180, 2);
+                weapon = new EnemyGun(go, 5, 30, 2);
                 break;
             case EnemyClass.ShotgunEnemy:
                 weapon = new EnemyGun(go, 3, 5);

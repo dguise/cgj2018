@@ -4,24 +4,21 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using XInputDotNetPure;
 
+public static class PlayerManager
+{
 
-public static class PlayerManager {
-
-    public static Dictionary<int, int> controllerId = new Dictionary<int, int>();
-    public static List<int> controllers = new List<int>(); 
     public static List<GameObject> PlayerObjects = new List<GameObject>();
-    private static bool hasSwitched = false;
-    public static CharacterClassesEnum[] playerClass = {CharacterClassesEnum.Magician, CharacterClassesEnum.Magician};
     public static int players { get { return PlayerObjects.Count; } }
-    public static int PlayersAlive { get { return PlayerObjects.Where(x => x.GetComponent<Unit>().IsDead).Count(); } }
-    public static bool[] playerReady = {false, false};
-    public static int playersReady = 0;
+    public static List<GameObject> PlayersAlive { get { return PlayerObjects.Where(x => !x.GetComponent<Unit>().IsDead).ToList(); } }
+
     public static bool gameStarted = false;
+    private static bool hasSwitched = false;
     public static float time = 0f;
 
 
-	public enum CharacterClassesEnum
+    public enum CharacterClasses
     {
         Melee,
         Bowman,
@@ -30,34 +27,35 @@ public static class PlayerManager {
     }
 
 
-    public static void Reset() {
-        controllerId = new Dictionary<int, int>();
-        controllers = new List<int>(); 
+    public static void Reset()
+    {
         PlayerObjects = new List<GameObject>();
         hasSwitched = false;
-        playerClass = new CharacterClassesEnum[] {CharacterClassesEnum.Magician, CharacterClassesEnum.Magician};
-        playerReady = new bool[] {false, false};
-        playersReady = 0;
         gameStarted = false;
         time = 0f;
+
+        for (int i = 0; i < 3; i++)
+        {
+            GamePad.SetVibration((PlayerIndex)i, 0, 0);
+        }
     }
 
-    public static Ability GetAbility(CharacterClassesEnum playerClass, GameObject go)
+    public static Ability GetAbility(CharacterClasses playerClass, GameObject go)
     {
         Ability ability = new DashAbility(go);
 
         switch (playerClass)
         {
-            case CharacterClassesEnum.Melee:
+            case CharacterClasses.Melee:
                 ability = new DashAbility(go);
                 break;
-            case CharacterClassesEnum.Bowman:
+            case CharacterClasses.Bowman:
                 ability = new InvisibilityAbility(go);
                 break;
-            case CharacterClassesEnum.Magician:
+            case CharacterClasses.Magician:
                 ability = new SiphonAoeBlood(go);
                 break;
-            case CharacterClassesEnum.Dartblower:
+            case CharacterClasses.Dartblower:
                 ability = new ImmolationAbility(go);
                 break;
             default:
@@ -68,22 +66,22 @@ public static class PlayerManager {
     }
 
 
-    public static Weapon GetWeapon(CharacterClassesEnum playerClass, GameObject go)
+    public static Weapon GetWeapon(CharacterClasses playerClass, GameObject go)
     {
         Weapon weapon = new Gun(go);
 
         switch (playerClass)
         {
-            case CharacterClassesEnum.Melee:
+            case CharacterClasses.Melee:
                 weapon = new PlayerMeleeGun(go);
                 break;
-            case CharacterClassesEnum.Bowman:
+            case CharacterClasses.Bowman:
                 weapon = new SpecialGun(go);
                 break;
-            case CharacterClassesEnum.Magician:
+            case CharacterClasses.Magician:
                 weapon = new ShieldGun(go);
                 break;
-            case CharacterClassesEnum.Dartblower:
+            case CharacterClasses.Dartblower:
                 weapon = new Gun(go);
                 break;
             default:
@@ -93,57 +91,44 @@ public static class PlayerManager {
         return weapon;
     }
 
-    // Remove for production?
-    public static void MapControllerToPlayer() 
+    public static void Capricious()
     {
-        if (players < 2) {
-            for (int i = 1; i <= 16; i++) {
-                if (Input.GetButtonDown(Inputs.AButton(i)) && !PlayerManager.controllers.Contains(i)) {
-                    controllerId[players] = i;
-                    controllers.Add(i);
-                    playerReady[players] = true;
-                    playersReady += 1;
-                }
-            }
+        if (players == 2)
+        {
+            var playerOne = PlayerObjects[0].GetComponent<Player>();
+            var playerTwo = PlayerObjects[1].GetComponent<Player>();
+            Sprite p1 = playerOne.Portrait;
+            Sprite p2 = playerTwo.Portrait;
 
-            if (Input.GetKeyDown("space"))
-            {
-                controllerId[players] = -1;
-                controllers.Add(-1);
-                playerReady[players] = true;
-                playersReady += 1;
-            }
-        }
-    }
+            PlayerIndex tempController = playerOne.playerIndex;
+            playerOne.playerIndex = playerTwo.playerIndex;
+            playerTwo.playerIndex = tempController;
 
-    public static void Capricious() {
-        if (players == 2) {
-            Sprite p1 = PlayerObjects[0].GetComponent<Player>().Portrait;
-            Sprite p2 = PlayerObjects[1].GetComponent<Player>().Portrait;
             GuiScript.instance.Talk(new Message(p1, p2, "I don't feel so good...", aMessageType: Message.MessagetypeEnum.QuickMessageAllAtOnce));
             GuiScript.instance.Talk(new Message(p2, p1, "Neither do ... ", aMessageType: Message.MessagetypeEnum.QuickMessageAllAtOnce));
             GuiScript.instance.Talk(new Message(p1, p2, "... I...", aMessageType: Message.MessagetypeEnum.QuickMessageAllAtOnce));
             GuiScript.instance.Talk(new Message(p2, p1, "Wow, capricious!", aMessageType: Message.MessagetypeEnum.QuickMessageAllAtOnce));
 
-            int tempController = controllerId[0];
-            controllerId[0] = controllerId[1];
-            controllerId[1] = tempController;
-        } else if (players == 1) {
+            ParticleSpawner.instance.SpawnParticleEffect(playerOne.transform.position, ParticleTypes.BlueGlitter_OverTime);
+            ParticleSpawner.instance.SpawnParticleEffect(playerTwo.transform.position, ParticleTypes.BlueGlitter_OverTime);
+        }
+        else if (players == 1)
+        {
             Sprite p1 = PlayerObjects[0].GetComponent<Player>().Portrait;
+
+            int length = Enum.GetNames(typeof(CharacterClasses)).Length;
+
+            // Give player a random class & retrieve weapon/ability for it
+            Player playerScript = PlayerObjects[0].GetComponent<Player>();
+            playerScript.PlayerClass = (CharacterClasses)UnityEngine.Random.Range(0, length-1);
+            playerScript.weapon = GetWeapon(playerScript.PlayerClass, PlayerObjects[0]);
+            playerScript.ability = GetAbility(playerScript.PlayerClass, PlayerObjects[0]);
+
             GuiScript.instance.Talk(new Message(p1, aText: "Capricious...", aMessageType: Message.MessagetypeEnum.QuickMessageAllAtOnce));
             GuiScript.instance.Talk(new Message(p1, aText: "Capricious?", aMessageType: Message.MessagetypeEnum.QuickMessageAllAtOnce));
             GuiScript.instance.Talk(new Message(p1, aText: "Capricious!", aMessageType: Message.MessagetypeEnum.QuickMessageAllAtOnce));
 
-            int tempClass = (int)playerClass[0];
-            tempClass += 2 * (hasSwitched ? 1 : 0) - 1; 
-            hasSwitched = !hasSwitched;
-            int length = CharacterClassesEnum.GetNames(typeof(PlayerManager.CharacterClassesEnum)).Length;
-            playerClass[0] = (CharacterClassesEnum)(((tempClass % length) + length) % length); // hardcoded player 1, could easily be changed later
-            Player playerScript = PlayerObjects[0].GetComponent<Player>();
-            playerScript.PlayerClass = playerClass[0];
-            playerScript.weapon = PlayerManager.GetWeapon(playerScript.PlayerClass, PlayerObjects[0]);
-            // TODO: Change controls
-            //playerScript.UpdateMask(playerClass[0]);
+            ParticleSpawner.instance.SpawnParticleEffect(playerScript.transform.position, ParticleTypes.BlueGlitter_OverTime);
         }
     }
 }

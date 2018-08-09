@@ -22,7 +22,6 @@ public class DoorController : MonoBehaviour
 
     public float lightRadius = 10f;
 
-    // Use this for initialization
     void Awake()
     {
         door = transform.Find("Door").gameObject;

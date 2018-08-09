@@ -80,7 +80,7 @@ public abstract class Unit : MonoBehaviour
                 rigid.velocity = Vector2.zero;
                 gameObject.transform.rotation = Quaternion.Euler(90, 0, 90);
                 rigid.constraints = RigidbodyConstraints2D.FreezeAll;
-                if (PlayerManager.PlayersAlive <= 0)
+                if (PlayerManager.PlayersAlive.Count <= 0)
                 {
                     GameObject manager = GameObject.Find("ManagerManager");
                     CustomGameManager gm = manager.GetComponent<CustomGameManager>();

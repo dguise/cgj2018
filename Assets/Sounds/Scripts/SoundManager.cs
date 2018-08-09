@@ -30,14 +30,14 @@ public class SoundManager : MonoBehaviour {
 
 	public void PlayAudio(int sound) {
 		AudioSource effect = gameObject.AddComponent(typeof(AudioSource)) as AudioSource; 
-		effect.clip = sounds[mod(sound, sounds.Count)];
+		effect.clip = sounds[Mod(sound, sounds.Count)];
 		effect.Play();
 	}
 
 	public void PlayRandomize(float pitch, params int[] sound) {
 		AudioSource effect = gameObject.AddComponent(typeof(AudioSource)) as AudioSource; 
 		int random = Random.Range(0, sound.Length);
-		effect.clip = sounds[mod(sound[mod(random, sound.Length)], sounds.Count)];
+		effect.clip = sounds[Mod(sound[Mod(random, sound.Length)], sounds.Count)];
 		effect.pitch = Random.Range(1 - pitch, 1 + pitch);
 		effect.Play();
 		Destroy(effect, effect.clip.length);
@@ -57,7 +57,7 @@ public class SoundManager : MonoBehaviour {
 		music.Play();
 	}
 
-	private int mod(int x, int m) {
+	private int Mod(int x, int m) {
 		return ((x % m) + m) % m;
 	}
 }
