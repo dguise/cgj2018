@@ -108,7 +108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea4fc60321bc348519960952a3bc97c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destroyOnCollision: 1
+  destroyOnCollision: 0
   ShouldCirculate: 1
 --- !u!212 &212099665615049340
 SpriteRenderer:

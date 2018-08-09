@@ -43,7 +43,7 @@ public abstract class Projectile : MonoBehaviour
 
     private void OnAnyCollide(Collider2D col)
     {
-        if (destroyOnCollision || col.gameObject.layer == LayerConstants.GetLayer("Wall").value)
+        if (destroyOnCollision)
             Die();
     }
 
