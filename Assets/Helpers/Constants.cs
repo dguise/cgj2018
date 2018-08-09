@@ -57,6 +57,7 @@ public static class LayerConstants
     public static int Players = 9;
     public static string EnemyProjectiles = "EnemyProjectiles";
     public static string PlayerProjectiles = "PlayerProjectiles";
+    public static string IgnoreProjectiles = "IgnoreProjectiles";
 
     public static LayerMask GetLayer(string name)
     {

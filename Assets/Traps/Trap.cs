@@ -17,6 +17,7 @@ public class Trap : MonoBehaviour
 
     void Start()
     {
+        gameObject.layer = LayerMask.NameToLayer(LayerConstants.IgnoreProjectiles);
         anim = GetComponent<Animator>();
         col = GetComponent<CircleCollider2D>();
     }

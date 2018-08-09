@@ -78,7 +78,7 @@ public class Player : Unit
             movementSpeed = movementSpeed * 0.5f;
         if (Stats.HasStatus(Statuses.Bleeding))
             TakeDamage(10f * Time.deltaTime, gameObject, GetComponent<Collider2D>());
-        if (Stats.HasStatus(Statuses.Invisible))
+        if (bodyMesh.gameObject.activeInHierarchy == !Stats.HasStatus(Statuses.Invisible))
             bodyMesh.gameObject.SetActive(!Stats.HasStatus(Statuses.Invisible));
     }
 
